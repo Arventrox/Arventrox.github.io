@@ -8,8 +8,8 @@ const RockPaperScissors = () => {
 	const [computerResult, setComputerResult] = useState('');
 	const [playerResult, setPlayerResult] = useState('');
 	const [winner, setWinner] = useState('');
-	const [computerImage, setComputerImage] = useState('');
-	const [playerImage, setPlayerImage] = useState('');
+	const [computerImage, setComputerImage] = useState(paperPng);
+	const [playerImage, setPlayerImage] = useState(rockPng);
 
 	const rock = 'ROCK';
 	const scissors = 'SCISSORS';
