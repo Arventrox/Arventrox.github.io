@@ -14,8 +14,9 @@ const RockPaperScissors = () => {
 	const rock = 'ROCK';
 	const scissors = 'SCISSORS';
 	const paper = 'PAPER';
-	const player = 'PLAYER';
-	const computer = 'COMPUTER';
+	const player = 'PLAYER WON';
+	const computer = 'COMPUTER WON';
+	const draw = 'DRAW';
 
 	// Computer Chooses
 
@@ -66,7 +67,7 @@ const RockPaperScissors = () => {
 			case 'ROCKROCK':
 			case 'SCISSORSSCISSORS':
 			case 'PAPERPAPER':
-				setWinner('DRAW');
+				setWinner(draw);
 				break;
 		}
 	}, [computerResult, playerResult]);
@@ -74,7 +75,7 @@ const RockPaperScissors = () => {
 	return (
 		<div className={style.centered}>
 			<h1>Choose one:</h1>
-			<p>The Winner is the :{winner}</p>
+			<p>Result : {winner}</p>
 
 			<div className={style.images_container}>
 				<span className={style.images}>
