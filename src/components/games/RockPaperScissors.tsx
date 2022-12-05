@@ -1,9 +1,15 @@
 import style from './RockPaperScissors.module.css';
 import React, {useEffect, useState} from 'react';
+import scissorsPng from '../../images/scissors-image.png';
+import rockPng from '../../images/rock-image.png';
+import paperPng from '../../images/paper-image.jpg';
+
 const RockPaperScissors = () => {
 	const [computerResult, setComputerResult] = useState('');
 	const [playerResult, setPlayerResult] = useState('');
 	const [winner, setWinner] = useState('');
+	const [computerImage, setComputerImage] = useState('');
+	const [playerImage, setPlayerImage] = useState('');
 
 	const rock = 'ROCK';
 	const scissors = 'SCISSORS';
@@ -16,16 +22,23 @@ const RockPaperScissors = () => {
 	const computerChosen = () => {
 		const random = Math.random();
 
+		if (random < 0 && random > 0) {
+			return;
+		}
+
 		if (random < 0.33) {
 			setComputerResult(rock);
+			setComputerImage(rockPng);
 		}
 
 		if (random > 0.33 && random < 0.66) {
 			setComputerResult(paper);
+			setComputerImage(paperPng);
 		}
 
 		if (random > 0.66) {
 			setComputerResult(scissors);
+			setComputerImage(scissorsPng);
 		}
 	};
 
@@ -59,32 +72,42 @@ const RockPaperScissors = () => {
 	}, [computerResult, playerResult]);
 
 	return (
-		<div>
-			<div className={style.container}>
-				<h1>Choose one:</h1>
+		<div className={style.centered}>
+			<h1>Choose one:</h1>
+			<p>The Winner is the :{winner}</p>
+
+			<div className={style.images_container}>
+				<span className={style.images}>
+					<p>The Player Chose: {playerResult}</p>
+					<img src={playerImage} alt='player chosen image'/>
+				</span>
+				<span className={style.images}>
+					<p>The Computer Chose: {computerResult} </p>
+					<img src={computerImage} alt='computer chosen image'/>
+				</span>
+			</div>
+			<div >
 				<button
 					onClick={() => {
 						chosenHandler(rock);
+						setPlayerImage(rockPng);
 					}}>
 					ROCK
 				</button>
 				<button
 					onClick={() => {
 						chosenHandler(paper);
+						setPlayerImage(paperPng);
 					}}>
 					PAPER
 				</button>
 				<button
 					onClick={() => {
 						chosenHandler(scissors);
+						setPlayerImage(scissorsPng);
 					}}>
 					SCISSORS
 				</button>
-			</div>
-			<div>
-				<p>The Player Chose: {playerResult}</p>
-				<p>The Computer Chose: {computerResult} </p>
-				<p>The Winner is the :{winner}</p>
 			</div>
 		</div>
 	);
