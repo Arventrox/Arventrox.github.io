@@ -5,18 +5,18 @@ import rockPng from '../../images/rock-image.png';
 import paperPng from '../../images/paper-image.jpg';
 
 const RockPaperScissors = () => {
-	const [computerResult, setComputerResult] = useState('');
-	const [playerResult, setPlayerResult] = useState('');
-	const [winner, setWinner] = useState('');
-	const [computerImage, setComputerImage] = useState(paperPng);
-	const [playerImage, setPlayerImage] = useState(rockPng);
-
 	const rock = 'ROCK';
 	const scissors = 'SCISSORS';
 	const paper = 'PAPER';
 	const player = 'PLAYER WON';
 	const computer = 'COMPUTER WON';
 	const draw = 'DRAW';
+
+	const [computerResult, setComputerResult] = useState(paper);
+	const [playerResult, setPlayerResult] = useState(rock);
+	const [winner, setWinner] = useState('');
+	const [computerImage, setComputerImage] = useState(paperPng);
+	const [playerImage, setPlayerImage] = useState(rockPng);
 
 	// Computer Chooses
 
