@@ -1,4 +1,5 @@
 import React, {type ReactElement, useState} from 'react';
+import Player from './Player';
 
 const players = [{playerName: 'Arventrox', playerRole: 'bottom', playerChampion: 'Caytlin'},
 	{playerName: 'Anglox', playerRole: 'top', playerChampion: 'Jax'},
@@ -15,34 +16,19 @@ const Normal = () => {
 		setSelectedNumber(event.target.value);
 	};
 
-	// Console.log(selectedNumber);
-
 	// Creating Input fields depending on chosen number of players
 	const inputFields: ReactElement[] = [];
 
 	// Getting players name
-	const [enteredName, setEnteredName] = useState('');
-	const playersName = [];
-
-	const playerNameHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
-		//
-	};
-
-	playersName.push(enteredName);
-	// Console.log(playersName);
-	// console.log(inputFields);
 
 	//	OPITVAM SE DA VZEMA STOINOSTITE OT INPUT FIELDOVETE NO NE ZNAM KAK KOGATO SA DYNAMIC CREATED
 
 	for (let i = 1; i <= Number(selectedNumber); i++) {
 		inputFields.push(<div key={i}>
 			<label htmlFor='playersName'>Enter player {i}  name: </label>
-			<input key={i} onChange={playerNameHandler} type='text' id='playersName' />
+			<input key={i} type='text' id='playersName' />
 		</div>);
 		// SetEnteredName();
-		// For (const singleInput of inputFields) {
-		// 	// Console.log(singleInput);
-		// }
 	}
 
 	return (<div>
@@ -56,9 +42,7 @@ const Normal = () => {
 		{inputFields}
 		{/* Maping the single player */}
 		<div>
-			{players.map(player => <div key={player.playerName}><p>Name :{player.playerName}</p>
-				<p>Role: {player.playerRole}</p>
-				<p>Champion: {player.playerChampion}</p></div>)}
+			{players.map(({playerChampion, playerName, playerRole}) => <Player key={playerName} playerName={ playerName} playerRole={playerRole} playerChampion={playerChampion} />)}
 		</div>
 	</div>);
 };
