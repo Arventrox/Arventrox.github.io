@@ -7,10 +7,39 @@ const Player: React.FC <{playerName: string; playerChampion: string; playerRole:
 
 	const {playerName} = props;
 	// Chosing lane
-	const lane = ['TOP', 'JUNGLE', 'MID', 'ADC', 'SUPPORT'];
 	useEffect(() => {
+		const lane = ['TOP', 'JUNGLE', 'MID', 'BOTTOM', 'SUPPORT'];
 		setPlayerRole(lane[Math.floor(Math.random() * lane.length)]);
-	}, []);
+	}, [setPlayerRole]);
+
+	// Chosing Champion by role
+	useEffect(() => {
+		const topChampions = top[Math.floor(Math.random() * top.length)];
+		const jungleChampions = jungle[Math.floor(Math.random() * jungle.length)];
+		const midChampions = middle[Math.floor(Math.random() * middle.length)];
+		const bottomChampions = bottom[Math.floor(Math.random() * bottom.length)];
+		const supportChampions = support[Math.floor(Math.random() * support.length)];
+
+		switch (playerRole) {
+			case 'TOP':
+				setPlayerChampion(topChampions);
+				break;
+			case 'JUNGLE':
+				setPlayerChampion(jungleChampions);
+				break;
+			case 'MID':
+				setPlayerChampion(midChampions);
+				break;
+			case 'BOTTOM':
+				setPlayerChampion(bottomChampions);
+				break;
+			case 'SUPPORT':
+				setPlayerChampion(supportChampions);
+				break;
+			default:
+				console.log('no lane');
+		}
+	}, [playerRole, setPlayerChampion]);
 
 	return (<div key={playerName}>
 		<p>Name :{playerName}</p>
