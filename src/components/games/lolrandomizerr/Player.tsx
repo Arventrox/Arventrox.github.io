@@ -37,7 +37,7 @@ const Player: React.FC <{playerName: string; playerChampion: string; playerRole:
 				setPlayerChampion(supportChampions);
 				break;
 			default:
-				console.log('no lane');
+				setPlayerChampion('');
 		}
 	}, [playerRole, setPlayerChampion]);
 

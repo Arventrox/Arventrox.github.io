@@ -6,8 +6,8 @@ import LegueRandomizer from './components/games/lolrandomizerr/LegueRandomizer';
 function App() {
 	return (
 		<div className='App'>
-			<RockPaperScissors />
-			{/* <LegueRandomizer/> */}
+			{/* <RockPaperScissors /> */}
+			<LegueRandomizer/>
 		</div>
 	);
 }

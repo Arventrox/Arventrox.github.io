@@ -1,41 +1,43 @@
 import React, {type ReactElement, useState, useEffect, Fragment} from 'react';
 import Player from './Player';
 
-const players = [{playerName: 'Arventrox', playerRole: 'bottom', playerChampion: 'Caytlin'},
-	{playerName: 'Anglox', playerRole: 'top', playerChampion: 'Jax'},
-	{playerName: 'MonkerB', playerRole: 'mid', playerChampion: 'Azir'}];
-
 const options = ['1', '2', '3', '4', '5'];
 const Normal = () => {
 	const [selectedNumber, setSelectedNumber] = useState(options[0]);
 	const [playerName, setPlayerName] = useState([{playerName: ''}]);
+	const [players, setPlayers] = useState([{playerName: playerName[0], playerRole: '', playerChampion: ''}]);
 	const [playersVisible, setPlayersVisible] = useState(false);
 
-	console.log(playerName);
-
 	// Getting number of players
+	type Players = Array<{
+		playerName: {playerName: string};
+		playerRole: string;
+		playerChampion: string;
+	}>;
 
 	const chosenNumberPlayers = (event: React.ChangeEvent<HTMLSelectElement>) => {
 		event.preventDefault();
-		setSelectedNumber(prevEvent => event.target.value);
+		setSelectedNumber(event.target.value);
 	};
 
 	const addplayerNameHandler = (event: React.FormEvent) => {
 		event.preventDefault();
 		const list = [];
-
+		const playerslist = [];
 		for (let i = 0; i < Number(selectedNumber); i++) {
 			list.push({playerName: ''});
+			playerslist.push({playerName: playerName[0], playerRole: '', playerChampion: ''});
 		}
 
 		setPlayerName(list);
-		setPlayersVisible(true);
+		setPlayers(playerslist);
 	};
 
 	// Removing players
 	const removeplayerNameHandler = (index: number, e: React.FormEvent) => {
 		e.preventDefault();
 		const list = [...playerName];
+
 		list.splice(index, 1);
 		setPlayerName(list);
 	};
@@ -48,10 +50,24 @@ const Normal = () => {
 		setPlayerName(list);
 	};
 
-	console.log(players);
+	const submitPlayersHandler = (event: React.FormEvent) => {
+		event.preventDefault();
+		const playerslist = [];
+
+		for (let i = 0; i < Number(selectedNumber); i++) {
+			if (players[i].playerName.playerName === '') {
+				return;
+			}
+
+			playerslist.push({playerName: playerName[i], playerRole: '', playerChampion: ''});
+		}
+
+		setPlayers(playerslist);
+		setPlayersVisible(true);
+	};
 
 	return (<Fragment>
-		<form >
+		<form onSubmit={submitPlayersHandler} >
 			{/* Getting The Number of players  */}
 			<span>
 				<label>Chose a number of players</label>
@@ -75,11 +91,13 @@ const Normal = () => {
 				</span>
 			</div>))}
 			<button onClick={addplayerNameHandler} >Select the number of players</button>
+			<button>Submit Players</button>
 		</form>
 
 		{/* Maping the single player */}
-		{(playersVisible && players.map(({playerChampion, playerName, playerRole}) =>
-			<Player key={playerName} playerName={playerName} playerRole={playerRole} playerChampion={playerChampion} />))}
+		{(playersVisible && players.map(({playerChampion, playerName, playerRole}, index) =>
+			<Player key={index} playerName={playerName.playerName} playerRole={playerRole} playerChampion={playerChampion}
+			/>))}
 	</Fragment>);
 };
 
