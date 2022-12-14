@@ -1,8 +1,9 @@
 import React, {useState} from 'react';
 import Normal from './Normal';
+import style from './LegueRandomizer.module.css';
 
 const LegueRandomizer = () => {
-	const [chosen, setChosen] = useState('No mod was chosen');
+	const [chosen, setChosen] = useState('');
 	const gamemode = ['NORMAL', 'ARAM', 'URF'];
 
 	const randomBtnHandler = () => {
@@ -10,11 +11,11 @@ const LegueRandomizer = () => {
 		setChosen(chosenGamemode);
 	};
 
-	return (<div>
+	return (<div className={style.lolRadnomizer}>
 		<h1>Legue of Legends Randomizer</h1>
-		<p>The randomizer chose : {chosen}</p>
-		{chosen === 'NORMAL' && <Normal/>}
 		<button onClick={randomBtnHandler}>Chose Gamemode</button>
+		{chosen && <h2>The randomizer chose : {chosen}</h2>}
+		{chosen === 'NORMAL' && <Normal/>}
 	</div>);
 };
 

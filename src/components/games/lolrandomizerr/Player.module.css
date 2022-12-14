@@ -1,0 +1,22 @@
+
+
+.container {
+	width: 250px;
+	display: flex;
+	margin: 20px;
+	flex-direction: column;
+	align-items: center;
+	background-color: white;
+	color: black;
+	border-radius: 30%;
+
+}
+
+.championBox {
+	display: flex;
+	align-items: center;
+}
+.championBox button{
+	height: 20px;	
+	margin: 10px;
+}
