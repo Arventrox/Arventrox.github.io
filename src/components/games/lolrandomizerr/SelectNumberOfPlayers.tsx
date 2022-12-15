@@ -1,11 +1,9 @@
-import React, {Fragment, useState, type FC} from 'react';
+import React, {Fragment, type FC, useContext} from 'react';
 import AddPlayersInfo from './AddPlayersInfo';
-import {type Tplayers} from '../../models/player';
+import {playerContext} from '../../../context/lolrandomizer-context';
 
-const SelectNumberOfPlayers: FC<{onSetPlayers: React.Dispatch<React.SetStateAction<Tplayers>>}> = props => {
-	const [playersNumber, setPlayersNumber] = useState('1');
-
-	const {onSetPlayers} = props;
+const SelectNumberOfPlayers: FC = () => {
+	const {onSetPlayersNumber, playersNumber} = useContext(playerContext);
 	const options: number[] = [];
 
 	for (let i = 1; i <= 5; i++) {
@@ -14,7 +12,7 @@ const SelectNumberOfPlayers: FC<{onSetPlayers: React.Dispatch<React.SetStateActi
 
 	const chosenNumberPlayers = (event: React.ChangeEvent<HTMLSelectElement>) => {
 		event.preventDefault();
-		setPlayersNumber(event.target.value);
+		onSetPlayersNumber(event.target.value);
 	};
 
 	return (<Fragment>
@@ -26,7 +24,7 @@ const SelectNumberOfPlayers: FC<{onSetPlayers: React.Dispatch<React.SetStateActi
 				)}
 			</select>
 		</span>
-		<AddPlayersInfo playersNumber={playersNumber} onSetPlayers={onSetPlayers} />
+		<AddPlayersInfo />
 	</Fragment>);
 };
 

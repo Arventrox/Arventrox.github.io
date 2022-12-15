@@ -1,13 +1,11 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useContext} from 'react';
 import {top, jungle, bottom, middle, support} from './ChampionsRoles';
 import style from './Player.module.css';
 
 const Player: React.FC<{playerName: string | string[]; playerChampion: string; playerRole: string | string[]}> = props => {
 	const [reroll, setReroll] = useState<string>();
 
-	const {playerName, playerRole} = props;
-	const {playerChampion} = props;
-
+	const {playerName, playerRole, playerChampion} = props;
 	const topChampions = top[Math.floor(Math.random() * top.length)];
 	const jungleChampions = jungle[Math.floor(Math.random() * jungle.length)];
 	const midChampions = middle[Math.floor(Math.random() * middle.length)];
