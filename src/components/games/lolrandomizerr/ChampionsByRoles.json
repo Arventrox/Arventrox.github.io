@@ -1,9 +1,11 @@
 {
- "topChampions": {
-    "Aatrox":{"Aatrox": "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Aatrox_0.jpg"},
-    "Malphite":{"Malphite": "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Aatrox_0.jpg"}
-},
-"jungleChampion":{
-
-}
+  "topChampions": {
+    "Aatrox": {
+      "Aatrox": "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Aatrox_0.jpg"
+    },
+    "Malphite": {
+      "Malphite": "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Aatrox_0.jpg"
+    }
+  },
+  "jungleChampion": {}
 }

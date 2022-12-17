@@ -1,31 +1,39 @@
-import React, {Fragment, type FC, useContext} from 'react';
+import React, { useState, type FC } from 'react';
 import AddPlayersInfo from './AddPlayersInfo';
-import {playerContext} from '../../../context/lolrandomizer-context';
+import { type Tplayers } from '../../models/player';
 
-const SelectNumberOfPlayers: FC = () => {
-	const {onSetPlayersNumber, playersNumber} = useContext(playerContext);
-	const options: number[] = [];
+const SelectNumberOfPlayers: FC<{
+  onSetPlayers: React.Dispatch<React.SetStateAction<Tplayers>>;
+}> = (props) => {
+  const [playersNumber, setPlayersNumber] = useState('1');
 
-	for (let i = 1; i <= 5; i++) {
-		options.push(i);
-	}
+  const { onSetPlayers } = props;
+  const options: number[] = [];
 
-	const chosenNumberPlayers = (event: React.ChangeEvent<HTMLSelectElement>) => {
-		event.preventDefault();
-		onSetPlayersNumber(event.target.value);
-	};
+  for (let i = 1; i <= 5; i++) {
+    options.push(i);
+  }
 
-	return (<Fragment>
-		<span>
-			<label>Chose a number of players</label>
-			<select value={playersNumber} onChange={ chosenNumberPlayers} id='numberOfPlayers'>
-				{options.map(option =>
-					<option key={option} value={option}>{option}</option>,
-				)}
-			</select>
-		</span>
-		<AddPlayersInfo />
-	</Fragment>);
+  const chosenNumberPlayers = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    event.preventDefault();
+    setPlayersNumber(event.target.value);
+  };
+
+  return (
+    <>
+      <span>
+        <label>Chose a number of players</label>
+        <select value={playersNumber} onChange={chosenNumberPlayers} id='numberOfPlayers'>
+          {options.map((option) => (
+            <option key={option} value={option}>
+              {option}
+            </option>
+          ))}
+        </select>
+      </span>
+      <AddPlayersInfo playersNumber={playersNumber} onSetPlayers={onSetPlayers} />
+    </>
+  );
 };
 
 export default SelectNumberOfPlayers;
