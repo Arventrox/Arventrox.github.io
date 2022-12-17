@@ -17,3 +17,11 @@
   height: 20px;
   margin: 10px;
 }
+
+img {
+  image-rendering: auto;
+  image-resolution: inherit;
+  border-radius: 50%;
+  height: 8rem;
+  width: 8rem;
+}

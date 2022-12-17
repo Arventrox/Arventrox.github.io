@@ -1,16 +1,15 @@
-import React, { useState } from 'react';
+import React, { FC, useState } from 'react';
 import { getRandomChampionByRole } from './ChampionsRoles';
 import style from './Player.module.css';
 
-const Player: React.FC<{
+type Tplayer = {
   playerName: string | string[];
   playerChampion: string;
   playerRole: string | string[];
-}> = (props) => {
-  const [reroll, setReroll] = useState<string>();
+};
 
-  const { playerName, playerRole } = props;
-  const { playerChampion } = props;
+const Player: FC<Tplayer> = ({ playerChampion, playerName, playerRole }) => {
+  const [reroll, setReroll] = useState<string>();
 
   const rerollHandler = (event: React.FormEvent) => {
     event.preventDefault();

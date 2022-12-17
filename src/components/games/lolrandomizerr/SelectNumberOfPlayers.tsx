@@ -1,13 +1,11 @@
-import React, { useState, type FC } from 'react';
-import AddPlayersInfo from './AddPlayersInfo';
-import { type Tplayers } from '../../models/player';
+import React, { FC } from 'react';
 
-const SelectNumberOfPlayers: FC<{
-  onSetPlayers: React.Dispatch<React.SetStateAction<Tplayers>>;
-}> = (props) => {
-  const [playersNumber, setPlayersNumber] = useState('1');
+type Tprops = {
+  playersNumber: string;
+  setPlayersNumber: React.Dispatch<React.SetStateAction<string>>;
+};
 
-  const { onSetPlayers } = props;
+const SelectNumberOfPlayers: FC<Tprops> = ({ playersNumber, setPlayersNumber }) => {
   const options: number[] = [];
 
   for (let i = 1; i <= 5; i++) {
@@ -31,7 +29,6 @@ const SelectNumberOfPlayers: FC<{
           ))}
         </select>
       </span>
-      <AddPlayersInfo playersNumber={playersNumber} onSetPlayers={onSetPlayers} />
     </>
   );
 };

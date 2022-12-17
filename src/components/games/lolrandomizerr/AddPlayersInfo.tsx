@@ -15,7 +15,6 @@ const NameInput: FC<Iprops> = ({ playersNumber, onSetPlayers }) => {
     for (let i = 0; i < Number(playersNumber); i++) {
       inputsList.push('');
     }
-
     setPlayerInputs(inputsList);
   }, [playersNumber]);
 
@@ -23,6 +22,7 @@ const NameInput: FC<Iprops> = ({ playersNumber, onSetPlayers }) => {
     const { value } = e.target as HTMLInputElement;
     const newInputs = [...playerInputs];
     newInputs[index] = value;
+
     setPlayerInputs(newInputs);
   };
 
@@ -40,17 +40,15 @@ const NameInput: FC<Iprops> = ({ playersNumber, onSetPlayers }) => {
     let lane = ['TOP', 'JUNGLE', 'MID', 'BOTTOM', 'SUPPORT'];
 
     for (let i = 0; i < Number(playersNumber); i++) {
-      if (playerInputs[i] === '') {
-        const list = [...playerInputs];
-        list[i] = 'Please Enter a Name';
-        setPlayerInputs(list);
-        return;
-      }
+      // if (playerInputs[i] === '') {
+      //   const list = [...playerInputs];
+      //   list[i] = 'Please Enter a Name';
+      //   setPlayerInputs(list);
+      //   return;
+      // }
 
       const playerRole: string = lane[Math.floor(Math.random() * lane.length)];
-
       const randomChampionByRole = getRandomChampionByRole(playerRole);
-
       lane = lane.filter((usedRole) => usedRole !== playerRole);
 
       playerList.push({
