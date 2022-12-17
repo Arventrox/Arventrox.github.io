@@ -1,11 +1,13 @@
 import './App.css';
-import RockPaperScissors from './components/games/RockPaperScissors';
+import RockPaperScissors from './components/games/RockPaperScissors/RockPaperScissors';
 import React from 'react';
+import LegueRandomizer from './components/games/lolrandomizerr/LegueRandomizer';
 
 function App() {
 	return (
 		<div className='App'>
-			<RockPaperScissors />
+			{/* <RockPaperScissors /> */}
+			<LegueRandomizer/>
 		</div>
 	);
 }
