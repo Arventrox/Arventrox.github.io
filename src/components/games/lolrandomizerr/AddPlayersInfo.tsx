@@ -1,125 +1,97 @@
-import React, {type FC, useState, useEffect} from 'react';
-import {type Tplayers} from '../../models/player';
-import {top, jungle, bottom, middle, support} from './ChampionsRoles';
-import file from './ChampionsByRoles.json';
+import React, { type FC, useState, useEffect } from 'react';
+import { type Tplayers } from '../../models/player';
+import { getRandomChampionByRole } from './ChampionsRoles';
 
-const NameInput: FC<{playersNumber: string; onSetPlayers: React.Dispatch<React.SetStateAction<Tplayers>>}> = props => {
-	const [playerName, setPlayerName] = useState<string[]>([]);
-	const {playersNumber, onSetPlayers} = props;
+type Iprops = {
+  playersNumber: string;
+  onSetPlayers: React.Dispatch<React.SetStateAction<Tplayers>>;
+};
 
-	const {topChampions}: any = file;
+const NameInput: FC<Iprops> = ({ playersNumber, onSetPlayers }) => {
+  const [playerInputs, setPlayerInputs] = useState<string[]>([]);
 
-	// For (const key in topChampions) {
-	// 	console.log(key);
+  useEffect(() => {
+    const inputsList = [];
+    for (let i = 0; i < Number(playersNumber); i++) {
+      inputsList.push('');
+    }
 
-	// 	// eslint-disable-next-line guard-for-in
-	// 	for (const key1 in topChampions[key]) {
-	// 		const top = topChampions;
-	// 		console.log(topChampions[key][key1]);
-	// 	}
-	// }
+    setPlayerInputs(inputsList);
+  }, [playersNumber]);
 
-	const inputsHandler = (event: React.FormEvent) => {
-		event.preventDefault();
-		onSetPlayers([]);
+  const playerNameHandler = (e: React.FormEvent, index: number) => {
+    const { value } = e.target as HTMLInputElement;
+    const newInputs = [...playerInputs];
+    newInputs[index] = value;
+    setPlayerInputs(newInputs);
+  };
 
-		const inputsList = [];
-		for (let i = 0; i < Number(playersNumber); i++) {
-			inputsList.push('');
-		}
+  const removeplayerNameHandler = (index: number, e: React.FormEvent) => {
+    e.preventDefault();
+    const newInputs = [...playerInputs];
+    newInputs.splice(index, 1);
 
-		setPlayerName(inputsList);
-	};
+    setPlayerInputs(newInputs);
+  };
 
-	const playerNameHandler = (e: React.FormEvent, index: number) => {
-		const {value} = (e.target as HTMLInputElement);
-		const list = [...playerName];
+  const submitHandler = (event: React.FormEvent) => {
+    event.preventDefault();
+    const playerList = [];
+    let lane = ['TOP', 'JUNGLE', 'MID', 'BOTTOM', 'SUPPORT'];
 
-		list[index] = value;
-		setPlayerName(list);
-	};
+    for (let i = 0; i < Number(playersNumber); i++) {
+      if (playerInputs[i] === '') {
+        const list = [...playerInputs];
+        list[i] = 'Please Enter a Name';
+        setPlayerInputs(list);
+        return;
+      }
 
-	const removeplayerNameHandler = (index: number, e: React.FormEvent) => {
-		e.preventDefault();
-		const list = [...playerName];
+      const playerRole: string = lane[Math.floor(Math.random() * lane.length)];
 
-		list.splice(index, 1);
+      const randomChampionByRole = getRandomChampionByRole(playerRole);
 
-		setPlayerName(list);
-	};
+      lane = lane.filter((usedRole) => usedRole !== playerRole);
 
-	const submitHandler = (event: React.FormEvent) => {
-		event.preventDefault();
+      playerList.push({
+        playerName: playerInputs[i],
+        playerRole,
+        playerChampion: randomChampionByRole,
+      });
+    }
 
-		const playerList = [];
-		let lane = ['TOP', 'JUNGLE', 'MID', 'BOTTOM', 'SUPPORT'];
-		let playerChampion;
-		const topChampions = top[Math.floor(Math.random() * top.length)];
-		const jungleChampions = jungle[Math.floor(Math.random() * jungle.length)];
-		const midChampions = middle[Math.floor(Math.random() * middle.length)];
-		const bottomChampions = bottom[Math.floor(Math.random() * bottom.length)];
-		const supportChampions = support[Math.floor(Math.random() * support.length)];
+    onSetPlayers(playerList);
+    setPlayerInputs([]);
+  };
 
-		for (let i = 0; i < Number(playersNumber); i++) {
-			if (playerName[i] === '') {
-				const list = [...playerName];
-				list[i] = 'Please Enter a Name';
-				setPlayerName(list);
-				return;
-			}
+  return (
+    <form onSubmit={submitHandler}>
+      {playerInputs.map((singleInput, index) => (
+        <div key={index}>
+          <label htmlFor='playersName'>Enter Player {index + 1}: </label>
+          <input
+            type='text'
+            id='playersName'
+            value={singleInput}
+            onChange={(e) => {
+              playerNameHandler(e, index);
+            }}
+          />
+          <span>
+            <button
+              onClick={(e) => {
+                removeplayerNameHandler(index, e);
+              }}
+            >
+              Remove Player
+            </button>
+          </span>
+        </div>
+      ))}
 
-			const playerRole: string = lane[Math.floor(Math.random() * lane.length)];
-
-			switch (playerRole) {
-				case 'TOP':
-					playerChampion = topChampions;
-					break;
-				case 'JUNGLE':
-					playerChampion = jungleChampions;
-					break;
-				case 'MID':
-					playerChampion = midChampions;
-					break;
-				case 'BOTTOM':
-					playerChampion = bottomChampions;
-
-					break;
-				case 'SUPPORT':
-					playerChampion = supportChampions;
-
-					break;
-				default:
-					playerChampion = topChampions;
-			}
-
-			lane = lane.filter(usedRole => usedRole !== playerRole);
-
-			playerList.push({playerName: playerName[i], playerRole, playerChampion});
-		}
-
-		onSetPlayers(playerList);
-		setPlayerName([]);
-	};
-
-	return <form onSubmit={submitHandler}>
-
-		{playerName.map((singleInput, index) => (
-			<div key={index}>
-				<label htmlFor='playersName'>Enter Player {index + 1}: </label>
-				<input type='text' id='playersName' value={singleInput} onChange={e => {
-					playerNameHandler(e, index);
-				}} />
-				<span>
-					<button onClick={e => {
-						removeplayerNameHandler(index, e);
-					}} >Remove Player</button>
-				</span>
-			</div>
-		))}
-		<button onClick={inputsHandler} >Select the number of players</button>
-		{playerName.length !== 0 && <button>Submit Players</button>}
-
-	</form>;
+      {playerInputs.length !== 0 && <button>Submit Players</button>}
+    </form>
+  );
 };
 
 export default NameInput;
