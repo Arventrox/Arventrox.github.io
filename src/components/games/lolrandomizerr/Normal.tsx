@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import SelectNumberOfPlayers from './SelectNumberOfPlayers';
 import { type Tplayers } from '../../models/player';
 import Player from './Player';
-import style from './Normal.module.css';
+import style from './Normal.module.scss';
 import AddPlayersInfo from './AddPlayersInfo';
 
 const Normal = () => {
