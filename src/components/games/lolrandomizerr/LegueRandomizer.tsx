@@ -1,22 +1,34 @@
 import React, { useState } from 'react';
 import Normal from './Normal';
-import style from './LegueRandomizer.module.css';
+import style from './LegueRandomizer.module.scss';
 
 const LegueRandomizer = () => {
   const [chosen, setChosen] = useState('');
   const gamemode = ['NORMAL', 'ARAM', 'URF'];
 
-  const randomBtnHandler = () => {
+  const randomModeHandler = () => {
     const chosenGamemode = gamemode[Math.floor(Math.random() * gamemode.length)];
     setChosen(chosenGamemode);
   };
+  const background =
+    chosen === 'NORMAL'
+      ? style.normal
+      : chosen === 'ARAM'
+      ? style.aram
+      : chosen === 'URF'
+      ? style.urf
+      : style.default__background;
 
   return (
-    <div className={style.lolRadnomizer}>
-      <h1>Legue of Legends Randomizer</h1>
-      <button onClick={randomBtnHandler}>Chose Gamemode</button>
-      {chosen && <h2>The randomizer chose : {chosen}</h2>}
-      {chosen === 'NORMAL' && <Normal />}
+    <div className={style.container}>
+      <div className={background}>
+        <h1>League of Legends Randomizer</h1>
+        {chosen && <h2>The randomizer chose : {chosen}</h2>}
+        {chosen === 'NORMAL' && <Normal />}
+        <button className={style.gamemode__button} onClick={randomModeHandler}>
+          Chose Gamemode
+        </button>
+      </div>
     </div>
   );
 };

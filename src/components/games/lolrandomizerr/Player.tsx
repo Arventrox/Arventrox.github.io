@@ -1,6 +1,6 @@
 import React, { FC, useState } from 'react';
 import { getRandomChampionByRole } from './ChampionsRoles';
-import style from './Player.module.css';
+import style from './Player.module.scss';
 
 type Tplayer = {
   playerName: string | string[];

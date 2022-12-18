@@ -1,4 +1,4 @@
-import './App.css';
+import './App.scss';
 // import RockPaperScissors from './components/games/RockPaperScissors/RockPaperScissors';
 import React from 'react';
 import LegueRandomizer from './components/games/lolrandomizerr/LegueRandomizer';
