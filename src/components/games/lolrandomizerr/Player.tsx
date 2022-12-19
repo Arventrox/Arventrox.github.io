@@ -19,16 +19,16 @@ const Player: FC<Tplayer> = ({ playerChampion, playerName, playerRole }) => {
 
   return (
     <div className={style.container}>
-      <p>Name: {playerName}</p>
-      <p>Role: {playerRole}</p>
-      <span className={style.championBox}>
-        <p>Champion: {reroll ? reroll : playerChampion}</p>
-        <button onClick={rerollHandler}>Reroll</button>
-      </span>
       <img
         src='https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Aatrox_0.jpg'
         alt='none'
       />
+      <p>Name: {playerName}</p>
+      <p>Role: {playerRole}</p>
+      <span className={style.championBox}>
+        <p>Champion: {reroll ? reroll : playerChampion}</p>
+      </span>
+      <button className={style.reroll__button} onClick={rerollHandler} />
     </div>
   );
 };
