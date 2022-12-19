@@ -22,12 +22,19 @@ const LegueRandomizer = () => {
   return (
     <div className={style.container}>
       <div className={background}>
-        <h1>League of Legends Randomizer</h1>
-        {chosen && <h2>The randomizer chose : {chosen}</h2>}
+        <header>
+          <div className={style.blur}></div>
+          <h1>League of Legends Randomizer</h1>
+          {chosen && <h2>Game mode: {chosen}</h2>}
+        </header>
         {chosen === 'NORMAL' && <Normal />}
-        <button className={style.gamemode__button} onClick={randomModeHandler}>
-          Chose Gamemode
-        </button>
+        <div className={style.button__container}>
+          <span className={style.button__border_left}></span>
+          <button className={style.gamemode__button} onClick={randomModeHandler}>
+            Chose Gamemode
+          </button>
+          <span className={style.button__border_right}></span>
+        </div>
       </div>
     </div>
   );

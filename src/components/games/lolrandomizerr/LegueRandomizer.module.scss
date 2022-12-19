@@ -1,4 +1,5 @@
 @import url(//db.onlinewebfonts.com/c/2c37f3699d9728b566e9bdc5b11e5180?family=BeaufortW01-Regular);
+
 @mixin gamemode-style {
   display: flex;
   width: 100%;
@@ -6,8 +7,10 @@
   height: 100vh;
   flex-direction: column;
   align-items: center;
+  background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
+  z-index: 1000;
 }
 @font-face {
   font-family: 'BeaufortW01-Regular';
@@ -20,8 +23,10 @@
     url('//db.onlinewebfonts.com/t/2c37f3699d9728b566e9bdc5b11e5180.svg#BeaufortW01-Regular')
       format('svg');
 }
+
 .container {
   color: white;
+
   .normal {
     @include gamemode-style();
     background-image: url('../../../images/normal.png');
@@ -42,71 +47,120 @@
     @include gamemode-style();
   }
 
-  h1 {
-    font-size: 50px;
-    margin-bottom: 50px;
+  header {
+    width: 100%;
+    height: 6rem;
+    box-shadow: 0 3px 5px rgba(0, 0, 0, 0.3);
+    border: 2px solid #484a4c;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    background-color: rgb(0, 0, 0); /* Fallback color */
+    background-color: rgba(0, 0, 0, 0.5); /* Black w/opacity/see-through */
+    z-index: 10;
+
+    h1 {
+      color: #cdbf92;
+      margin: 0rem;
+      margin-top: 1rem;
+      -webkit-text-stroke-width: 0.5px;
+      -webkit-text-stroke-color: black;
+    }
+
+    h2 {
+      margin: 0rem;
+      -webkit-text-stroke-width: 0.5px;
+      -webkit-text-stroke-color: black;
+    }
   }
 
-  .gamemode__button {
-    width: 250px;
-    height: 60px;
-    box-shadow: 0px 0px 0px 2px rgba(23, 137, 145, 1) inset;
-    -webkit-box-shadow: 0px 0px 0px 2px rgba(23, 137, 145, 1) inset;
-    -moz-box-shadow: 0px 0px 0px 2px rgba(23, 137, 145, 1) inset;
-    border-radius: 0% 0 70% 70%;
-    cursor: pointer;
-    -webkit-clip-path: polygon(15% 0, 85% 0, 100% 100%, 0% 100%);
-    clip-path: polygon(15% 0, 85% 0, 100% 100%, 0% 100%);
-    color: white;
-    font-family: BeaufortW01-Regular;
-    font-weight: bold;
-    font-size: large;
-    border: none;
+  .button__container {
+    width: 100%;
+    position: absolute;
+    height: 7rem;
+    bottom: 0vh;
+    display: flex;
+    align-items: center;
+    background-color: rgb(0, 0, 0); /* Fallback color */
+    background-color: rgba(0, 0, 0, 0.5); /* Black w/opacity/see-through */
+    overflow: hidden;
+    .button__border_left {
+      border-top: 4px solid #484a4c;
+      height: 7rem;
+      width: 42%;
+    }
+    .button__border_right {
+      border-top: 4px solid #484a4c;
+      width: 42%;
+      height: 7rem;
+    }
 
-    background-color: #154057;
-    background: rgb(22, 45, 67);
-    background: -moz-linear-gradient(
-      -45deg,
-      rgba(22, 45, 67, 1) 4%,
-      rgba(21, 71, 94, 1) 24%,
-      rgba(21, 71, 94, 1) 24%,
-      rgba(21, 89, 112, 1) 28%,
-      rgba(23, 59, 81, 1) 36%,
-      rgba(21, 71, 94, 1) 64%,
-      rgba(22, 94, 114, 1) 69%,
-      rgba(22, 68, 92, 1) 75%,
-      rgba(19, 73, 95, 1) 84%,
-      rgba(34, 87, 107, 1) 87%,
-      rgba(15, 71, 92, 1) 100%
-    ); /* FF3.6-15 */
-    background: -webkit-linear-gradient(
-      -45deg,
-      rgba(22, 45, 67, 1) 4%,
-      rgba(21, 71, 94, 1) 24%,
-      rgba(21, 71, 94, 1) 24%,
-      rgba(21, 89, 112, 1) 28%,
-      rgba(23, 59, 81, 1) 36%,
-      rgba(21, 71, 94, 1) 64%,
-      rgba(22, 94, 114, 1) 69%,
-      rgba(22, 68, 92, 1) 75%,
-      rgba(19, 73, 95, 1) 84%,
-      rgba(34, 87, 107, 1) 87%,
-      rgba(15, 71, 92, 1) 100%
-    ); /* Chrome10-25,Safari5.1-6 */
-    background: linear-gradient(
-      135deg,
-      rgba(22, 45, 67, 1) 4%,
-      rgba(21, 71, 94, 1) 24%,
-      rgba(21, 71, 94, 1) 24%,
-      rgba(21, 89, 112, 1) 28%,
-      rgba(23, 59, 81, 1) 36%,
-      rgba(21, 71, 94, 1) 64%,
-      rgba(22, 94, 114, 1) 69%,
-      rgba(22, 68, 92, 1) 75%,
-      rgba(19, 73, 95, 1) 84%,
-      rgba(34, 87, 107, 1) 87%,
-      rgba(15, 71, 92, 1) 100%
-    ); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
-    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#162d43', endColorstr='#0f475c',GradientType=1 );
+    .gamemode__button {
+      width: 250px;
+      height: 60px;
+      box-shadow: 0px 0px 0px 2px rgba(23, 137, 145, 1) inset;
+      -webkit-box-shadow: 0px 0px 0px 2px rgba(23, 137, 145, 1) inset;
+      -moz-box-shadow: 0px 0px 0px 2px rgba(23, 137, 145, 1) inset;
+      border-radius: 0% 0 70% 70%;
+      cursor: pointer;
+      -webkit-clip-path: polygon(15% 0, 85% 0, 100% 100%, 0% 100%);
+      clip-path: polygon(15% 0, 85% 0, 100% 100%, 0% 100%);
+      color: white;
+      font-family: BeaufortW01-Regular;
+      font-weight: bold;
+      font-size: large;
+      border: none;
+      background: rgb(22, 45, 67);
+      background: -moz-linear-gradient(
+        -45deg,
+        rgba(22, 45, 67, 1) 4%,
+        rgba(21, 71, 94, 1) 24%,
+        rgba(21, 71, 94, 1) 24%,
+        rgba(21, 89, 112, 1) 28%,
+        rgba(23, 59, 81, 1) 36%,
+        rgba(21, 71, 94, 1) 64%,
+        rgba(22, 94, 114, 1) 69%,
+        rgba(22, 68, 92, 1) 75%,
+        rgba(19, 73, 95, 1) 84%,
+        rgba(34, 87, 107, 1) 87%,
+        rgba(15, 71, 92, 1) 100%
+      ); /* FF3.6-15 */
+      background: -webkit-linear-gradient(
+        -45deg,
+        rgba(22, 45, 67, 1) 4%,
+        rgba(21, 71, 94, 1) 24%,
+        rgba(21, 71, 94, 1) 24%,
+        rgba(21, 89, 112, 1) 28%,
+        rgba(23, 59, 81, 1) 36%,
+        rgba(21, 71, 94, 1) 64%,
+        rgba(22, 94, 114, 1) 69%,
+        rgba(22, 68, 92, 1) 75%,
+        rgba(19, 73, 95, 1) 84%,
+        rgba(34, 87, 107, 1) 87%,
+        rgba(15, 71, 92, 1) 100%
+      ); /* Chrome10-25,Safari5.1-6 */
+      background: linear-gradient(
+        135deg,
+        rgba(22, 45, 67, 1) 4%,
+        rgba(21, 71, 94, 1) 24%,
+        rgba(21, 71, 94, 1) 24%,
+        rgba(21, 89, 112, 1) 28%,
+        rgba(23, 59, 81, 1) 36%,
+        rgba(21, 71, 94, 1) 64%,
+        rgba(22, 94, 114, 1) 69%,
+        rgba(22, 68, 92, 1) 75%,
+        rgba(19, 73, 95, 1) 84%,
+        rgba(34, 87, 107, 1) 87%,
+        rgba(15, 71, 92, 1) 100%
+      ); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+      filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#162d43', endColorstr='#0f475c',GradientType=1 );
+
+      &:hover {
+        color: rgba(33, 198, 210, 1);
+        box-shadow: 0px 0px 0px 2px rgb(255, 255, 255) inset;
+        -webkit-box-shadow: 0px 0px 0px 2px rgb(255, 255, 255) inset;
+        -moz-box-shadow: 0px 0px 0px 2px rgb(255, 255, 255) inset;
+      }
+    }
   }
 }
