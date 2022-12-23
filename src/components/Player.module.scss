@@ -5,7 +5,6 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  // background-color: #292d38;
   background-image: url('../../../images/banner12.png');
   background-repeat: no-repeat;
   color: white;
@@ -13,6 +12,7 @@
   position: relative;
   overflow: hidden;
   padding-top: 10rem;
+
   .championBox {
     display: flex;
     align-items: center;

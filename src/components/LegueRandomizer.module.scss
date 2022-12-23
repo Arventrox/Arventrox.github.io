@@ -12,6 +12,7 @@
   background-size: cover;
   z-index: 1000;
 }
+
 @font-face {
   font-family: 'BeaufortW01-Regular';
   src: url('//db.onlinewebfonts.com/t/2c37f3699d9728b566e9bdc5b11e5180.eot');
@@ -84,11 +85,13 @@
     background-color: rgb(0, 0, 0); /* Fallback color */
     background-color: rgba(0, 0, 0, 0.5); /* Black w/opacity/see-through */
     overflow: hidden;
+
     .button__border_left {
       border-top: 4px solid #484a4c;
       height: 7rem;
       width: 42%;
     }
+
     .button__border_right {
       border-top: 4px solid #484a4c;
       width: 42%;
@@ -125,6 +128,7 @@
         rgba(34, 87, 107, 1) 87%,
         rgba(15, 71, 92, 1) 100%
       ); /* FF3.6-15 */
+
       background: -webkit-linear-gradient(
         -45deg,
         rgba(22, 45, 67, 1) 4%,
@@ -139,6 +143,7 @@
         rgba(34, 87, 107, 1) 87%,
         rgba(15, 71, 92, 1) 100%
       ); /* Chrome10-25,Safari5.1-6 */
+
       background: linear-gradient(
         135deg,
         rgba(22, 45, 67, 1) 4%,

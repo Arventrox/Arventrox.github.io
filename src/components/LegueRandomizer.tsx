@@ -10,14 +10,23 @@ const LegueRandomizer = () => {
     const chosenGamemode = gamemode[Math.floor(Math.random() * gamemode.length)];
     setChosen(chosenGamemode);
   };
-  const background =
-    chosen === 'NORMAL'
-      ? style.normal
-      : chosen === 'ARAM'
-      ? style.aram
-      : chosen === 'URF'
-      ? style.urf
-      : style.default__background;
+
+  let background;
+
+  switch (chosen) {
+    case 'NORMAL':
+      background = style.normal;
+      break;
+    case 'ARAM':
+      background = style.aram;
+      break;
+    case 'URF':
+      background = style.urf;
+      break;
+    default:
+      background = style.default__background;
+      break;
+  }
 
   return (
     <div className={style.container}>
