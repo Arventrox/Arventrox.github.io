@@ -246,9 +246,3 @@ export const getRandomChampionByRole = (role: string | string[]) => {
       return topChampions;
   }
 };
-
-// Export const topChampions = top[Math.floor(Math.random() * top.length)];
-// export const jungleChampions = jungle[Math.floor(Math.random() * jungle.length)];
-// export const midChampions = middle[Math.floor(Math.random() * middle.length)];
-// export const bottomChampions = bottom[Math.floor(Math.random() * bottom.length)];
-// export const supportChampions = support[Math.floor(Math.random() * support.length)];

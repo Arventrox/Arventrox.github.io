@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import SelectNumberOfPlayers from './SelectNumberOfPlayers';
-import { type Tplayers } from '../../models/player';
+import type { Tplayers } from '../models/player';
 import Player from './Player';
 import style from './Normal.module.scss';
 import AddPlayersInfo from './AddPlayersInfo';
@@ -14,7 +14,7 @@ const Normal = () => {
       <SelectNumberOfPlayers playersNumber={playersNumber} setPlayersNumber={setPlayersNumber} />
       <AddPlayersInfo onSetPlayers={setPlayers} playersNumber={playersNumber} />
       <div className={style.players}>
-        {players.map((singlePlayer, index) => (
+        {players.map((_, index) => (
           <Player
             key={index}
             playerName={players[index].playerName}

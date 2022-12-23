@@ -1,5 +1,5 @@
 import React, { type FC, useState, useEffect } from 'react';
-import { type Tplayers } from '../../models/player';
+import { type Tplayers } from '../models/player';
 import { getRandomChampionByRole } from './ChampionsRoles';
 
 type Iprops = {
