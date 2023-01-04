@@ -30,21 +30,21 @@
 
   .normal {
     @include gamemode-style();
-    background-image: url('../../../images/normal.png');
+    background-image: url('../images/normal.png');
   }
 
   .aram {
-    background-image: url('../../../images/aram.png');
+    background-image: url('../images/aram.png');
     @include gamemode-style();
   }
 
   .urf {
-    background-image: url('../../../images/urf.png');
+    background-image: url('../images/urf.png');
     @include gamemode-style();
   }
 
   .default__background {
-    background-image: url('../../../images/defaultBG.png');
+    background-image: url('../images/defaultBG.png');
     @include gamemode-style();
   }
 
