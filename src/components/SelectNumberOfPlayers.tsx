@@ -1,11 +1,14 @@
 import React, { FC } from 'react';
+import { Tplayers } from '../models/player';
+import style from './SelectNumberOfPlayers.module.scss';
 
 type Tprops = {
-  playersNumber: string;
-  setPlayersNumber: React.Dispatch<React.SetStateAction<string>>;
+  playersNumber: number;
+  setPlayersNumber: React.Dispatch<React.SetStateAction<number>>;
+  setPlayers: React.Dispatch<React.SetStateAction<Tplayers>>;
 };
 
-const SelectNumberOfPlayers: FC<Tprops> = ({ playersNumber, setPlayersNumber }) => {
+const SelectNumberOfPlayers: FC<Tprops> = ({ playersNumber, setPlayersNumber, setPlayers }) => {
   const options: number[] = [];
 
   for (let i = 1; i <= 5; i++) {
@@ -14,12 +17,13 @@ const SelectNumberOfPlayers: FC<Tprops> = ({ playersNumber, setPlayersNumber }) 
 
   const chosenNumberPlayers = (event: React.ChangeEvent<HTMLSelectElement>) => {
     event.preventDefault();
-    setPlayersNumber(event.target.value);
+    setPlayersNumber(+event.target.value);
+    setPlayers([]);
   };
 
   return (
     <>
-      <span>
+      <span className={style.container}>
         <label>Chose a number of players</label>
         <select value={playersNumber} onChange={chosenNumberPlayers} id='numberOfPlayers'>
           {options.map((option) => (

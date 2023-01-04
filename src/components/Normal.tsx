@@ -7,12 +7,20 @@ import AddPlayersInfo from './AddPlayersInfo';
 
 const Normal = () => {
   const [players, setPlayers] = useState<Tplayers>([]);
-  const [playersNumber, setPlayersNumber] = useState('1');
+  const [playersNumber, setPlayersNumber] = useState(1);
 
   return (
     <>
-      <SelectNumberOfPlayers playersNumber={playersNumber} setPlayersNumber={setPlayersNumber} />
-      <AddPlayersInfo onSetPlayers={setPlayers} playersNumber={playersNumber} />
+      <SelectNumberOfPlayers
+        playersNumber={playersNumber}
+        setPlayersNumber={setPlayersNumber}
+        setPlayers={setPlayers}
+      />
+      <AddPlayersInfo
+        onSetPlayers={setPlayers}
+        playersNumber={playersNumber}
+        setPlayersNumber={setPlayersNumber}
+      />
       <div className={style.players}>
         {players.map((_, index) => (
           <Player
