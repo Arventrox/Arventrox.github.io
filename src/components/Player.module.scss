@@ -1,16 +1,14 @@
 .container {
   width: 250px;
-  height: 62.4vh;
+  height: 85vh;
   top: -16vh;
   display: flex;
   flex-direction: column;
   align-items: center;
-  background-image: url('../images/banner12.png');
+  background-image: url('../assets/images/banner12.png');
   background-repeat: no-repeat;
-  color: white;
   margin-left: 15px;
   position: relative;
-  overflow: hidden;
   padding-top: 10rem;
 
   .championBox {
@@ -35,7 +33,7 @@
   .reroll__button {
     border-radius: 50%;
     background-color: #1f2229;
-    background-image: url('../images/circular-arrows-svgrepo-com.svg');
+    background-image: url('../assets/images/circular-arrows-svgrepo-com.svg');
     width: 2rem;
     height: 2rem;
     border: 2px solid #574c35;

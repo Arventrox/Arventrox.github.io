@@ -3,7 +3,3 @@ export type Tplayers = Array<{
   playerRole: string | string[];
   playerChampion: string;
 }>;
-
-export type Props = {
-  children: JSX.Element;
-};

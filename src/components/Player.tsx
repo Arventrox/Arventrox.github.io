@@ -1,5 +1,5 @@
 import React, { FC, useState, FormEvent } from 'react';
-import { getRandomChampionByRole } from './ChampionsRoles';
+import { getRandomChampionByRole } from '../data/ChampionsRoles';
 import style from './Player.module.scss';
 
 type Tplayer = {

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import SelectNumberOfPlayers from './SelectNumberOfPlayers';
-import type { Tplayers } from '../models/player';
+import type { Tplayers } from '../types/player.type';
 import Player from './Player';
 import style from './Normal.module.scss';
 import AddPlayersInfo from './AddPlayersInfo';
@@ -17,7 +17,7 @@ const Normal = () => {
         setPlayers={setPlayers}
       />
       <AddPlayersInfo
-        onSetPlayers={setPlayers}
+        setPlayers={setPlayers}
         playersNumber={playersNumber}
         setPlayersNumber={setPlayersNumber}
       />
