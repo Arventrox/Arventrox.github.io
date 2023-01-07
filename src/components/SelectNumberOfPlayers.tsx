@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import { Tplayers } from '../models/player';
+import { Tplayers } from '../types/player.type';
 import style from './SelectNumberOfPlayers.module.scss';
 
 type Tprops = {
@@ -24,7 +24,7 @@ const SelectNumberOfPlayers: FC<Tprops> = ({ playersNumber, setPlayersNumber, se
   return (
     <>
       <span className={style.container}>
-        <label>Chose a number of players</label>
+        <label>Choose a number of players</label>
         <select value={playersNumber} onChange={chosenNumberPlayers} id='numberOfPlayers'>
           {options.map((option) => (
             <option key={option} value={option}>

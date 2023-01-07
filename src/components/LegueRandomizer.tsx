@@ -1,12 +1,14 @@
 import React, { useState } from 'react';
 import Normal from './Normal';
 import style from './LegueRandomizer.module.scss';
+import FooterButton from './ui/FooterButton';
 
 const LegueRandomizer = () => {
-  const [chosen, setChosen] = useState('');
+  const [chosen, setChosen] = useState<string>();
   const gamemode = ['NORMAL', 'ARAM', 'URF'];
 
   const randomModeHandler = () => {
+    setChosen(undefined);
     const chosenGamemode = gamemode[Math.floor(Math.random() * gamemode.length)];
     setChosen(chosenGamemode);
   };
@@ -32,18 +34,18 @@ const LegueRandomizer = () => {
     <div className={style.container}>
       <div className={background}>
         <header>
-          <div className={style.blur}></div>
           <h1>League of Legends Randomizer</h1>
           {chosen && <h2>Game mode: {chosen}</h2>}
         </header>
-        {chosen === 'NORMAL' && <Normal />}
-        <div className={style.button__container}>
-          <span className={style.button__border_left}></span>
-          <button className={style.gamemode__button} onClick={randomModeHandler}>
-            Chose Gamemode
-          </button>
-          <span className={style.button__border_right}></span>
-        </div>
+        <section>{chosen === 'NORMAL' && <Normal />}</section>
+        <footer>
+          <span className={style.footer__border_left} />
+          {chosen !== 'NORMAL' && chosen && (
+            <FooterButton onClick={randomModeHandler}>Choose Again</FooterButton>
+          )}
+          {!chosen && <FooterButton onClick={randomModeHandler}>Choose Gamemode</FooterButton>}
+          <span className={style.footer__border_right} />
+        </footer>
       </div>
     </div>
   );

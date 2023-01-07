@@ -3,7 +3,6 @@
 @mixin gamemode-style {
   display: flex;
   width: 100%;
-  overflow-x: hidden;
   height: 100vh;
   flex-direction: column;
   align-items: center;
@@ -26,25 +25,23 @@
 }
 
 .container {
-  color: white;
-
   .normal {
     @include gamemode-style();
-    background-image: url('../images/normal.png');
+    background-image: url('../assets/images/normal.png');
   }
 
   .aram {
-    background-image: url('../images/aram.png');
+    background-image: url('../assets/images/aram.png');
     @include gamemode-style();
   }
 
   .urf {
-    background-image: url('../images/urf.png');
+    background-image: url('../assets/images/urf.png');
     @include gamemode-style();
   }
 
   .default__background {
-    background-image: url('../images/defaultBG.png');
+    background-image: url('../assets/images/defaultBG.png');
     @include gamemode-style();
   }
 
@@ -75,7 +72,14 @@
     }
   }
 
-  .button__container {
+  section {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    z-index: 1;
+  }
+
+  footer {
     width: 100%;
     position: absolute;
     height: 7rem;
@@ -84,88 +88,21 @@
     align-items: center;
     background-color: rgb(0, 0, 0); /* Fallback color */
     background-color: rgba(0, 0, 0, 0.5); /* Black w/opacity/see-through */
-    overflow: hidden;
 
-    .button__border_left {
-      border-top: 4px solid #484a4c;
+    .footer__border_left {
       height: 7rem;
       width: 42%;
+      border-top: 2px solid #484a4c;
+      position: absolute;
+      right: 58.5%;
     }
 
-    .button__border_right {
-      border-top: 4px solid #484a4c;
+    .footer__border_right {
       width: 42%;
       height: 7rem;
-    }
-
-    .gamemode__button {
-      width: 250px;
-      height: 60px;
-      box-shadow: 0px 0px 0px 2px rgba(23, 137, 145, 1) inset;
-      -webkit-box-shadow: 0px 0px 0px 2px rgba(23, 137, 145, 1) inset;
-      -moz-box-shadow: 0px 0px 0px 2px rgba(23, 137, 145, 1) inset;
-      border-radius: 0% 0 70% 70%;
-      cursor: pointer;
-      -webkit-clip-path: polygon(15% 0, 85% 0, 100% 100%, 0% 100%);
-      clip-path: polygon(15% 0, 85% 0, 100% 100%, 0% 100%);
-      color: white;
-      font-family: BeaufortW01-Regular;
-      font-weight: bold;
-      font-size: large;
-      border: none;
-      background: rgb(22, 45, 67);
-      background: -moz-linear-gradient(
-        -45deg,
-        rgba(22, 45, 67, 1) 4%,
-        rgba(21, 71, 94, 1) 24%,
-        rgba(21, 71, 94, 1) 24%,
-        rgba(21, 89, 112, 1) 28%,
-        rgba(23, 59, 81, 1) 36%,
-        rgba(21, 71, 94, 1) 64%,
-        rgba(22, 94, 114, 1) 69%,
-        rgba(22, 68, 92, 1) 75%,
-        rgba(19, 73, 95, 1) 84%,
-        rgba(34, 87, 107, 1) 87%,
-        rgba(15, 71, 92, 1) 100%
-      ); /* FF3.6-15 */
-
-      background: -webkit-linear-gradient(
-        -45deg,
-        rgba(22, 45, 67, 1) 4%,
-        rgba(21, 71, 94, 1) 24%,
-        rgba(21, 71, 94, 1) 24%,
-        rgba(21, 89, 112, 1) 28%,
-        rgba(23, 59, 81, 1) 36%,
-        rgba(21, 71, 94, 1) 64%,
-        rgba(22, 94, 114, 1) 69%,
-        rgba(22, 68, 92, 1) 75%,
-        rgba(19, 73, 95, 1) 84%,
-        rgba(34, 87, 107, 1) 87%,
-        rgba(15, 71, 92, 1) 100%
-      ); /* Chrome10-25,Safari5.1-6 */
-
-      background: linear-gradient(
-        135deg,
-        rgba(22, 45, 67, 1) 4%,
-        rgba(21, 71, 94, 1) 24%,
-        rgba(21, 71, 94, 1) 24%,
-        rgba(21, 89, 112, 1) 28%,
-        rgba(23, 59, 81, 1) 36%,
-        rgba(21, 71, 94, 1) 64%,
-        rgba(22, 94, 114, 1) 69%,
-        rgba(22, 68, 92, 1) 75%,
-        rgba(19, 73, 95, 1) 84%,
-        rgba(34, 87, 107, 1) 87%,
-        rgba(15, 71, 92, 1) 100%
-      ); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
-      filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#162d43', endColorstr='#0f475c',GradientType=1 );
-
-      &:hover {
-        color: rgba(33, 198, 210, 1);
-        box-shadow: 0px 0px 0px 2px rgb(255, 255, 255) inset;
-        -webkit-box-shadow: 0px 0px 0px 2px rgb(255, 255, 255) inset;
-        -moz-box-shadow: 0px 0px 0px 2px rgb(255, 255, 255) inset;
-      }
+      position: absolute;
+      left: 58.5%;
+      border-top: 2px solid #484a4c;
     }
   }
 }

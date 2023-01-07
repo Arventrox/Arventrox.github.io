@@ -1,23 +1,24 @@
 import React, { type FC, useState, useEffect } from 'react';
-import { type Tplayers } from '../models/player';
-import { getRandomChampionByRole } from './ChampionsRoles';
+import { type Tplayers } from '../types/player.type';
+import { getRandomChampionByRole } from '../data/ChampionsRoles';
 import style from './AddPlayersInfo.module.scss';
+import FooterButton from './ui/FooterButton';
 
 type Iprops = {
   playersNumber: number;
-  onSetPlayers: React.Dispatch<React.SetStateAction<Tplayers>>;
+  setPlayers: React.Dispatch<React.SetStateAction<Tplayers>>;
   setPlayersNumber: React.Dispatch<React.SetStateAction<number>>;
 };
 
-const NameInput: FC<Iprops> = ({ playersNumber, onSetPlayers, setPlayersNumber }) => {
+const NameInput: FC<Iprops> = ({ playersNumber, setPlayers, setPlayersNumber }) => {
   const [playerInputs, setPlayerInputs] = useState<string[]>([]);
 
   useEffect(() => {
     const inputsList: string[] = [];
+
     for (let i = 0; i < playersNumber; i++) {
       inputsList.push(`Summoner ${i + 1}`);
     }
-    console.log(inputsList);
     setPlayerInputs(inputsList);
   }, [playersNumber]);
 
@@ -51,44 +52,45 @@ const NameInput: FC<Iprops> = ({ playersNumber, onSetPlayers, setPlayersNumber }
         playerRole,
         playerChampion: randomChampionByRole,
       });
-      console.log(playerList);
     }
 
-    onSetPlayers(playerList);
+    setPlayers(playerList);
     setPlayerInputs([]);
   };
 
   return (
-    <form onSubmit={submitHandler}>
-      {playerInputs.map((singleInput, index) => (
-        <div className={style.container} key={index}>
-          <img
-            src='https://toppng.com/uploads/preview/3d-question-mark-png-115522430369o8mqpftoj.png'
-            alt='none'
-          />
-          <input
-            type='text'
-            id='playersName'
-            value={singleInput}
-            onChange={(e) => {
-              playerNameHandler(e, index);
-            }}
-          />
-          <span></span>
-          <p>Role: ???</p>
-          <span className={style.championBox}>
-            <p>Champion: ???</p>
-          </span>
-          <button
-            className={style.remove__btn}
-            onClick={(e) => {
-              removeplayerNameHandler(index, e);
-            }}
-          />
-        </div>
-      ))}
-
-      {playerInputs.length !== 0 && <button className={style.submit__btn}>Submit </button>}
+    <form>
+      <div className={style.form_container}>
+        {playerInputs.map((singleInput, index) => (
+          <div className={style.form_input__container} key={index}>
+            <img
+              src='https://toppng.com/uploads/preview/3d-question-mark-png-115522430369o8mqpftoj.png'
+              alt='none'
+            />
+            <input
+              type='text'
+              id='playersName'
+              value={singleInput}
+              onChange={(e) => {
+                playerNameHandler(e, index);
+              }}
+            />
+            <p>Role: ???</p>
+            <span className={style.championBox}>
+              <p>Champion: ???</p>
+            </span>
+            <button
+              className={style.remove__btn}
+              onClick={(e) => {
+                removeplayerNameHandler(index, e);
+              }}
+            />
+          </div>
+        ))}
+      </div>
+      <div className={style.footerBtn_container}>
+        {playerInputs.length !== 0 && <FooterButton onClick={submitHandler}>Submit</FooterButton>}
+      </div>
     </form>
   );
 };
