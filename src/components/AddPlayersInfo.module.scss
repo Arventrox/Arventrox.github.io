@@ -1,3 +1,5 @@
+@import '../assets/mixins.scss';
+
 form {
   position: absolute;
   top: 0%;
@@ -22,27 +24,23 @@ form {
         margin-block-end: 1em;
         margin-inline-start: 0px;
         margin-inline-end: 0px;
-        font-size: 1rem;
-        text-align: center;
-        color: white;
-        border: none;
         border-bottom: 1px solid #574c35;
         background-color: rgba(0, 0, 0, 0);
       }
 
       p {
-        width: 150px;
-        text-align: center;
-        font-size: 1rem;
+        width: 155px;
         border-bottom: 1px solid #574c35;
       }
 
       img {
         height: 8rem;
         width: 8rem;
+        padding: 1rem;
         margin-top: 10rem;
         border: 2px solid #574c35;
         border-radius: 50%;
+        object-fit: contain;
       }
     }
 
@@ -52,11 +50,15 @@ form {
       border-radius: 50%;
       border: 2px solid #574c35;
       background-color: #1f2229;
-      background-image: url('https://e1.pngegg.com/pngimages/314/988/png-clipart-symbolize-x.png');
-      background-size: contain;
+      background-image: url(../assets/images/cancel-button.png);
+      background-size: 85%;
+      background-repeat: no-repeat;
+      background-position: center;
+      @include hoverBox();
 
       &:hover {
         cursor: pointer;
+        z-index: 1000;
       }
     }
   }
