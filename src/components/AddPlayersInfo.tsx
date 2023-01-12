@@ -2,7 +2,8 @@ import React, { type FC, useState, useEffect } from 'react';
 import { type Tplayers } from '../types/player.type';
 import { getRandomChampionByRole } from '../data/ChampionsRoles';
 import style from './AddPlayersInfo.module.scss';
-import FooterButton from './ui/FooterButton';
+import FooterButton from './ui/button/FooterButton';
+import questionMark from '../assets/images/questionmark.png';
 
 type Iprops = {
   playersNumber: number;
@@ -63,10 +64,7 @@ const NameInput: FC<Iprops> = ({ playersNumber, setPlayers, setPlayersNumber }) 
       <div className={style.form_container}>
         {playerInputs.map((singleInput, index) => (
           <div className={style.form_input__container} key={index}>
-            <img
-              src='https://toppng.com/uploads/preview/3d-question-mark-png-115522430369o8mqpftoj.png'
-              alt='none'
-            />
+            <img src={questionMark} alt='none' />
             <input
               type='text'
               id='playersName'
@@ -84,7 +82,9 @@ const NameInput: FC<Iprops> = ({ playersNumber, setPlayers, setPlayersNumber }) 
               onClick={(e) => {
                 removeplayerNameHandler(index, e);
               }}
-            />
+            >
+              <span className={style.hover_text}>Remove this player</span>
+            </button>
           </div>
         ))}
       </div>

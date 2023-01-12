@@ -1,3 +1,5 @@
+@import '../assets/mixins.scss';
+
 .container {
   width: 250px;
   height: 85vh;
@@ -11,14 +13,9 @@
   position: relative;
   padding-top: 10rem;
 
-  .championBox {
-    display: flex;
-    align-items: center;
-
-    button {
-      height: 20px;
-      margin: 10px;
-    }
+  p {
+    width: 155px;
+    border-bottom: 1px solid #574c35;
   }
 
   img {
@@ -26,20 +23,21 @@
     image-resolution: inherit;
     border: 2px solid #574c35;
     border-radius: 50%;
-    height: 8rem;
-    width: 8rem;
+    height: 9rem;
+    width: 9rem;
   }
 
   .reroll__button {
     border-radius: 50%;
     background-color: #1f2229;
     background-image: url('../assets/images/circular-arrows-svgrepo-com.svg');
+    background-size: 90%;
+    background-position: center;
+    background-repeat: no-repeat;
     width: 2rem;
     height: 2rem;
     border: 2px solid #574c35;
 
-    &:hover {
-      cursor: pointer;
-    }
+    @include hoverBox();
   }
 }

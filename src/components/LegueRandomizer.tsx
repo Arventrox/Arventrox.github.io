@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import Normal from './Normal';
 import style from './LegueRandomizer.module.scss';
-import FooterButton from './ui/FooterButton';
+import FooterButton from './ui/button/FooterButton';
 
 const LegueRandomizer = () => {
   const [chosen, setChosen] = useState<string>();

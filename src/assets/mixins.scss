@@ -1,0 +1,34 @@
+@mixin gamemode-style {
+  width: 100vw;
+  height: 100vh;
+  align-items: center;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  display: grid;
+  grid-template-rows: auto 70% 20%;
+}
+
+@mixin hoverBox {
+  .hover_text {
+    visibility: hidden;
+    opacity: 0;
+    display: flex;
+    justify-content: center;
+    width: 10rem;
+    color: white;
+    background-color: #484a4c;
+    border: 1px solid white;
+    margin-left: 2rem;
+  }
+
+  &:hover {
+    cursor: pointer;
+    z-index: 1000;
+
+    .hover_text {
+      visibility: visible;
+      opacity: 1;
+    }
+  }
+}
