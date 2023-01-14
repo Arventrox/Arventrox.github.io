@@ -1,0 +1,56 @@
+@import '../assets/mixins.scss';
+
+.container {
+  width: 250px;
+  height: 100%;
+  top: -16vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-image: url('../assets/images/banner12.png');
+  background-repeat: no-repeat;
+  margin-left: 15px;
+  position: relative;
+  padding-top: 10rem;
+
+  p {
+    width: 155px;
+    border-bottom: 1px solid #574c35;
+    white-space: nowrap;
+  }
+
+  .img_container {
+    border: 2px solid #574c35;
+    width: 11rem;
+    height: 9rem;
+    overflow: hidden;
+
+    img {
+      transition: opacity 0.5s ease-in;
+      opacity: 0;
+      object-fit: cover;
+      width: 100%;
+      height: 100%;
+      transform: scale(1);
+      image-rendering: pixelated;
+      will-change: contents;
+    }
+    .loaded {
+      opacity: 1;
+    }
+  }
+
+  .reroll__button {
+    border-radius: 50%;
+    background-color: #1f2229;
+    background-image: url('../assets/images/circular-arrows-svgrepo-com.svg');
+    background-size: 90%;
+    background-position: center;
+    background-repeat: no-repeat;
+    width: 2rem;
+    height: 2rem;
+    border: 2px solid #574c35;
+
+    @include hoverBox();
+  }
+}

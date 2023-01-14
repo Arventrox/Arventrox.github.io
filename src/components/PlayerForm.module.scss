@@ -1,0 +1,32 @@
+@import '../assets/mixins.scss';
+
+.form_container {
+  background-image: url('../assets/images/banner2.png');
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position-x: center;
+  width: 60%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  padding: 2.5rem;
+
+  .remove__btn {
+    width: 2rem;
+    height: 2rem;
+    border-radius: 50%;
+    border: 2px solid #574c35;
+    background-color: #1f2229;
+    background-image: url(../assets/images/cancel-button.png);
+    background-size: 85%;
+    background-repeat: no-repeat;
+    background-position: center;
+    @include hoverBox();
+
+    &:hover {
+      cursor: pointer;
+      z-index: 1000;
+    }
+  }
+}

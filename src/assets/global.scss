@@ -12,11 +12,16 @@
       format('svg');
 }
 
+html,
 body {
   margin: 0;
   font-family: 'LOL font' sans-serif;
   color: white;
   overflow: hidden;
+  min-height: 100vh;
+}
+.root {
+  height: 100%;
 }
 
 h1,
@@ -30,9 +35,26 @@ h1 {
 }
 
 p,
-input {
+input,
+ul,
+li {
   border: none;
   font-size: 1rem;
-  text-align: center;
   color: white;
+}
+
+p {
+  text-align: center;
+}
+button {
+  color: white;
+  font-weight: bold;
+  font-family: 'LOL font';
+  background-color: none;
+  font-size: large;
+  cursor: pointer;
+}
+ul::-webkit-scrollbar {
+  width: 0;
+  height: 0;
 }

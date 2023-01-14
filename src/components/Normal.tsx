@@ -1,9 +1,8 @@
 import React, { useState } from 'react';
-import SelectNumberOfPlayers from './SelectNumberOfPlayers';
 import type { Tplayers } from '../types/player.type';
-import Player from './Player';
+import Player from './PlayerRender';
 import style from './Normal.module.scss';
-import AddPlayersInfo from './AddPlayersInfo';
+import PlayerForm from './PlayerForm';
 
 const Normal = () => {
   const [players, setPlayers] = useState<Tplayers>([]);
@@ -11,16 +10,14 @@ const Normal = () => {
 
   return (
     <>
-      <SelectNumberOfPlayers
-        playersNumber={playersNumber}
-        setPlayersNumber={setPlayersNumber}
-        setPlayers={setPlayers}
-      />
-      <AddPlayersInfo
-        setPlayers={setPlayers}
-        playersNumber={playersNumber}
-        setPlayersNumber={setPlayersNumber}
-      />
+      {!players[0] && (
+        <PlayerForm
+          setPlayers={setPlayers}
+          playersNumber={playersNumber}
+          setPlayersNumber={setPlayersNumber}
+        />
+      )}
+
       <div className={style.players}>
         {players.map((_, index) => (
           <Player

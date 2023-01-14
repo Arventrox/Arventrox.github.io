@@ -1,73 +1,36 @@
-@import '../assets/mixins.scss';
-.container {
-  .normal {
-    @include gamemode-style();
-    background-image: url('../assets/images/normal.png');
-  }
-
-  .aram {
-    background-image: url('../assets/images/aram.png');
-    @include gamemode-style();
-  }
-
-  .urf {
-    background-image: url('../assets/images/urf.png');
-    @include gamemode-style();
-  }
-
-  .default__background {
-    background-image: url('../assets/images/defaultBG.png');
-    @include gamemode-style();
-  }
-
-  header {
-    grid-row: 1;
-    height: 6rem;
-    box-shadow: 0 3px 5px rgba(0, 0, 0, 0.3);
-    border: 2px solid #484a4c;
-    display: flex;
-    align-items: center;
-    flex-direction: column;
-    background-color: rgb(0, 0, 0); /* Fallback color */
-    background-color: rgba(0, 0, 0, 0.5); /* Black w/opacity/see-through */
-    z-index: 10;
-
-    h1 {
-      margin: 1rem 0 0.5rem 0;
-    }
-  }
+@mixin gamemode-style {
+  height: 100vh;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  display: flex;
+  flex-direction: column;
 
   section {
-    grid-row: 2;
     height: 100%;
     display: flex;
     align-items: center;
     flex-direction: column;
     z-index: 1;
   }
+}
 
-  footer {
-    grid-row: 3;
-    height: 7rem;
-    display: flex;
-    align-items: center;
-    background-color: rgb(0, 0, 0); /* Fallback color */
-    background-color: rgba(0, 0, 0, 0.5); /* Black w/opacity/see-through */
+.normal {
+  @include gamemode-style();
+  background-image: url('../assets/images/normal.png');
+}
 
-    .footer__border_left {
-      height: 7rem;
-      width: 42%;
-      border-top: 2px solid #484a4c;
-      position: absolute;
-      right: 58.5%;
-    }
+.aram {
+  background-image: url('../assets/images/aram.png');
+  @include gamemode-style();
+}
 
-    .footer__border_right {
-      width: 42%;
-      height: 7rem;
-      position: absolute;
-      left: 58.5%;
-      border-top: 2px solid #484a4c;
-    }
-  }
+.urf {
+  background-image: url('../assets/images/urf.png');
+  @include gamemode-style();
+}
+
+.default__background {
+  background-image: url('../assets/images/defaultBG.png');
+  @include gamemode-style();
 }

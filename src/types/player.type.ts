@@ -1,5 +1,5 @@
 export type Tplayers = Array<{
   playerName: string | string[];
-  playerRole: string | string[];
-  playerChampion: string;
+  playerRole: string;
+  playerChampion: { championName: string; championImage_url: string };
 }>;
