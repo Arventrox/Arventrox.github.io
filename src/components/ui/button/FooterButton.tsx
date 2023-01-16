@@ -7,7 +7,6 @@ type footerBtn = {
 };
 
 const Button: FC<footerBtn> = ({ children, onClick }) => {
-  //
   return (
     <button className={style.footerBtn} onClick={onClick}>
       {children}

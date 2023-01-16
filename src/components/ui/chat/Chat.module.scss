@@ -4,6 +4,7 @@
   flex-direction: column-reverse;
   position: absolute;
   left: 2%;
+  max-width: 18.4rem;
   color: white;
   background-color: #010a13;
   border: 1px solid #838376;
@@ -22,11 +23,10 @@
 
   ul {
     height: 12rem;
-    max-width: 17.1rem;
     display: flex;
     flex-direction: column;
     list-style-type: none;
-    padding: 10px 10px 30px 10px;
+    padding: 0px 0px 30px 10px;
     margin: 0;
     overflow-y: scroll;
     overflow-wrap: break-word;
