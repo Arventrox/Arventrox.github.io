@@ -12,9 +12,9 @@ import aramlDefaultIcon from '../assets/images/game-icon-aram-default.png';
 import urfActiveIcon from '../assets/images/game-icon-urf-hover.png';
 import urfDefaultIcon from '../assets/images/game-icon-urf-default.png';
 
-const NORMAL = 'NORMAL';
-const ARAM = 'ARAM';
-const URF = 'URF';
+const NORMAL = 'SR NORMAL';
+const ARAM = 'HA ARAM';
+const URF = 'SR URF';
 
 const LegueRandomizer = () => {
   const [chosen, setChosen] = useState<string | null>('');
@@ -24,16 +24,21 @@ const LegueRandomizer = () => {
   const [isUrfChecked, setIsUrfChecked] = useState(false);
 
   let background;
+  let icon;
   const gameMode: string[] = [];
 
   switch (chosen) {
     case NORMAL:
       background = style.normal;
+      icon = normalActiveIcon;
       break;
     case ARAM:
       background = style.aram;
+      icon = aramActiveIcon;
+
       break;
     case URF:
+      icon = urfActiveIcon;
       background = style.urf;
       break;
     default:
@@ -70,8 +75,17 @@ const LegueRandomizer = () => {
 
   return (
     <div className={background}>
-      <Header chosen={chosen} />
+      <Header />
       <section onClick={() => setIsInputFocused(false)}>
+        {chosen && (
+          <div className={style.section_header}>
+            <button onClick={() => setChosen('')}>
+              <span className={style.hover_text}>Change Mode</span>
+            </button>
+            <img src={icon}></img>
+            <h2>Game mode: {chosen}</h2>
+          </div>
+        )}
         {!chosen && (
           <div className={style.gamemode_container}>
             <div className={style.gamemode_container__box}>
@@ -105,9 +119,9 @@ const LegueRandomizer = () => {
             </div>
           </div>
         )}
-        {chosen === 'NORMAL' && <Normal />}
-        {chosen === 'ARAM' && <p>Aram</p>}
-        {chosen === 'URF' && <p>URF</p>}
+        {chosen === NORMAL && <Normal />}
+        {chosen === ARAM && <p>Aram</p>}
+        {chosen === URF && <p>URF</p>}
       </section>
       <Footer
         isInputFocused={isInputFocused}

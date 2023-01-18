@@ -1,21 +1,21 @@
 import { generateRandomChampions } from './Champion';
 
 export const getRandomChampionByRole = (role: string) => {
-  const { topChampions, jungleChampions, midChampions, bottomChampions, supportChampions } =
+  const { topChampion, jungleChampion, midChampion, bottomChampion, supportChampion } =
     generateRandomChampions();
 
   switch (role) {
     case 'TOP':
-      return topChampions;
+      return topChampion;
     case 'JUNGLE':
-      return jungleChampions;
+      return jungleChampion;
     case 'MID':
-      return midChampions;
+      return midChampion;
     case 'BOTTOM':
-      return bottomChampions;
+      return bottomChampion;
     case 'SUPPORT':
-      return supportChampions;
+      return supportChampion;
     default:
-      return topChampions;
+      return topChampion;
   }
 };

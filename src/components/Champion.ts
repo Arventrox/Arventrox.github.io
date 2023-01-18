@@ -1,21 +1,42 @@
 import championData from '../data/championData.json';
 
 export const generateRandomChampions = () => {
-  // const topChampions = top[Math.floor(Math.random() * top.length)];
-  const topindex = Math.floor(Math.random() * championData.lanes[0].topChampions.length);
-  const topChampions = championData.lanes[0].topChampions[topindex];
+  const { lanes } = championData;
 
-  const jungleIndex = Math.floor(Math.random() * championData.lanes[0].jungle.length);
-  const jungleChampions = championData.lanes[0].jungle[jungleIndex];
+  const top = lanes[0].top;
+  const topindex = Math.floor(Math.random() * top.length);
+  const topChampion = top[topindex];
 
-  const midIndex = Math.floor(Math.random() * championData.lanes[0].mid.length);
-  const midChampions = championData.lanes[0].mid[midIndex];
+  const jungle = lanes[0].jungle.filter(
+    (champion) => champion.championName !== topChampion.championName,
+  );
+  const jungleIndex = Math.floor(Math.random() * jungle.length);
+  const jungleChampion = jungle[jungleIndex];
 
-  const bottomIndex = Math.floor(Math.random() * championData.lanes[0].bottom.length);
-  const bottomChampions = championData.lanes[0].bottom[bottomIndex];
+  const mid = lanes[0].mid.filter(
+    (champion) => champion.championName !== jungleChampion.championName && topChampion.championName,
+  );
+  const midIndex = Math.floor(Math.random() * mid.length);
+  const midChampion = mid[midIndex];
 
-  const supportIndex = Math.floor(Math.random() * championData.lanes[0].support.length);
-  const supportChampions = championData.lanes[0].support[supportIndex];
+  const bottom = lanes[0].bottom.filter(
+    (champion) =>
+      champion.championName !== jungleChampion.championName &&
+      topChampion.championName &&
+      midChampion.championName,
+  );
+  const bottomIndex = Math.floor(Math.random() * bottom.length);
+  const bottomChampion = bottom[bottomIndex];
 
-  return { topChampions, jungleChampions, midChampions, bottomChampions, supportChampions };
+  const support = lanes[0].support.filter(
+    (champion) =>
+      champion.championName !== jungleChampion.championName &&
+      topChampion.championName &&
+      midChampion.championName &&
+      bottomChampion.championName,
+  );
+  const supportIndex = Math.floor(Math.random() * support.length);
+  const supportChampion = support[supportIndex];
+
+  return { topChampion, jungleChampion, midChampion, bottomChampion, supportChampion };
 };

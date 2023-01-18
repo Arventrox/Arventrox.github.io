@@ -2,11 +2,7 @@ import React, { FC } from 'react';
 import style from './Header.module.scss';
 import lolIcon from '../../../assets/images/lol_icon.png';
 
-type props = {
-  chosen: string | null;
-};
-
-const Header: FC<props> = ({ chosen }) => {
+const Header: FC = () => {
   const refreshHandler = () => {
     window.location.reload();
   };
@@ -18,7 +14,6 @@ const Header: FC<props> = ({ chosen }) => {
       </div>
       <div className={style.header_text}>
         <h1>League of Legends Randomizer</h1>
-        {chosen && <h2>Game mode: {chosen}</h2>}
       </div>
     </header>
   );

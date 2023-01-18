@@ -19,14 +19,14 @@ const Player: FC<Tplayer> = ({ playerChampion, playerName, playerRole }) => {
   useEffect(() => {
     setTimeout(() => {
       setIsLoadingRole(false);
-    }, 1000);
+    }, 500);
   }, []);
 
   useEffect(() => {
     if (!isLoadingRole) {
       setTimeout(() => {
         setIsLoadingChampion(false);
-      }, 1000);
+      }, 500);
     }
   }, [isLoadingRole]);
 
@@ -42,7 +42,6 @@ const Player: FC<Tplayer> = ({ playerChampion, playerName, playerRole }) => {
     setReroll(randomChampionByRole);
   };
 
-  // const imgss = !isLoadingChampion ? style.loaded : '';
   return (
     <div className={style.container}>
       <div className={style.img_container}>

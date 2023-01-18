@@ -1,7 +1,7 @@
 {
   "lanes": [
     {
-      "topChampions": [
+      "top": [
         {
           "championName": "Aatrox",
           "championImage_url": "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Aatrox_0.jpg"

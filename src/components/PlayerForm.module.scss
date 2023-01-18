@@ -11,6 +11,12 @@
   align-items: center;
   flex-direction: column;
   padding: 2.5rem;
+  position: relative;
+  top: -4rem;
+
+  input {
+    color: black;
+  }
 
   .remove__btn {
     width: 2rem;

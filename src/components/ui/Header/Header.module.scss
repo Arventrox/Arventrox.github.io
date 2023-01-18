@@ -1,7 +1,7 @@
 header {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  height: 100px;
+  min-height: 90px;
   text-align: center;
   background-color: rgb(0, 0, 0); /* Fallback color */
   background-color: rgba(0, 0, 0, 0.5); /* Black w/opacity/see-through */
@@ -35,7 +35,10 @@ header {
 
   .header_text {
     grid-column: 2/4;
+    display: flex;
+    justify-content: center;
     margin-bottom: 0.4rem;
+    align-items: center;
   }
   h1 {
     margin: 1rem 0 0.5rem 0;
