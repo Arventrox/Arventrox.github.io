@@ -1,25 +1,42 @@
-import React, { type FC, Dispatch, useState, useEffect } from 'react';
+import React, { type FC, Dispatch, useEffect } from 'react';
 import { type Tplayers } from '../types/player.type';
 import { getRandomChampionByRole } from './Role';
 import style from './PlayerForm.module.scss';
-import FooterButton from './ui/button/FooterButton';
 import PlayerSelect from './PlayerSelect';
+import Banner from './ui/Banner/Banner';
 
-type Iprops = {
+interface Props {
   playersNumber: number;
   setPlayers: Dispatch<React.SetStateAction<Tplayers>>;
   setPlayersNumber: Dispatch<React.SetStateAction<number>>;
-};
+  playerInputs: string[];
+  setPlayerInputs: React.Dispatch<React.SetStateAction<string[]>>;
+}
 
-const NameInput: FC<Iprops> = ({ playersNumber, setPlayers, setPlayersNumber }) => {
-  const [playerInputs, setPlayerInputs] = useState<string[]>([]);
-
+const NameInput: FC<Props> = ({
+  playersNumber,
+  setPlayers,
+  setPlayersNumber,
+  playerInputs,
+  setPlayerInputs,
+}) => {
   useEffect(() => {
-    const inputsList: string[] = [];
+    const inputsList: string[] = [...playerInputs];
 
-    for (let i = 0; i < playersNumber; i++) {
-      inputsList.push(`Summoner ${i + 1}`);
+    for (let i = 1; i <= playersNumber; i++) {
+      if (inputsList.length < i) {
+        inputsList.push(`Summoner ${i}`);
+      }
     }
+
+    for (let i = 5; i > playersNumber; i--) {
+      if (inputsList.length > playersNumber) {
+        const reversedInputsList = inputsList.reverse();
+        const indexOfLast = reversedInputsList.find((el) => el.includes('' || 'Summoner'), 1);
+        inputsList.reverse().splice(inputsList.lastIndexOf(indexOfLast || ''), 1);
+      }
+    }
+
     setPlayerInputs(inputsList);
   }, [playersNumber]);
 
@@ -30,11 +47,23 @@ const NameInput: FC<Iprops> = ({ playersNumber, setPlayers, setPlayersNumber }) 
     setPlayerInputs(newInputs);
   };
 
-  const removeplayerNameHandler = (index: number, e: React.FormEvent) => {
+  const clearNameHandler = (e: React.FormEvent, index: number) => {
+    let { value } = e.target as HTMLInputElement;
+    const newInputs = [...playerInputs];
+
+    if (newInputs[index].includes('Summoner')) {
+      value = '';
+    }
+
+    newInputs[index] = value;
+    setPlayerInputs(newInputs);
+  };
+
+  const removePlayerNameHandler = (index: number, e: React.FormEvent) => {
     e.preventDefault();
     const newInputs = [...playerInputs];
     newInputs.splice(index, 1);
-    setPlayersNumber(playersNumber - 1);
+    setPlayersNumber(newInputs.length);
     setPlayerInputs(newInputs);
   };
 
@@ -56,42 +85,55 @@ const NameInput: FC<Iprops> = ({ playersNumber, setPlayers, setPlayersNumber }) 
     }
 
     setPlayers(playerList);
-    setPlayerInputs([]);
+    setPlayerInputs(['Summoner 1']);
   };
 
   return (
-    <div className={style.form_container}>
-      <div></div>
-      <PlayerSelect
-        playersNumber={playersNumber}
-        setPlayersNumber={setPlayersNumber}
-        setPlayers={setPlayers}
-      />
-      <form>
-        {playerInputs.map((singleInput, index) => (
-          <div className={style.form_input__container} key={index}>
-            {/* <img src={questionMark} alt='none' /> */}
-            <input
-              type='text'
-              id='playersName'
-              value={singleInput}
-              onChange={(e) => {
-                playerNameHandler(e, index);
-              }}
-            />
-            <button
-              className={style.remove__btn}
-              onClick={(e) => {
-                removeplayerNameHandler(index, e);
-              }}
-            >
-              <span className={style.hover_text}>Remove this player</span>
-            </button>
-          </div>
-        ))}
+    <div className={style.container}>
+      <Banner />
+      <div className={style.form_container}>
+        <PlayerSelect setPlayersNumber={setPlayersNumber} setPlayers={setPlayers} />
+        <p>(Optional) Enter summoners names</p>
+        <form onSubmit={submitHandler}>
+          {playerInputs.map((singleInput, index) => (
+            <div className={style.input_container} key={index}>
+              <div className={style.input_container__box}>
+                {playerInputs[index] === '' && <label htmlFor='player'>Name :</label>}
+                <input
+                  type='text'
+                  id='playersName'
+                  value={singleInput}
+                  onClick={(e) => {
+                    clearNameHandler(e, index);
+                  }}
+                  onChange={(e) => {
+                    playerNameHandler(e, index);
+                  }}
+                />
+              </div>
 
-        {playerInputs.length !== 0 && <FooterButton onClick={submitHandler}>Submit</FooterButton>}
-      </form>
+              <button
+                className={style.remove__btn}
+                onClick={(e) => {
+                  removePlayerNameHandler(index, e);
+                }}
+              >
+                <span className={style.hover_text}>Remove this player</span>
+              </button>
+            </div>
+          ))}
+
+          {playerInputs.length !== 0 ? (
+            !playerInputs.includes('') ? (
+              <button>Submit</button>
+            ) : (
+              <p>Not all summoners have a name</p>
+            )
+          ) : (
+            <p>No summoners are selected</p>
+          )}
+        </form>
+      </div>
     </div>
   );
 };

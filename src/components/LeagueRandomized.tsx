@@ -1,44 +1,44 @@
 import React, { useState } from 'react';
 import Normal from './Normal';
-import style from './LegueRandomizer.module.scss';
+import style from './LeagueRandomized.module.scss';
 import Header from './ui/Header/Header';
 import Footer from './ui/Footer/Footer';
+
 import normalActiveIcon from '../assets/images/game-icon-normal-hover.png';
 import normalDefaultIcon from '../assets/images/game-icon-normal-default.png';
-
 import aramActiveIcon from '../assets/images/game-icon-aram-hover.png';
-import aramlDefaultIcon from '../assets/images/game-icon-aram-default.png';
-
+import aramDefaultIcon from '../assets/images/game-icon-aram-default.png';
 import urfActiveIcon from '../assets/images/game-icon-urf-hover.png';
 import urfDefaultIcon from '../assets/images/game-icon-urf-default.png';
 
-const NORMAL = 'SR NORMAL';
-const ARAM = 'HA ARAM';
-const URF = 'SR URF';
+export const NORMAL = 'SR NORMAL';
+export const ARAM = 'HA ARAM';
+export const URF = 'SR URF';
 
-const LegueRandomizer = () => {
+const LeagueRandomized = () => {
   const [chosen, setChosen] = useState<string | null>('');
-  const [isInputFocused, setIsInputFocused] = useState(false);
+  const [isInputFocused, setIsInputFocused] = useState(true);
   const [isNormalChecked, setIsNormalChecked] = useState(true);
   const [isAramChecked, setIsAramChecked] = useState(true);
   const [isUrfChecked, setIsUrfChecked] = useState(false);
+  const [playerInputs, setPlayerInputs] = useState<string[]>(['Summoner 1']);
 
   let background;
-  let icon;
+  let gameModeIcon;
   const gameMode: string[] = [];
 
   switch (chosen) {
     case NORMAL:
       background = style.normal;
-      icon = normalActiveIcon;
+      gameModeIcon = normalActiveIcon;
       break;
     case ARAM:
       background = style.aram;
-      icon = aramActiveIcon;
+      gameModeIcon = aramActiveIcon;
 
       break;
     case URF:
-      icon = urfActiveIcon;
+      gameModeIcon = urfActiveIcon;
       background = style.urf;
       break;
     default:
@@ -59,6 +59,8 @@ const LegueRandomizer = () => {
   };
 
   const randomModeHandler = () => {
+    setChosen(null);
+
     if (isAramChecked === true) {
       gameMode.push(ARAM);
     }
@@ -68,9 +70,9 @@ const LegueRandomizer = () => {
     if (isNormalChecked === true) {
       gameMode.push(NORMAL);
     }
-    setChosen(null);
-    const chosenGamemode = gameMode[Math.floor(Math.random() * gameMode.length)];
-    setChosen(chosenGamemode);
+
+    const chosenGameMode = gameMode[Math.floor(Math.random() * gameMode.length)];
+    setChosen(chosenGameMode);
   };
 
   return (
@@ -82,13 +84,13 @@ const LegueRandomizer = () => {
             <button onClick={() => setChosen('')}>
               <span className={style.hover_text}>Change Mode</span>
             </button>
-            <img src={icon}></img>
+            <img src={gameModeIcon}></img>
             <h2>Game mode: {chosen}</h2>
           </div>
         )}
         {!chosen && (
-          <div className={style.gamemode_container}>
-            <div className={style.gamemode_container__box}>
+          <div className={style.gameMode_container}>
+            <div className={style.gameMode_container__box}>
               <img src={isNormalChecked ? normalActiveIcon : normalDefaultIcon} />
               <label>{"SUMMONER'S RIFT"}</label>
               <div className={style.checkbox}>
@@ -99,8 +101,8 @@ const LegueRandomizer = () => {
                 />
               </div>
             </div>
-            <div className={style.gamemode_container__box}>
-              <img src={isAramChecked ? aramActiveIcon : aramlDefaultIcon} />
+            <div className={style.gameMode_container__box}>
+              <img src={isAramChecked ? aramActiveIcon : aramDefaultIcon} />
               <label>ARAM</label>
               <div className={style.checkbox}>
                 <input
@@ -110,7 +112,7 @@ const LegueRandomizer = () => {
                 />
               </div>
             </div>
-            <div className={style.gamemode_container__box}>
+            <div className={style.gameMode_container__box}>
               <img src={isUrfChecked ? urfActiveIcon : urfDefaultIcon} />
               <label>URF</label>
               <div className={style.checkbox}>
@@ -119,19 +121,23 @@ const LegueRandomizer = () => {
             </div>
           </div>
         )}
-        {chosen === NORMAL && <Normal />}
+        {chosen === NORMAL && (
+          <Normal playerInputs={playerInputs} setPlayerInputs={setPlayerInputs} />
+        )}
         {chosen === ARAM && <p>Aram</p>}
         {chosen === URF && <p>URF</p>}
       </section>
+
       <Footer
         isInputFocused={isInputFocused}
         setIsInputFocused={setIsInputFocused}
         chosen={chosen}
         randomModeHandler={randomModeHandler}
         gameMode={gameMode}
+        setChatInput={setPlayerInputs}
       />
     </div>
   );
 };
 
-export default LegueRandomizer;
+export default LeagueRandomized;

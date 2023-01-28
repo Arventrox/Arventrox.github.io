@@ -1,39 +1,38 @@
-import React, { FC } from 'react';
+import React, { FC, useState } from 'react';
 import { Tplayers } from '../types/player.type';
 import style from './PlayerSelect.module.scss';
 
-type Tprops = {
-  playersNumber: number;
+interface Props {
   setPlayersNumber: React.Dispatch<React.SetStateAction<number>>;
   setPlayers: React.Dispatch<React.SetStateAction<Tplayers>>;
-};
+}
 
-const SelectNumberOfPlayers: FC<Tprops> = ({ playersNumber, setPlayersNumber, setPlayers }) => {
-  const options: number[] = [];
+const SelectNumberOfPlayers: FC<Props> = ({ setPlayersNumber, setPlayers }) => {
+  const [activeButton, setActiveButton] = useState(1);
+  const options = [];
 
   for (let i = 1; i <= 5; i++) {
-    options.push(i);
+    options.push(
+      <button
+        key={i}
+        value={i}
+        className={i === activeButton ? style.button_clicked : ''}
+        onClick={(e: React.FormEvent) => {
+          setPlayersNumber(+(e.target as HTMLInputElement).value);
+          setActiveButton(i);
+          setPlayers([]);
+        }}
+      >
+        {i}
+      </button>,
+    );
   }
 
-  const chosenNumberPlayers = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    event.preventDefault();
-    setPlayersNumber(+event.target.value);
-    setPlayers([]);
-  };
-
   return (
-    <>
-      <span className={style.container}>
-        <label>Choose a number of players</label>
-        <select value={playersNumber} onChange={chosenNumberPlayers} id='numberOfPlayers'>
-          {options.map((option) => (
-            <option key={option} value={option}>
-              {option}
-            </option>
-          ))}
-        </select>
-      </span>
-    </>
+    <div className={style.container}>
+      <p>Select the number of players</p>
+      <div>{options}</div>
+    </div>
   );
 };
 

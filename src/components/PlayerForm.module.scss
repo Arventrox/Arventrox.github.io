@@ -1,38 +1,78 @@
 @import '../assets/mixins.scss';
 
-.form_container {
-  background-image: url('../assets/images/banner2.png');
-  background-repeat: no-repeat;
-  background-size: contain;
+.container {
   background-position-x: center;
-  width: 60%;
-  height: 100%;
+  background-color: white;
+  border: 3px solid #574c35;
+  width: 55%;
+  max-height: 26rem;
+  height: 26rem;
   display: flex;
   align-items: center;
-  flex-direction: column;
   padding: 2.5rem;
   position: relative;
-  top: -4rem;
+  top: -1.5rem;
 
-  input {
-    color: black;
-  }
+  .form_container {
+    width: 50%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    p {
+      color: black;
+      margin: 0.5rem;
+    }
+    form {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      flex-direction: column;
 
-  .remove__btn {
-    width: 2rem;
-    height: 2rem;
-    border-radius: 50%;
-    border: 2px solid #574c35;
-    background-color: #1f2229;
-    background-image: url(../assets/images/cancel-button.png);
-    background-size: 85%;
-    background-repeat: no-repeat;
-    background-position: center;
-    @include hoverBox();
+      .input_container {
+        border-radius: 5px;
+        display: flex;
+        background-color: rgb(237, 237, 237);
+        border: 1px solid #574c35;
+        margin: 0.8rem 4rem;
+        justify-content: center;
+        align-items: center;
 
-    &:hover {
-      cursor: pointer;
-      z-index: 1000;
+        .input_container__box {
+          display: flex;
+          flex-direction: column;
+          margin-left: 0.5rem;
+
+          label {
+            color: grey;
+            font-size: 0.8rem;
+            position: relative;
+          }
+
+          input {
+            color: black;
+            background-color: transparent;
+          }
+        }
+
+        .remove__btn {
+          width: 2rem;
+          height: 2rem;
+          background-image: url(../assets/images/button_close.png);
+          border: none;
+          background-size: contain;
+          background-repeat: no-repeat;
+          background-position: center;
+          margin-left: 3rem;
+          @include hoverBox();
+
+          &:hover {
+            cursor: pointer;
+            background-image: url(../assets/images/button_close_hover.png);
+            z-index: 1000;
+          }
+        }
+      }
     }
   }
 }

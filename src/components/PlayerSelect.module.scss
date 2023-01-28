@@ -1,5 +1,26 @@
 .container {
-  z-index: 10;
   background-color: rgba(0, 0, 0, 0.143);
   border: 1px solid white;
+  display: flex;
+  flex-direction: column;
+  height: 2rem;
+  align-items: center;
+  margin-bottom: 2em;
+
+  button {
+    height: 100%;
+    margin: 0 -0.1px;
+    background-color: white;
+    border: 1px solid #574c35;
+    color: #574c35;
+
+    &:hover {
+      background-color: #574c35;
+      color: white;
+    }
+  }
+  .button_clicked {
+    background-color: #574c35;
+    color: white;
+  }
 }

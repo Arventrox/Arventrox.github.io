@@ -1,10 +1,10 @@
 import React from 'react';
-import LegueRandomizer from './components/LegueRandomizer';
+import LeagueRandomized from './components/LeagueRandomized';
 
 function App() {
   return (
     <>
-      <LegueRandomizer />
+      <LeagueRandomized />
     </>
   );
 }

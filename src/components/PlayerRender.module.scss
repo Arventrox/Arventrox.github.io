@@ -33,22 +33,41 @@
       image-rendering: pixelated;
       will-change: contents;
     }
+
     .loaded {
       opacity: 1;
     }
   }
 
-  .reroll__button {
+  .role_container {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+  }
+
+  button {
     border-radius: 50%;
     background-color: #1f2229;
-    background-image: url('../assets/images/circular-arrows-svgrepo-com.svg');
-    background-size: 90%;
+    background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
     width: 2rem;
     height: 2rem;
     border: 2px solid #574c35;
-
     @include hoverBox();
+
+    &:active {
+      background-image: url('../assets/images/button-reroll-click.png');
+    }
+  }
+  .reroll_button__active {
+    background-image: url('../assets/images/button-reroll.png');
+
+    &:hover {
+      background-image: url('../assets/images/button-reroll-hover.png');
+    }
+  }
+  .reroll_button__disabled {
+    background-image: url('../assets/images/button-reroll-disabled.png');
   }
 }

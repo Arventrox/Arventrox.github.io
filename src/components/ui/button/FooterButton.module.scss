@@ -1,67 +1,27 @@
-.footerBtn {
-  width: 250px;
-  height: 60px;
-  border: none;
-  //box-shadow
-  box-shadow: 0px 0px 0px 2px rgba(23, 137, 145, 1) inset;
-  -webkit-box-shadow: 0px 0px 0px 2px rgba(23, 137, 145, 1) inset;
-  -moz-box-shadow: 0px 0px 0px 2px rgba(23, 137, 145, 1) inset;
-  border-radius: 0% 0 70% 70%;
-  -webkit-clip-path: polygon(15% 0, 85% 0, 100% 100%, 0% 100%);
-  clip-path: polygon(15% 0, 85% 0, 100% 100%, 0% 100%);
-  //background
-  background: rgb(22, 45, 67);
-  background: -moz-linear-gradient(
-    -45deg,
-    rgba(22, 45, 67, 1) 4%,
-    rgba(21, 71, 94, 1) 24%,
-    rgba(21, 71, 94, 1) 24%,
-    rgba(21, 89, 112, 1) 28%,
-    rgba(23, 59, 81, 1) 36%,
-    rgba(21, 71, 94, 1) 64%,
-    rgba(22, 94, 114, 1) 69%,
-    rgba(22, 68, 92, 1) 75%,
-    rgba(19, 73, 95, 1) 84%,
-    rgba(34, 87, 107, 1) 87%,
-    rgba(15, 71, 92, 1) 100%
-  ); /* FF3.6-15 */
+.video_container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
-  background: -webkit-linear-gradient(
-    -45deg,
-    rgba(22, 45, 67, 1) 4%,
-    rgba(21, 71, 94, 1) 24%,
-    rgba(21, 71, 94, 1) 24%,
-    rgba(21, 89, 112, 1) 28%,
-    rgba(23, 59, 81, 1) 36%,
-    rgba(21, 71, 94, 1) 64%,
-    rgba(22, 94, 114, 1) 69%,
-    rgba(22, 68, 92, 1) 75%,
-    rgba(19, 73, 95, 1) 84%,
-    rgba(34, 87, 107, 1) 87%,
-    rgba(15, 71, 92, 1) 100%
-  ); /* Chrome10-25,Safari5.1-6 */
+  .video {
+    position: absolute;
+    z-index: 10;
+    pointer-events: none;
+    opacity: 0.4;
+  }
 
-  background: linear-gradient(
-    135deg,
-    rgba(22, 45, 67, 1) 4%,
-    rgba(21, 71, 94, 1) 24%,
-    rgba(21, 71, 94, 1) 24%,
-    rgba(21, 89, 112, 1) 28%,
-    rgba(23, 59, 81, 1) 36%,
-    rgba(21, 71, 94, 1) 64%,
-    rgba(22, 94, 114, 1) 69%,
-    rgba(22, 68, 92, 1) 75%,
-    rgba(19, 73, 95, 1) 84%,
-    rgba(34, 87, 107, 1) 87%,
-    rgba(15, 71, 92, 1) 100%
-  ); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
-  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#162d43', endColorstr='#0f475c',GradientType=1 );
+  .footerBtn {
+    width: 13rem;
+    min-height: 3rem;
+    border: none;
+    background-image: url('../../../assets/images/button-lockin.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-color: transparent;
+    background-position: center;
 
-  //button hover
-  &:hover {
-    color: rgba(33, 198, 210, 1);
-    box-shadow: 0px 0px 0px 2px rgb(255, 255, 255) inset;
-    -webkit-box-shadow: 0px 0px 0px 2px rgb(255, 255, 255) inset;
-    -moz-box-shadow: 0px 0px 0px 2px rgb(255, 255, 255) inset;
+    &:hover {
+      background-image: url('../../../assets/images/button-lockin-hover.png');
+    }
   }
 }

@@ -1,26 +1,12 @@
 .loader {
-  margin: 10px 0;
-  width: 30px;
-  height: 30px;
-  border: 2px solid #574c35;
-  border-radius: 50%;
-  display: inline-block;
-  position: relative;
-  box-sizing: border-box;
-  animation: rotation 1s linear infinite;
-}
-.loader::after {
-  content: '';
-  box-sizing: border-box;
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-  width: 18px;
-  height: 18px;
-  border-radius: 50%;
-  border: 3px solid;
-  border-color: #fff transparent;
+  img {
+    margin: 10px 0;
+    animation: rotation 1s linear infinite;
+    width: 30px;
+    display: inline-block;
+    box-sizing: border-box;
+    height: 30px;
+  }
 }
 
 @keyframes rotation {

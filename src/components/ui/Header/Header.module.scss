@@ -1,10 +1,10 @@
 header {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  min-height: 90px;
+  min-height: 4.5rem;
   text-align: center;
   background-color: rgb(0, 0, 0); /* Fallback color */
-  background-color: rgba(0, 0, 0, 0.5); /* Black w/opacity/see-through */
+  background-color: rgba(0, 0, 0, 0.819);
   box-shadow: 0 3px 5px rgba(0, 0, 0, 0.3);
   border: 2px solid #484a4c;
   z-index: 10;

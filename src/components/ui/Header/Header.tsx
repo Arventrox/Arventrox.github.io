@@ -13,7 +13,7 @@ const Header: FC = () => {
         <button onClick={refreshHandler}>Home</button>
       </div>
       <div className={style.header_text}>
-        <h1>League of Legends Randomizer</h1>
+        <h1>League of Legends Randomized</h1>
       </div>
     </header>
   );

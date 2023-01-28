@@ -4,8 +4,8 @@ export const generateRandomChampions = () => {
   const { lanes } = championData;
 
   const top = lanes[0].top;
-  const topindex = Math.floor(Math.random() * top.length);
-  const topChampion = top[topindex];
+  const topIndex = Math.floor(Math.random() * top.length);
+  const topChampion = top[topIndex];
 
   const jungle = lanes[0].jungle.filter(
     (champion) => champion.championName !== topChampion.championName,
