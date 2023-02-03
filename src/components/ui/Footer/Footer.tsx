@@ -25,6 +25,7 @@ const Footer: FC<Props> = ({
         isInputFocused={isInputFocused}
         setIsInputFocused={setIsInputFocused}
         setChatInput={setChatInput}
+        chosen={chosen}
       />
       {chosen !== NORMAL && chosen && (
         <FooterButton onClick={randomModeHandler}>Choose Again</FooterButton>

@@ -1,4 +1,4 @@
-import React, { type FC, Dispatch, useEffect } from 'react';
+import React, { type FC, Dispatch, useEffect, useState } from 'react';
 import { type Tplayers } from '../types/player.type';
 import { getRandomChampionByRole } from './Role';
 import style from './PlayerForm.module.scss';
@@ -20,6 +20,7 @@ const NameInput: FC<Props> = ({
   playerInputs,
   setPlayerInputs,
 }) => {
+  const [isButtonClicked, setIsButtonClicked] = useState(false);
   useEffect(() => {
     const inputsList: string[] = [...playerInputs];
 
@@ -91,49 +92,55 @@ const NameInput: FC<Props> = ({
   return (
     <div className={style.container}>
       <Banner />
-      <div className={style.form_container}>
-        <PlayerSelect setPlayersNumber={setPlayersNumber} setPlayers={setPlayers} />
-        <p>(Optional) Enter summoners names</p>
-        <form onSubmit={submitHandler}>
-          {playerInputs.map((singleInput, index) => (
-            <div className={style.input_container} key={index}>
-              <div className={style.input_container__box}>
-                {playerInputs[index] === '' && <label htmlFor='player'>Name :</label>}
-                <input
-                  type='text'
-                  id='playersName'
-                  value={singleInput}
+      {!isButtonClicked ? (
+        <div className={style.form_container}>
+          <p>Paste champions in chat or </p>
+          <button onClick={() => setIsButtonClicked(true)}>Expand</button>
+        </div>
+      ) : (
+        <div className={style.form_container}>
+          <PlayerSelect setPlayersNumber={setPlayersNumber} setPlayers={setPlayers} />
+          <form onSubmit={submitHandler}>
+            {playerInputs.map((singleInput, index) => (
+              <div className={style.input_container} key={index}>
+                <div className={style.input_container__box}>
+                  {playerInputs[index] === '' && <label htmlFor='player'>Name :</label>}
+                  <input
+                    type='text'
+                    id='playersName'
+                    value={singleInput}
+                    onClick={(e) => {
+                      clearNameHandler(e, index);
+                    }}
+                    onChange={(e) => {
+                      playerNameHandler(e, index);
+                    }}
+                  />
+                </div>
+
+                <button
+                  className={style.remove__btn}
                   onClick={(e) => {
-                    clearNameHandler(e, index);
+                    removePlayerNameHandler(index, e);
                   }}
-                  onChange={(e) => {
-                    playerNameHandler(e, index);
-                  }}
-                />
+                >
+                  <span className={style.hover_text}>Remove this player</span>
+                </button>
               </div>
+            ))}
 
-              <button
-                className={style.remove__btn}
-                onClick={(e) => {
-                  removePlayerNameHandler(index, e);
-                }}
-              >
-                <span className={style.hover_text}>Remove this player</span>
-              </button>
-            </div>
-          ))}
-
-          {playerInputs.length !== 0 ? (
-            !playerInputs.includes('') ? (
-              <button>Submit</button>
+            {playerInputs.length !== 0 ? (
+              !playerInputs.includes('') ? (
+                <button>Submit</button>
+              ) : (
+                <p>Not all summoners have a name</p>
+              )
             ) : (
-              <p>Not all summoners have a name</p>
-            )
-          ) : (
-            <p>No summoners are selected</p>
-          )}
-        </form>
-      </div>
+              <p>No summoners are selected</p>
+            )}
+          </form>
+        </div>
+      )}
     </div>
   );
 };

@@ -14,6 +14,7 @@ const Normal: FC<Props> = ({ playerInputs, setPlayerInputs }) => {
   const [playersNumber, setPlayersNumber] = useState(playerInputs.length);
   const [players, setPlayers] = useState<Tplayers>([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [currentPlayerIndex, setCurrentPlayerIndex] = useState(1);
 
   useEffect(() => {
     setTimeout(() => {
@@ -38,14 +39,19 @@ const Normal: FC<Props> = ({ playerInputs, setPlayerInputs }) => {
       )}
 
       <div className={style.players}>
-        {players.map((_, index) => (
-          <Player
-            key={index}
-            playerName={players[index].playerName}
-            playerRole={players[index].playerRole}
-            playerChampion={players[index].playerChampion}
-          />
-        ))}
+        {players.map(
+          (_, index) =>
+            currentPlayerIndex > index && (
+              <Player
+                key={index}
+                playerName={players[index].playerName}
+                playerRole={players[index].playerRole}
+                playerChampion={players[index].playerChampion}
+                setCurrentPlayerIndex={setCurrentPlayerIndex}
+                currentPlayerIndex={currentPlayerIndex}
+              />
+            ),
+        )}
       </div>
     </>
   );

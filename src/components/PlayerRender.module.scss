@@ -10,7 +10,8 @@
   background-repeat: no-repeat;
   margin-left: 15px;
   padding-top: 13rem;
-
+  position: relative;
+  animation: anim_transition 1s;
   p {
     width: 155px;
     border-bottom: 1px solid #574c35;
@@ -69,5 +70,17 @@
   }
   .reroll_button__disabled {
     background-image: url('../assets/images/button-reroll-disabled.png');
+  }
+}
+
+@keyframes anim_transition {
+  from {
+    top: -10rem;
+    opacity: 0;
+  }
+
+  to {
+    top: 0rem;
+    opacity: 1;
   }
 }

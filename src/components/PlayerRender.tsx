@@ -1,4 +1,4 @@
-import React, { FC, useState, FormEvent, useEffect } from 'react';
+import React, { FC, Dispatch, SetStateAction, useState, FormEvent, useEffect } from 'react';
 import style from './PlayerRender.module.scss';
 import { getRandomChampionByRole } from './Role';
 import LoadingSpinner from './ui/LoadingSpinner/LoadingSpinner';
@@ -13,13 +13,23 @@ interface Props {
   playerName: string | string[];
   playerRole: string;
   playerChampion: { championName: string; championImage_url: string };
+  setCurrentPlayerIndex: Dispatch<SetStateAction<number>>;
+  currentPlayerIndex: number;
 }
 
-const Player: FC<Props> = ({ playerChampion, playerName, playerRole }) => {
+const Player: FC<Props> = ({
+  playerChampion,
+  playerName,
+  playerRole,
+  setCurrentPlayerIndex,
+  currentPlayerIndex,
+}) => {
   const [reroll, setReroll] = useState({ championName: '', championImage_url: '' });
   const [rerollCounter, setRerollCounter] = useState(2);
   const [isLoadingRole, setIsLoadingRole] = useState(true);
   const [isLoadingChampion, setIsLoadingChampion] = useState(true);
+  const [isRoleButtonClicked, setIsRoleButtonClicked] = useState(false);
+  const [isChampionButtonClicked, setIsChampionButtonClicked] = useState(false);
 
   const { championName, championImage_url } = playerChampion;
   let roleImg;
@@ -27,14 +37,14 @@ const Player: FC<Props> = ({ playerChampion, playerName, playerRole }) => {
   useEffect(() => {
     setTimeout(() => {
       setIsLoadingRole(false);
-    }, 500);
+    }, 1800);
   }, []);
 
   useEffect(() => {
     if (!isLoadingRole) {
       setTimeout(() => {
         setIsLoadingChampion(false);
-      }, 500);
+      }, 1800);
     }
   }, [isLoadingRole]);
 
@@ -58,6 +68,14 @@ const Player: FC<Props> = ({ playerChampion, playerName, playerRole }) => {
       roleImg = support;
       break;
   }
+  const roleButtonHandler = () => {
+    setIsRoleButtonClicked(true);
+  };
+
+  const championButtonHandler = () => {
+    setIsChampionButtonClicked(true);
+    setCurrentPlayerIndex(currentPlayerIndex + 1);
+  };
 
   const rerollHandler = (event: FormEvent) => {
     event.preventDefault();
@@ -82,7 +100,10 @@ const Player: FC<Props> = ({ playerChampion, playerName, playerRole }) => {
         />
       </div>
       <p>Name: {playerName}</p>
-      {isLoadingRole ? (
+
+      {!isRoleButtonClicked ? (
+        <button onClick={roleButtonHandler}>Roll Role</button>
+      ) : isLoadingRole ? (
         <LoadingSpinner />
       ) : (
         <span className={style.role_container}>
@@ -90,19 +111,35 @@ const Player: FC<Props> = ({ playerChampion, playerName, playerRole }) => {
           <p>Role: {playerRole}</p>
         </span>
       )}
-      {isLoadingChampion ? (
-        <LoadingSpinner />
+
+      {isRoleButtonClicked && !isChampionButtonClicked ? (
+        <button onClick={championButtonHandler}>Roll champion</button>
       ) : (
-        <p>Champion: {reroll.championName ? reroll.championName : championName}</p>
+        ''
       )}
-      {!isLoadingChampion && (
-        <button
-          className={rerollCounter ? style.reroll_button__active : style.reroll_button__disabled}
-          onClick={rerollHandler}
-        >
-          <span className={style.hover_text}>You have {rerollCounter} rerolls left </span>
-        </button>
+
+      {isChampionButtonClicked ? (
+        isLoadingChampion ? (
+          <LoadingSpinner />
+        ) : (
+          <p>Champion: {reroll.championName ? reroll.championName : championName}</p>
+        )
+      ) : (
+        ''
       )}
+
+      {isChampionButtonClicked
+        ? !isLoadingChampion && (
+            <button
+              className={
+                rerollCounter ? style.reroll_button__active : style.reroll_button__disabled
+              }
+              onClick={rerollHandler}
+            >
+              <span className={style.hover_text}>You have {rerollCounter} rerolls left </span>
+            </button>
+          )
+        : ''}
     </div>
   );
 };

@@ -1,49 +1,129 @@
 .chat_container {
-  z-index: 3000;
-  display: flex;
-  flex-direction: column-reverse;
-  position: absolute;
-  left: 2%;
-  max-width: 18.4rem;
-  color: white;
-  background-color: #010a13;
-  border: 1px solid #838376;
-  bottom: 1.5rem;
+  $borderColor: #6c5d2a;
 
-  form {
-    input {
-      width: 18rem;
-      background-color: #010a13;
-      border: 1px solid #838376;
-      text-align: left;
-      height: 1.8rem;
-      scroll-behavior: smooth;
+  display: flex;
+  align-items: flex-end;
+  position: absolute;
+  bottom: 1.5rem;
+  left: 2%;
+  z-index: 3000;
+  border: 1px solid $borderColor;
+  background-color: #010a13;
+  justify-content: center;
+  flex-direction: column-reverse;
+  max-width: 20rem;
+
+  .chat_subcontainer {
+    display: flex;
+
+    color: white;
+
+    form {
+      input {
+        width: 18rem;
+        box-sizing: border-box;
+        background-color: #010a13;
+        border-top: 1px solid $borderColor;
+        text-align: left;
+        height: 1.8rem;
+        scroll-behavior: smooth;
+
+        &:focus {
+          outline: none;
+          background-color: #0e171e;
+        }
+      }
+    }
+
+    img {
+      width: 2rem;
+      min-height: 1.8rem;
+      border: 1px solid $borderColor;
+      border-left: none;
+      border-bottom: 0;
+      box-sizing: border-box;
+      width: 100%;
+      height: 100%;
     }
   }
 
-  ul {
-    height: 12rem;
-    display: flex;
-    flex-direction: column;
-    list-style-type: none;
-    padding: 0px 0px 30px 10px;
-    margin: 0;
-    overflow-y: scroll;
-    overflow-wrap: break-word;
-
-    .chat_default__text {
-      color: #838376;
-    }
+  .msg_box {
+    width: 100%;
+    animation: appear 0.5s;
+    position: relative;
 
     button {
-      align-self: flex-end;
       width: 15px;
       height: 15px;
       background: none;
-      border: 1px solid #838376;
+      border: 1px solid $borderColor;
       display: flex;
       justify-content: center;
       align-items: center;
+      position: absolute;
+      right: 0;
     }
+
+    ul {
+      height: 14rem;
+      list-style-type: none;
+      padding: 0;
+      margin: 15 0;
+      overflow-y: scroll;
+      overflow-wrap: break-word;
+      position: relative;
+
+      li {
+        overflow: hidden;
+        padding: 3px 10px;
+      }
+
+      .li_container {
+        border-bottom: 1px solid $borderColor;
+        padding-bottom: 15px;
+        text-align: center;
+
+        li {
+          color: #838376;
+          padding: 0;
+        }
+      }
+
+      .ref {
+        display: flow-root;
+        width: 1px;
+        height: 1px;
+      }
+    }
+
+    ::-webkit-scrollbar {
+      width: 5px;
+    }
+
+    ::-webkit-scrollbar-thumb {
+      border-radius: 10px;
+      background-color: #7a5c2a;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background-color: #e1b24b;
+    }
+
+    ::-webkit-scrollbar-thumb:active {
+      background-color: #3e3013;
+    }
+
+    ::-webkit-scrollbar-track {
+      border-radius: 10px;
+      background-color: none;
+    }
+  }
+}
+
+@keyframes appear {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
   }
 }
