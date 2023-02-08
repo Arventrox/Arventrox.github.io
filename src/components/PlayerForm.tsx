@@ -1,4 +1,4 @@
-import React, { type FC, Dispatch, useEffect, useState } from 'react';
+import React, { type FC, Dispatch, useEffect, useState, FormEvent } from 'react';
 import { type Tplayers } from '../types/player.type';
 import { getRandomChampionByRole } from './Role';
 import style from './PlayerForm.module.scss';
@@ -21,6 +21,7 @@ const NameInput: FC<Props> = ({
   setPlayerInputs,
 }) => {
   const [isButtonClicked, setIsButtonClicked] = useState(false);
+
   useEffect(() => {
     const inputsList: string[] = [...playerInputs];
 
@@ -68,20 +69,20 @@ const NameInput: FC<Props> = ({
     setPlayerInputs(newInputs);
   };
 
-  const submitHandler = (event: React.FormEvent) => {
-    event.preventDefault();
+  const formSubmitHandler = (event: FormEvent) => {
+    event?.preventDefault();
     const playerList = [];
     let lane = ['TOP', 'JUNGLE', 'MID', 'BOTTOM', 'SUPPORT'];
 
     for (let i = 0; i < playersNumber; i++) {
       const playerRole: string = lane[Math.floor(Math.random() * lane.length)];
-      const randomChampionByRole = getRandomChampionByRole(playerRole);
+      const playerChampion = getRandomChampionByRole(playerRole);
       lane = lane.filter((usedRole) => usedRole !== playerRole);
 
       playerList.push({
         playerName: playerInputs[i],
         playerRole,
-        playerChampion: randomChampionByRole,
+        playerChampion,
       });
     }
 
@@ -100,7 +101,7 @@ const NameInput: FC<Props> = ({
       ) : (
         <div className={style.form_container}>
           <PlayerSelect setPlayersNumber={setPlayersNumber} setPlayers={setPlayers} />
-          <form onSubmit={submitHandler}>
+          <form onSubmit={formSubmitHandler}>
             {playerInputs.map((singleInput, index) => (
               <div className={style.input_container} key={index}>
                 <div className={style.input_container__box}>

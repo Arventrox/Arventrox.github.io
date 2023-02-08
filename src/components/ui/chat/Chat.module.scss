@@ -88,6 +88,22 @@
           padding: 0;
         }
       }
+      .exampleButton_container {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 8px;
+
+        .exampleButton {
+          width: auto;
+          height: auto;
+          position: relative;
+          border: none;
+          border-bottom: 1px solid white;
+          display: flex;
+          font-size: 0.9rem;
+        }
+      }
 
       .ref {
         display: flow-root;

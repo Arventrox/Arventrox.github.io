@@ -1,23 +1,24 @@
-import React, { FC, MouseEventHandler, Dispatch, SetStateAction } from 'react';
+import React, { FC, Dispatch, SetStateAction } from 'react';
 import style from './Footer.module.scss';
 import FooterButton from '../button/FooterButton';
 import Chat from '../chat/Chat';
-import { NORMAL } from '../../LeagueRandomized';
+
 interface Props {
-  chosen: string | null;
-  randomModeHandler: MouseEventHandler<HTMLButtonElement>;
+  chosen: string | undefined;
+  randomModeHandler: () => void;
   isInputFocused: boolean;
   setIsInputFocused: Dispatch<SetStateAction<boolean>>;
-  gameMode: string[];
   setChatInput: Dispatch<SetStateAction<string[]>>;
+  // submitHandler: () => void;
 }
 
 const Footer: FC<Props> = ({
   chosen,
   isInputFocused,
   setIsInputFocused,
-  randomModeHandler,
   setChatInput,
+  // submitHandler,
+  randomModeHandler,
 }) => {
   return (
     <footer className={style.footer}>
@@ -27,12 +28,7 @@ const Footer: FC<Props> = ({
         setChatInput={setChatInput}
         chosen={chosen}
       />
-      {chosen !== NORMAL && chosen && (
-        <FooterButton onClick={randomModeHandler}>Choose Again</FooterButton>
-      )}
-      {!chosen && chosen !== NORMAL && (
-        <FooterButton onClick={randomModeHandler}>Choose Game mode</FooterButton>
-      )}
+      <FooterButton chosen={chosen} onClick={randomModeHandler} />
     </footer>
   );
 };

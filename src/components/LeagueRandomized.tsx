@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import Normal from './Normal';
+import SummonersRift from './SummonersRift';
 import style from './LeagueRandomized.module.scss';
 import Header from './ui/Header/Header';
 import Footer from './ui/Footer/Footer';
@@ -10,13 +10,14 @@ import aramActiveIcon from '../assets/images/game-icon-aram-hover.png';
 import aramDefaultIcon from '../assets/images/game-icon-aram-default.png';
 import urfActiveIcon from '../assets/images/game-icon-urf-hover.png';
 import urfDefaultIcon from '../assets/images/game-icon-urf-default.png';
+import HowlingAbyss from './HowlingAbyss';
 
 export const NORMAL = 'SR NORMAL';
 export const ARAM = 'HA ARAM';
 export const URF = 'SR URF';
 
 const LeagueRandomized = () => {
-  const [chosen, setChosen] = useState<string | null>('');
+  const [chosen, setChosen] = useState<string | undefined>();
   const [isInputFocused, setIsInputFocused] = useState(true);
   const [isNormalChecked, setIsNormalChecked] = useState(true);
   const [isAramChecked, setIsAramChecked] = useState(true);
@@ -59,19 +60,17 @@ const LeagueRandomized = () => {
   };
 
   const randomModeHandler = () => {
-    setChosen(null);
-
-    if (isAramChecked === true) {
+    if (isAramChecked && chosen !== ARAM) {
       gameMode.push(ARAM);
     }
-    if (isUrfChecked === true) {
+    if (isUrfChecked && chosen !== URF) {
       gameMode.push(URF);
     }
-    if (isNormalChecked === true) {
+    if (isNormalChecked && chosen !== NORMAL) {
       gameMode.push(NORMAL);
     }
-
     const chosenGameMode = gameMode[Math.floor(Math.random() * gameMode.length)];
+
     setChosen(chosenGameMode);
   };
 
@@ -81,11 +80,14 @@ const LeagueRandomized = () => {
       <section onClick={() => setIsInputFocused(false)}>
         {chosen && (
           <div className={style.section_header}>
-            <button onClick={() => setChosen('')}>
-              <span className={style.hover_text}>Change Mode</span>
-            </button>
-            <img src={gameModeIcon}></img>
-            <h2>Game mode: {chosen}</h2>
+            <div className={style.section_left_box}>
+              <button onClick={() => setChosen('')}>
+                <span className={style.hover_text}>Change Mode</span>
+              </button>
+              <img src={gameModeIcon}></img>
+              <h2>Game mode: {chosen}</h2>
+            </div>
+            <h2 className={style.statusText}>PICKING FOR </h2>
           </div>
         )}
         {!chosen && (
@@ -122,10 +124,20 @@ const LeagueRandomized = () => {
           </div>
         )}
         {chosen === NORMAL && (
-          <Normal playerInputs={playerInputs} setPlayerInputs={setPlayerInputs} />
+          <SummonersRift
+            playerInputs={playerInputs}
+            setPlayerInputs={setPlayerInputs}
+            chosen={chosen}
+          />
         )}
-        {chosen === ARAM && <p>Aram</p>}
-        {chosen === URF && <p>URF</p>}
+        {chosen === ARAM && <HowlingAbyss />}
+        {chosen === URF && (
+          <SummonersRift
+            playerInputs={playerInputs}
+            setPlayerInputs={setPlayerInputs}
+            chosen={chosen}
+          />
+        )}
       </section>
 
       <Footer
@@ -133,7 +145,6 @@ const LeagueRandomized = () => {
         setIsInputFocused={setIsInputFocused}
         chosen={chosen}
         randomModeHandler={randomModeHandler}
-        gameMode={gameMode}
         setChatInput={setPlayerInputs}
       />
     </div>

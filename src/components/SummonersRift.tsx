@@ -1,6 +1,6 @@
 import React, { FC, useState, useEffect } from 'react';
-import Player from './PlayerRender';
-import style from './Normal.module.scss';
+import PlayerRender from './PlayerRender';
+import style from './SummonersRift.module.scss';
 import PlayerForm from './PlayerForm';
 import { Tplayers } from '../types/player.type';
 import BackdropOutro from './ui/Backdrop/BackdropOutro';
@@ -8,9 +8,10 @@ import BackdropOutro from './ui/Backdrop/BackdropOutro';
 interface Props {
   playerInputs: string[];
   setPlayerInputs: React.Dispatch<React.SetStateAction<string[]>>;
+  chosen: string;
 }
 
-const Normal: FC<Props> = ({ playerInputs, setPlayerInputs }) => {
+const SummonersRift: FC<Props> = ({ playerInputs, setPlayerInputs, chosen }) => {
   const [playersNumber, setPlayersNumber] = useState(playerInputs.length);
   const [players, setPlayers] = useState<Tplayers>([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -42,13 +43,14 @@ const Normal: FC<Props> = ({ playerInputs, setPlayerInputs }) => {
         {players.map(
           (_, index) =>
             currentPlayerIndex > index && (
-              <Player
+              <PlayerRender
                 key={index}
                 playerName={players[index].playerName}
                 playerRole={players[index].playerRole}
                 playerChampion={players[index].playerChampion}
                 setCurrentPlayerIndex={setCurrentPlayerIndex}
                 currentPlayerIndex={currentPlayerIndex}
+                chosen={chosen}
               />
             ),
         )}
@@ -57,4 +59,4 @@ const Normal: FC<Props> = ({ playerInputs, setPlayerInputs }) => {
   );
 };
 
-export default Normal;
+export default SummonersRift;

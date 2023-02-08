@@ -35,27 +35,41 @@
       );
       display: flex;
       align-items: center;
+      justify-content: center;
       z-index: 1;
       font-size: 0.8rem;
 
-      button {
-        margin: 0 1rem;
-        background: none;
-        border: none;
+      .section_left_box {
+        display: flex;
+        position: absolute;
+        left: 0;
+        align-items: center;
         height: 100%;
-        width: 2rem;
-        background-image: url('../assets/images/arrow-icon.png');
-        background-repeat: no-repeat;
-        background-position: center;
-        @include hoverBox();
+
+        button {
+          margin: 0 1rem;
+          background: none;
+          border: none;
+          height: 100%;
+          width: 2rem;
+          background-image: url('../assets/images/arrow-icon.png');
+          background-repeat: no-repeat;
+          background-position: center;
+          @include hoverBox();
+        }
+
+        img {
+          width: 2.2rem;
+          height: 2.2rem;
+          padding: 0 1rem;
+          border-left: 1px solid grey;
+          margin: 0.5rem;
+        }
       }
 
-      img {
-        width: 2.2rem;
-        height: 2.2rem;
-        padding: 0 1rem;
-        border-left: 1px solid grey;
-        margin: 0.5rem;
+      .statusText {
+        // align-self: center;
+        // margin-left: 19rem;
       }
     }
 
