@@ -2,11 +2,7 @@ import React from 'react';
 
 const HowlingAbyss = () => {
   //
-  return (
-    <>
-      <p>ssda</p>
-    </>
-  );
+  return <div>{/* <h1></h1> */}</div>;
 };
 
 export default HowlingAbyss;

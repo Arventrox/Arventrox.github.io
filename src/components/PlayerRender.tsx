@@ -1,100 +1,47 @@
-import React, { FC, Dispatch, SetStateAction, useState, FormEvent, useEffect } from 'react';
+import React, { FC, useState, FormEvent, useEffect, useContext } from 'react';
 import style from './PlayerRender.module.scss';
 import { getRandomChampionByRole } from './Role';
-import { Champions } from './Champion';
 import questionMarkImage from '../assets/images/question_mark.svg';
-import { NORMAL } from './LeagueRandomized';
+import { BtnContext } from '../store/context';
+import { PlayerChampion } from '../store/context';
 
 interface Props {
   playerName: string | string[];
-  playerRole: string;
-  playerChampion: { role: { championName: string; championImage_url: string }; roleImg: string };
-  setCurrentPlayerIndex: Dispatch<SetStateAction<number>>;
+  playerChampion: PlayerChampion;
   currentPlayerIndex: number;
-  chosen: string;
+  key: number;
 }
 
-const PlayerRender: FC<Props> = ({
-  playerChampion,
-  playerName,
-  playerRole,
-  setCurrentPlayerIndex,
-  currentPlayerIndex,
-  chosen,
-}) => {
-  const [reroll, setReroll] = useState({
-    role: {
-      championName: '',
-      championImage_url: '',
-    },
-    roleImg: '',
-  });
+const PlayerRender: FC<Props> = ({ playerChampion, playerName, currentPlayerIndex, key }) => {
+  const [reroll, setReroll] = useState<PlayerChampion>();
   const [rerollCounter, setRerollCounter] = useState(2);
-  const [isRoleButtonClicked, setIsRoleButtonClicked] = useState(false);
-  const [isChampionButtonClicked, setIsChampionButtonClicked] = useState(false);
   const [renderedImage, setRenderedImage] = useState(questionMarkImage);
-  const [roleLoader, setRoleLoader] = useState({ name: '', image: '' });
-  const [intervalId, setIntervalId] = useState<NodeJS.Timeout | null>(null);
+  const { roleLoader, intervalId, championLoader } = useContext(BtnContext);
 
-  const { role, roleImg } = playerChampion;
-  const { championImage_url, championName } = role;
+  const { role, champion } = playerChampion;
+  const { championImage_url, championName } = champion;
+  const { roleImg, roleName } = role;
 
-  const championImage = !reroll.role.championImage_url
+  const championImage = !reroll?.champion.championImage_url
     ? championImage_url
-    : reroll.role.championImage_url;
+    : reroll.champion.championImage_url;
 
-  const renderedImageClass = isChampionButtonClicked ? style.champion_image : '';
+  const renderedImageClass = style.champion_image;
 
-  const { topChampion, jungleChampion, midChampion, bottomChampion, supportChampion } = Champions();
-  const topRoleLoader = { name: 'TOP', image: topChampion.roleImg };
-  const jungleRoleLoader = { name: 'JUNGLE', image: jungleChampion.roleImg };
-  const middleRoleLoader = { name: 'MIDDLE', image: midChampion.roleImg };
-  const bottomRoleLoader = { name: 'BOTTOM', image: bottomChampion.roleImg };
-  const supportRoleLoader = { name: 'SUPPORT', image: supportChampion.roleImg };
-  const roles = [jungleRoleLoader, middleRoleLoader, bottomRoleLoader, supportRoleLoader];
-
-  useEffect(() => {
-    if (intervalId === null) {
-      return;
-    }
-    return () => clearInterval(intervalId);
-  }, [intervalId]);
+  // useEffect(() => {
+  //   if (intervalId === null) {
+  //     return;
+  //   }
+  //   return () => clearInterval(intervalId);
+  // }, [intervalId]);
 
   useEffect(() => {
-    if (isChampionButtonClicked) {
-      setRenderedImage(championImage);
-    }
-  }, [isChampionButtonClicked, championImage]);
-
-  const roleButtonHandler = () => {
-    setIsRoleButtonClicked(true);
-    setRoleLoader(topRoleLoader);
-
-    const id = setInterval(() => {
-      const randomLane = roles[Math.floor(Math.random() * roles.length)];
-      const randomLaneIndex = roles.indexOf(randomLane);
-      setRoleLoader(randomLane);
-      if (randomLaneIndex !== -1) {
-        roles.splice(randomLaneIndex, 1);
-      }
-    }, 500);
-
-    setIntervalId(id);
-
-    setTimeout(() => {
-      clearInterval(id);
-      setIntervalId(null);
-    }, 2000);
-  };
-
-  const championButtonHandler = () => {
-    setIsChampionButtonClicked(true);
-    setCurrentPlayerIndex(currentPlayerIndex + 1);
-  };
+    setRenderedImage(championImage);
+  }, [championImage]);
 
   const rerollHandler = (event: FormEvent) => {
     event.preventDefault();
-    const randomChampionByRole = getRandomChampionByRole(playerRole);
+    const randomChampionByRole = getRandomChampionByRole(playerChampion.role.roleName);
 
     if (rerollCounter === 0) {
       return;
@@ -116,44 +63,31 @@ const PlayerRender: FC<Props> = ({
       </div>
       <p>Name: {playerName}</p>
 
-      {!isRoleButtonClicked ? (
-        <button onClick={roleButtonHandler}>Roll Role</button>
-      ) : !intervalId ? (
-        chosen === NORMAL && (
-          <span className={style.role_container}>
-            <img src={roleImg}></img>
-            <p>Role: {playerRole}</p>
-          </span>
-        )
+      {!intervalId ? (
+        <span className={style.role_container}>
+          <img src={roleImg}></img>
+          <p>Role: {roleName}</p>
+        </span>
       ) : (
-        chosen === NORMAL && (
-          <span className={style.role_container}>
-            <img src={roleLoader.image}></img>
-            <p> {roleLoader.name}</p>
-          </span>
-        )
+        <span className={style.role_container}>
+          <img src={roleLoader.roleImg}></img>
+          <p> Role: {roleLoader.roleName}</p>
+        </span>
+      )}
+      {!intervalId ? (
+        <p>
+          Champion: {reroll?.champion.championName ? reroll.champion.championName : championName}
+        </p>
+      ) : (
+        <p>Champion: {championLoader.championName}</p>
       )}
 
-      {isRoleButtonClicked && !isChampionButtonClicked ? (
-        <button onClick={championButtonHandler}>Roll champion</button>
-      ) : (
-        ''
-      )}
-
-      {isChampionButtonClicked ? (
-        <p>Champion: {reroll.role.championName ? reroll.role.championName : championName}</p>
-      ) : (
-        ''
-      )}
-
-      {isChampionButtonClicked && (
-        <button
-          className={rerollCounter ? style.reroll_button__active : style.reroll_button__disabled}
-          onClick={rerollHandler}
-        >
-          <span className={style.hover_text}>You have {rerollCounter} rerolls left </span>
-        </button>
-      )}
+      <button
+        className={rerollCounter ? style.reroll_button__active : style.reroll_button__disabled}
+        onClick={rerollHandler}
+      >
+        <span className={style.hover_text}>You have {rerollCounter} rerolls left </span>
+      </button>
     </div>
   );
 };

@@ -1,15 +1,23 @@
 import React, { FC, useState } from 'react';
-import { Tplayers } from '../types/player.type';
 import style from './PlayerSelect.module.scss';
 
 interface Props {
   setPlayersNumber: React.Dispatch<React.SetStateAction<number>>;
-  setPlayers: React.Dispatch<React.SetStateAction<Tplayers>>;
+  playerInputs: string[];
 }
 
-const SelectNumberOfPlayers: FC<Props> = ({ setPlayersNumber, setPlayers }) => {
-  const [activeButton, setActiveButton] = useState(1);
+const SelectNumberOfPlayers: FC<Props> = ({ setPlayersNumber, playerInputs }) => {
+  const [activeButton, setActiveButton] = useState(playerInputs.length);
   const options = [];
+
+  if (activeButton !== playerInputs.length) {
+    setActiveButton(playerInputs.length);
+  }
+
+  const handleNumbersButton = (e: React.FormEvent, i: number) => {
+    setPlayersNumber(+(e.target as HTMLInputElement).value);
+    setActiveButton(i);
+  };
 
   for (let i = 1; i <= 5; i++) {
     options.push(
@@ -17,11 +25,7 @@ const SelectNumberOfPlayers: FC<Props> = ({ setPlayersNumber, setPlayers }) => {
         key={i}
         value={i}
         className={i === activeButton ? style.button_clicked : ''}
-        onClick={(e: React.FormEvent) => {
-          setPlayersNumber(+(e.target as HTMLInputElement).value);
-          setActiveButton(i);
-          setPlayers([]);
-        }}
+        onClick={(e) => handleNumbersButton(e, i)}
       >
         {i}
       </button>,

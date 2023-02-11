@@ -1,21 +1,13 @@
-import React, { FC, useState, useEffect } from 'react';
+import React, { FC, useState, useEffect, useContext } from 'react';
 import PlayerRender from './PlayerRender';
 import style from './SummonersRift.module.scss';
 import PlayerForm from './PlayerForm';
-import { Tplayers } from '../types/player.type';
 import BackdropOutro from './ui/Backdrop/BackdropOutro';
+import { BtnContext } from '../store/context';
 
-interface Props {
-  playerInputs: string[];
-  setPlayerInputs: React.Dispatch<React.SetStateAction<string[]>>;
-  chosen: string;
-}
-
-const SummonersRift: FC<Props> = ({ playerInputs, setPlayerInputs, chosen }) => {
-  const [playersNumber, setPlayersNumber] = useState(playerInputs.length);
-  const [players, setPlayers] = useState<Tplayers>([]);
+const SummonersRift: FC = () => {
   const [isLoading, setIsLoading] = useState(true);
-  const [currentPlayerIndex, setCurrentPlayerIndex] = useState(1);
+  const { playersNumber, setPlayersNumber, players, currentPlayerIndex } = useContext(BtnContext);
 
   useEffect(() => {
     setTimeout(() => {
@@ -29,13 +21,7 @@ const SummonersRift: FC<Props> = ({ playerInputs, setPlayerInputs, chosen }) => 
         <BackdropOutro />
       ) : (
         !players[0] && (
-          <PlayerForm
-            setPlayers={setPlayers}
-            playersNumber={playersNumber}
-            setPlayersNumber={setPlayersNumber}
-            playerInputs={playerInputs}
-            setPlayerInputs={setPlayerInputs}
-          />
+          <PlayerForm playersNumber={playersNumber} setPlayersNumber={setPlayersNumber} />
         )
       )}
 
@@ -46,11 +32,8 @@ const SummonersRift: FC<Props> = ({ playerInputs, setPlayerInputs, chosen }) => 
               <PlayerRender
                 key={index}
                 playerName={players[index].playerName}
-                playerRole={players[index].playerRole}
                 playerChampion={players[index].playerChampion}
-                setCurrentPlayerIndex={setCurrentPlayerIndex}
                 currentPlayerIndex={currentPlayerIndex}
-                chosen={chosen}
               />
             ),
         )}

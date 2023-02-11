@@ -11,39 +11,48 @@ export const Champions = () => {
 
   const top = lanes[0].top;
   const topIndex = Math.floor(Math.random() * top.length);
-  const topChampion = { role: top[topIndex], roleImg: topImg };
+  const topChampion = { champion: top[topIndex], role: { roleName: 'TOP', roleImg: topImg } };
 
   const jungle = lanes[0].jungle.filter(
-    (champion) => champion.championName !== topChampion.role.championName,
+    (champion) => champion.championName !== topChampion.champion.championName,
   );
   const jungleIndex = Math.floor(Math.random() * jungle.length);
-  const jungleChampion = { role: jungle[jungleIndex], roleImg: jungleImg };
-
+  const jungleChampion = {
+    champion: jungle[jungleIndex],
+    role: { roleName: 'JUNGLE', roleImg: jungleImg },
+  };
   const mid = lanes[0].mid.filter(
     (champion) =>
-      champion.championName !== jungleChampion.role.championName && topChampion.role.championName,
+      champion.championName !== jungleChampion.champion.championName &&
+      topChampion.champion.championName,
   );
   const midIndex = Math.floor(Math.random() * mid.length);
-  const midChampion = { role: mid[midIndex], roleImg: middleImg };
+  const midChampion = { champion: mid[midIndex], role: { roleName: 'MIDDLE', roleImg: middleImg } };
 
   const bottom = lanes[0].bottom.filter(
     (champion) =>
-      champion.championName !== jungleChampion.role.championName &&
-      topChampion.role.championName &&
-      midChampion.role.championName,
+      champion.championName !== jungleChampion.champion.championName &&
+      topChampion.champion.championName &&
+      midChampion.champion.championName,
   );
   const bottomIndex = Math.floor(Math.random() * bottom.length);
-  const bottomChampion = { role: bottom[bottomIndex], roleImg: bottomImg };
+  const bottomChampion = {
+    champion: bottom[bottomIndex],
+    role: { roleName: 'BOTTOM', roleImg: bottomImg },
+  };
 
   const support = lanes[0].support.filter(
     (champion) =>
-      champion.championName !== jungleChampion.role.championName &&
-      topChampion.role.championName &&
-      midChampion.role.championName &&
-      bottomChampion.role.championName,
+      champion.championName !== jungleChampion.champion.championName &&
+      topChampion.champion.championName &&
+      midChampion.champion.championName &&
+      bottomChampion.champion.championName,
   );
   const supportIndex = Math.floor(Math.random() * support.length);
-  const supportChampion = { role: support[supportIndex], roleImg: supportImg };
+  const supportChampion = {
+    champion: support[supportIndex],
+    role: { roleName: 'SUPPORT', roleImg: supportImg },
+  };
 
   return { topChampion, jungleChampion, midChampion, bottomChampion, supportChampion };
 };

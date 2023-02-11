@@ -1,26 +1,16 @@
-import React, { type FC, Dispatch, useEffect, useState, FormEvent } from 'react';
-import { type Tplayers } from '../types/player.type';
-import { getRandomChampionByRole } from './Role';
+import React, { type FC, Dispatch, useEffect, useContext } from 'react';
 import style from './PlayerForm.module.scss';
 import PlayerSelect from './PlayerSelect';
 import Banner from './ui/Banner/Banner';
+import { BtnContext } from '../store/context';
 
 interface Props {
   playersNumber: number;
-  setPlayers: Dispatch<React.SetStateAction<Tplayers>>;
   setPlayersNumber: Dispatch<React.SetStateAction<number>>;
-  playerInputs: string[];
-  setPlayerInputs: React.Dispatch<React.SetStateAction<string[]>>;
 }
 
-const NameInput: FC<Props> = ({
-  playersNumber,
-  setPlayers,
-  setPlayersNumber,
-  playerInputs,
-  setPlayerInputs,
-}) => {
-  const [isButtonClicked, setIsButtonClicked] = useState(false);
+const PlayerForm: FC<Props> = ({ playersNumber, setPlayersNumber }) => {
+  const { playerInputs, setPlayerInputs, isFormVisible, setIsFormVisible } = useContext(BtnContext);
 
   useEffect(() => {
     const inputsList: string[] = [...playerInputs];
@@ -69,39 +59,18 @@ const NameInput: FC<Props> = ({
     setPlayerInputs(newInputs);
   };
 
-  const formSubmitHandler = (event: FormEvent) => {
-    event?.preventDefault();
-    const playerList = [];
-    let lane = ['TOP', 'JUNGLE', 'MID', 'BOTTOM', 'SUPPORT'];
-
-    for (let i = 0; i < playersNumber; i++) {
-      const playerRole: string = lane[Math.floor(Math.random() * lane.length)];
-      const playerChampion = getRandomChampionByRole(playerRole);
-      lane = lane.filter((usedRole) => usedRole !== playerRole);
-
-      playerList.push({
-        playerName: playerInputs[i],
-        playerRole,
-        playerChampion,
-      });
-    }
-
-    setPlayers(playerList);
-    setPlayerInputs(['Summoner 1']);
-  };
-
   return (
     <div className={style.container}>
       <Banner />
-      {!isButtonClicked ? (
+      {!isFormVisible ? (
         <div className={style.form_container}>
           <p>Paste champions in chat or </p>
-          <button onClick={() => setIsButtonClicked(true)}>Expand</button>
+          <button onClick={() => setIsFormVisible(true)}>Expand</button>
         </div>
       ) : (
         <div className={style.form_container}>
-          <PlayerSelect setPlayersNumber={setPlayersNumber} setPlayers={setPlayers} />
-          <form onSubmit={formSubmitHandler}>
+          <PlayerSelect setPlayersNumber={setPlayersNumber} playerInputs={playerInputs} />
+          <form>
             {playerInputs.map((singleInput, index) => (
               <div className={style.input_container} key={index}>
                 <div className={style.input_container__box}>
@@ -129,16 +98,6 @@ const NameInput: FC<Props> = ({
                 </button>
               </div>
             ))}
-
-            {playerInputs.length !== 0 ? (
-              !playerInputs.includes('') ? (
-                <button>Submit</button>
-              ) : (
-                <p>Not all summoners have a name</p>
-              )
-            ) : (
-              <p>No summoners are selected</p>
-            )}
           </form>
         </div>
       )}
@@ -146,4 +105,4 @@ const NameInput: FC<Props> = ({
   );
 };
 
-export default NameInput;
+export default PlayerForm;

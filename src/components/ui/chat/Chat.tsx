@@ -1,22 +1,28 @@
-import React, { FC, Dispatch, SetStateAction, useState, useEffect, useRef } from 'react';
+import React, { FC, useState, useEffect, useRef, useContext } from 'react';
 import { ARAM, NORMAL } from '../../LeagueRandomized';
 import style from './Chat.module.scss';
 import chatEnabled from '../../../assets/images/chat-enabled.png';
+import { BtnContext } from '../../../store/context';
+import useOutsideAlerter from '../../../hooks/useOutsideAlerter';
 
-interface Props {
-  isInputFocused: boolean;
-  setIsInputFocused: Dispatch<SetStateAction<boolean>>;
-  setChatInput: Dispatch<SetStateAction<string[]>>;
-  chosen: string | undefined;
-}
-
-const Chat: FC<Props> = ({ isInputFocused, setIsInputFocused, setChatInput, chosen }) => {
+const Chat: FC = () => {
   const [messages, setMessages] = useState<string[]>([]);
   const [inputValue, setInputValue] = useState('');
   const [isExampleButtonClicked, setIsExampleButtonClicked] = useState(false);
+  const {
+    chosenGameMode,
+    setPlayerInputs: setChatInput,
+    setIsFormVisible,
+    isInputFocused,
+    setIsInputFocused,
+    buttonClickCounter,
+  } = useContext(BtnContext);
 
   const lastLineRef = useRef<HTMLLIElement>(null);
   const chatInputFocus = useRef<HTMLInputElement>(null);
+
+  const wrapperRef = useRef<HTMLDivElement | null>(null);
+  useOutsideAlerter(wrapperRef);
 
   useEffect(() => {
     if (isInputFocused) {
@@ -29,32 +35,50 @@ const Chat: FC<Props> = ({ isInputFocused, setIsInputFocused, setChatInput, chos
   }, [[messages]]);
 
   useEffect(() => {
-    if (!chosen || chosen !== ARAM) {
+    if (!chosenGameMode || chosenGameMode !== ARAM) {
       setIsInputFocused(true);
     }
-  }, [chosen]);
+  }, [chosenGameMode]);
+
+  const hasJoinMessageAndNoSpecialChar = (string: string) => {
+    const joinPattern = /joined the lobby/;
+    const specialCharPattern = /^[a-zA-Z0-9\s]+$/;
+    return joinPattern.test(string) && specialCharPattern.test(string);
+  };
 
   const handlePaste = (event: React.ClipboardEvent) => {
     event.preventDefault();
+    if (buttonClickCounter === 1) {
+      setMessages(['Please select a game mode first !']);
+      return;
+    }
     const pastedText = event.clipboardData.getData('text/plain');
-    const lines = pastedText.split('\n').filter((line) => line.length !== 0 && line.length > 1);
-    const firstWords = lines.map((line) => line.split('joined')[0]);
+    const lines = pastedText.split(/\r\n|\r|\n/);
+    const filteredLines = lines.filter((line) => hasJoinMessageAndNoSpecialChar(line));
+    const firstWords = filteredLines.map((line) => line.split('joined')[0]);
     const uniqueFirstWords = firstWords.filter((word, index) => firstWords.indexOf(word) === index);
 
-    if (!pastedText.includes('joined' && 'lobby')) {
-      setMessages([...messages, 'Please paste a valid lobby']);
+    if (lines.length > filteredLines.length) {
+      setMessages([...lines, 'Please paste a valid lobby']);
       return;
     }
 
+    setIsFormVisible(true);
     setMessages([...lines]);
-    setChatInput(uniqueFirstWords);
+    setChatInput([...uniqueFirstWords]);
   };
 
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
 
+    if (buttonClickCounter === 1) {
+      setMessages(['Please select a game mode first !']);
+      return;
+    }
+
     //Checks if the user tried to submit empty value
-    if (inputValue === '') {
+    if (inputValue === ' ' || inputValue.length === 0) {
+      setMessages(['Please enter a valid name']);
       return;
     }
 
@@ -70,11 +94,13 @@ const Chat: FC<Props> = ({ isInputFocused, setIsInputFocused, setChatInput, chos
         filteredWords.pop();
       }
     }
+
     //Sets the user names if the entered input is not empty
     if (filteredWords.length !== 0) {
       setChatInput(filteredWords);
     }
     setMessages([inputValue]);
+    setIsFormVisible(true);
     setInputValue('');
   };
 
@@ -83,8 +109,8 @@ const Chat: FC<Props> = ({ isInputFocused, setIsInputFocused, setChatInput, chos
   };
 
   return (
-    <div className={style.chat_container}>
-      <div className={style.chat_subcontainer}>
+    <div ref={wrapperRef} className={style.chat_container}>
+      <div className={style.chat_subContainer}>
         <img src={chatEnabled}></img>
         <form onSubmit={handleSubmit} className={style.form}>
           <input
@@ -106,7 +132,7 @@ const Chat: FC<Props> = ({ isInputFocused, setIsInputFocused, setChatInput, chos
         <div className={style.msg_box}>
           <button onFocus={() => setIsInputFocused(false)}>-</button>
           <ul>
-            {chosen === NORMAL ? (
+            {chosenGameMode === NORMAL ? (
               <div>
                 <div className={style.li_container}>
                   <li>You can paste or write your LoL lobby here !</li>
