@@ -1,8 +1,7 @@
-import React, { Dispatch, SetStateAction, useEffect, useState } from 'react';
-import { Champions } from '../components/Champion';
+import React, { Dispatch, SetStateAction, useState } from 'react';
 
-import { ARAM, NORMAL, URF } from '../components/LeagueRandomized';
-import { getRandomChampionByRole } from '../components/Role';
+import { ARAM, NORMAL } from '../components/LeagueRandomized';
+import useGetChampion from '../hooks/useGetChampion';
 
 export interface Role {
   roleName: string;
@@ -29,12 +28,6 @@ interface Props {
 interface BtnContext {
   chosenGameMode: string | undefined;
   setChosenGameMode: Dispatch<SetStateAction<string | undefined>>;
-  setIsNormalChecked: Dispatch<SetStateAction<boolean>>;
-  setIsAramChecked: Dispatch<SetStateAction<boolean>>;
-  setIsUrfChecked: Dispatch<SetStateAction<boolean>>;
-  isNormalChecked: boolean;
-  isAramChecked: boolean;
-  isUrfChecked: boolean;
   playerInputs: string[];
   setPlayerInputs: Dispatch<SetStateAction<string[]>>;
   setPlayersNumber: Dispatch<SetStateAction<number>>;
@@ -48,27 +41,15 @@ interface BtnContext {
   setIsInputFocused: Dispatch<SetStateAction<boolean>>;
   isInputFocused: boolean;
   submitHandler: () => void;
-  setIsRoleLoader: Dispatch<SetStateAction<boolean[]>>;
-  isRoleLoader: boolean[];
-  isChampionLoader: boolean[];
-  setIsChampionLoader: Dispatch<SetStateAction<boolean[]>>;
-
-  // roleLoader: Role;
-  // championLoader: Champion;
-  // intervalId: NodeJS.Timeout | null;
   setButtonClickCounter: Dispatch<SetStateAction<number>>;
   buttonClickCounter: number;
+  setCheckedGameModes: Dispatch<SetStateAction<string[]>>;
+  checkedGameModes: string[];
 }
 
 export const BtnContext = React.createContext<BtnContext>({
   chosenGameMode: undefined,
   setChosenGameMode: () => undefined,
-  setIsNormalChecked: () => true,
-  setIsAramChecked: () => true,
-  setIsUrfChecked: () => false,
-  isNormalChecked: true,
-  isAramChecked: true,
-  isUrfChecked: true,
   submitHandler: () => undefined,
   playerInputs: [],
   setPlayerInputs: () => ['Summoner 1'],
@@ -84,22 +65,14 @@ export const BtnContext = React.createContext<BtnContext>({
   isFormVisible: false,
   isInputFocused: true,
   setIsInputFocused: () => true,
-  // roleLoader: { roleName: '', roleImg: '' },
-  // championLoader: { championName: '', championImage_url: '' },
-  // intervalId: null,
-  setIsRoleLoader: () => true,
-  isRoleLoader: [true],
-  isChampionLoader: [true],
-  setIsChampionLoader: () => true,
+  setCheckedGameModes: () => [],
+  checkedGameModes: [],
 });
 
 const BtnContextProvider = ({ children }: Props) => {
   const [chosenGameMode, setChosenGameMode] = useState<string | undefined>();
   const [buttonClickCounter, setButtonClickCounter] = useState(0);
-
-  const [isNormalChecked, setIsNormalChecked] = useState(true);
-  const [isAramChecked, setIsAramChecked] = useState(true);
-  const [isUrfChecked, setIsUrfChecked] = useState(false);
+  const [checkedGameModes, setCheckedGameModes] = useState<string[]>([NORMAL, ARAM]);
 
   const [players, setPlayers] = useState<Array<Player>>([]);
   const [playerInputs, setPlayerInputs] = useState<string[]>(['Summoner 1']);
@@ -109,47 +82,30 @@ const BtnContextProvider = ({ children }: Props) => {
   const [isFormVisible, setIsFormVisible] = useState(false);
   const [isInputFocused, setIsInputFocused] = useState(true);
 
-  const [isRoleLoader, setIsRoleLoader] = useState<boolean[]>([]);
-  const [isChampionLoader, setIsChampionLoader] = useState<boolean[]>([]);
-
-  // const [intervalId, setIntervalId] = useState<NodeJS.Timeout | null>(null);
-  // const [roleLoader, setRoleLoader] = useState({ roleName: '', roleImg: '' });
-  // const [championLoader, setChampionLoader] = useState({ championName: '', championImage_url: '' });
-
-  const gameMode: string[] = [];
-  const { topChampion, jungleChampion, midChampion, bottomChampion, supportChampion } = Champions();
-
-  const roles = [topChampion, jungleChampion, midChampion, bottomChampion, supportChampion];
-
-  // useEffect(() => {
-  //   if (intervalId === null) {
-  //     return;
-  //   }
-  //   return () => clearInterval(intervalId);
-  // }, [intervalId]);
-
   const randomModeHandler = () => {
-    if (isAramChecked && chosenGameMode !== ARAM) {
-      gameMode.push(ARAM);
-    }
-    if (isUrfChecked && chosenGameMode !== URF) {
-      gameMode.push(URF);
-    }
-    if (isNormalChecked && chosenGameMode !== NORMAL) {
-      gameMode.push(NORMAL);
-    }
+    const gameMode: string[] = [...checkedGameModes];
     const randomGameMode = gameMode[Math.floor(Math.random() * gameMode.length)];
 
     setChosenGameMode(randomGameMode);
   };
 
-  const formSubmitHandler = () => {
+  const aramRandomModeHandler = () => {
+    if (checkedGameModes.length === 1 && checkedGameModes.includes(ARAM)) {
+      setChosenGameMode(undefined);
+      setButtonClickCounter((prevCounter) => prevCounter - 1);
+    } else {
+      randomModeHandler();
+    }
+  };
+
+  const getPlayersHandler = () => {
     const playerList = [];
-    let lane = roles;
+    let lane = ['TOP', 'JUNGLE', 'MIDDLE', 'BOTTOM', 'SUPPORT'];
+
     for (let i = 0; i < playersNumber; i++) {
-      const playerRole: string = lane[Math.floor(Math.random() * lane.length)].role.roleName;
-      const playerChampion = getRandomChampionByRole(playerRole);
-      lane = lane.filter((usedRole) => usedRole.role.roleName !== playerRole);
+      const playerRole: string = lane[Math.floor(Math.random() * lane.length)];
+      const playerChampion = useGetChampion(playerRole);
+      lane = lane.filter((usedRole) => usedRole !== playerRole);
 
       playerList.push({
         playerName: playerInputs[i],
@@ -161,51 +117,6 @@ const BtnContextProvider = ({ children }: Props) => {
     setPlayerInputs(['Summoner 1']);
   };
 
-  // const roleLoaderHandler = () => {
-  //   setChampionLoader(topChampion.champion);
-
-  //   const id = setInterval(() => {
-  //     const randomRole = roles[Math.floor(Math.random() * roles.length)];
-  //     const randomRoleIndex = roles.indexOf(randomRole);
-  //     setRoleLoader(randomRole.role);
-
-  //     if (randomRoleIndex !== -1) {
-  //       roles.splice(randomRoleIndex, 1);
-  //     }
-  //   }, 500);
-
-  //   setIntervalId(id);
-
-  //   setTimeout(() => {
-  //     clearInterval(id);
-  //     setIntervalId(null);
-  //   }, 2500);
-
-  //   setButtonClickCounter((prevState) => prevState + 1);
-  // };
-
-  // const championLoaderHandler = () => {
-  //   setRoleLoader(topChampion.role);
-  //   setChampionLoader(topChampion.champion);
-
-  //   const id = setInterval(() => {
-  //     const randomChampion = roles[Math.floor(Math.random() * roles.length)];
-  //     const randomChampionIndex = roles.indexOf(randomChampion);
-
-  //     setChampionLoader(randomChampion.champion);
-
-  //     if (randomChampionIndex !== -1) {
-  //       roles.splice(randomChampionIndex, 1);
-  //     }
-  //   }, 500);
-  //   setIntervalId(id);
-  //   setTimeout(() => {
-  //     clearInterval(id);
-  //     setIntervalId(null);
-  //   }, 2000);
-  //   setCurrentPlayerIndex((prevIndex) => prevIndex + 1);
-  // };
-
   const submitHandler = () => {
     switch (buttonClickCounter) {
       case 0:
@@ -214,28 +125,20 @@ const BtnContextProvider = ({ children }: Props) => {
         break;
       case 1:
         if (chosenGameMode === ARAM) {
-          randomModeHandler();
+          aramRandomModeHandler();
         } else {
           setButtonClickCounter((prevCounter) => prevCounter + 1);
-          formSubmitHandler();
+          getPlayersHandler();
         }
         break;
       case 2:
-        // roleLoaderHandler();
-        // setIsRoleLoader(true);
-        setIsRoleLoader([...isRoleLoader, true]);
-        console.log(isRoleLoader);
-
+        // a function to render ROLE
+        setButtonClickCounter((prevCounter) => prevCounter + 1);
         break;
       case 3:
-        // championLoaderHandler();
-        // setIsChampionLoader(true);
-        setIsChampionLoader([...isChampionLoader, true]);
-        setCurrentPlayerIndex((prevIndex) => prevIndex + 1);
-
-        // setCurrentPlayerIndex((prevIndex) => prevIndex + 1);
-
+        // a function to render Champion
         setButtonClickCounter((prevCounter) => prevCounter - 1);
+        setCurrentPlayerIndex((prevIndex) => prevIndex + 1);
         break;
     }
   };
@@ -245,12 +148,6 @@ const BtnContextProvider = ({ children }: Props) => {
       value={{
         chosenGameMode,
         setChosenGameMode,
-        setIsNormalChecked,
-        setIsAramChecked,
-        setIsUrfChecked,
-        isAramChecked,
-        isNormalChecked,
-        isUrfChecked,
         submitHandler,
         playerInputs,
         setPlayerInputs,
@@ -265,14 +162,9 @@ const BtnContextProvider = ({ children }: Props) => {
         setIsFormVisible,
         isInputFocused,
         setIsInputFocused,
-        isRoleLoader,
-        setIsRoleLoader,
-        setIsChampionLoader,
-        isChampionLoader,
-        // roleLoader,
-        // championLoader,
-        // intervalId,
         setButtonClickCounter,
+        setCheckedGameModes,
+        checkedGameModes,
       }}
     >
       {children}

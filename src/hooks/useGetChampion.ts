@@ -6,7 +6,7 @@ import middleImg from '../assets/images/position-middle.svg';
 import bottomImg from '../assets/images/position-bottom.svg';
 import supportImg from '../assets/images/position-utility.svg';
 
-export const Champions = () => {
+const useGetChampion = (role: string) => {
   const { lanes } = championData;
 
   const top = lanes[0].top;
@@ -54,5 +54,20 @@ export const Champions = () => {
     role: { roleName: 'SUPPORT', roleImg: supportImg },
   };
 
-  return { topChampion, jungleChampion, midChampion, bottomChampion, supportChampion };
+  switch (role) {
+    case 'TOP':
+      return topChampion;
+    case 'JUNGLE':
+      return jungleChampion;
+    case 'MIDDLE':
+      return midChampion;
+    case 'BOTTOM':
+      return bottomChampion;
+    case 'SUPPORT':
+      return supportChampion;
+    default:
+      return supportChampion;
+  }
 };
+
+export default useGetChampion;

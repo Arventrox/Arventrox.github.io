@@ -13,7 +13,7 @@ const Header: FC = () => {
   } = useContext(BtnContext);
 
   const homeButtonHandler = () => {
-    setChosenGameMode('');
+    setChosenGameMode(undefined);
     setPlayerInputs([]);
     setCurrentPlayerIndex(1);
     setPlayers([]);

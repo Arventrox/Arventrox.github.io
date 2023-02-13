@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import SummonersRift from './SummonersRift';
 import style from './LeagueRandomized.module.scss';
 import Header from './ui/Header/Header';
@@ -18,24 +18,48 @@ export const ARAM = 'HA ARAM';
 export const URF = 'SR URF';
 
 const LeagueRandomized = () => {
+  const [isNormalChecked, setIsNormalChecked] = useState(true);
+  const [isAramChecked, setIsAramChecked] = useState(true);
+  const [isUrfChecked, setIsUrfChecked] = useState(false);
+
   const {
     chosenGameMode,
-    setIsAramChecked,
-    setIsNormalChecked,
-    setIsUrfChecked,
-    isAramChecked,
-    isNormalChecked,
-    isUrfChecked,
     setPlayers,
     setCurrentPlayerIndex,
     setChosenGameMode,
     setButtonClickCounter,
     players,
+    setCheckedGameModes,
+    checkedGameModes,
   } = useContext(BtnContext);
 
   const backButtonText = players.length === 0 ? 'Change Game Mode' : 'Go Back';
-  let background;
+  let background = style.default__background;
   let gameModeIcon;
+
+  const checkBoxModes = [
+    {
+      label: "SUMMONER'S RIFT",
+      value: NORMAL,
+      checked: isNormalChecked,
+      activeIcon: normalActiveIcon,
+      defaultIcon: normalDefaultIcon,
+    },
+    {
+      label: 'ARAM',
+      value: ARAM,
+      checked: isAramChecked,
+      activeIcon: aramActiveIcon,
+      defaultIcon: aramDefaultIcon,
+    },
+    {
+      label: 'URF',
+      value: URF,
+      checked: isUrfChecked,
+      activeIcon: urfActiveIcon,
+      defaultIcon: urfDefaultIcon,
+    },
+  ];
 
   switch (chosenGameMode) {
     case NORMAL:
@@ -45,34 +69,41 @@ const LeagueRandomized = () => {
     case ARAM:
       background = style.aram;
       gameModeIcon = aramActiveIcon;
-
       break;
     case URF:
       gameModeIcon = urfActiveIcon;
       background = style.urf;
       break;
-    default:
-      background = style.default__background;
-      break;
   }
 
-  const handleCheckboxNormalChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setIsNormalChecked(event.target.checked);
-  };
+  const handleCheckboxChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const checkedGameModeName = event.target.value;
+    const isGameModeChecked = event.target.checked;
 
-  const handleCheckboxAramChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setIsAramChecked(event.target.checked);
-  };
+    switch (checkedGameModeName) {
+      case NORMAL:
+        setIsNormalChecked(isGameModeChecked);
+        break;
+      case ARAM:
+        setIsAramChecked(isGameModeChecked);
+        break;
+      case URF:
+        setIsUrfChecked(isGameModeChecked);
+    }
 
-  const handleCheckboxUrfChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setIsUrfChecked(event.target.checked);
+    if (isGameModeChecked === true) {
+      setCheckedGameModes([...checkedGameModes, checkedGameModeName]);
+    } else {
+      setCheckedGameModes([
+        ...checkedGameModes.filter((gameModes) => gameModes !== checkedGameModeName),
+      ]);
+    }
   };
 
   const handleBackButton = () => {
     if (players.length === 0) {
-      setChosenGameMode('');
+      setChosenGameMode(undefined);
     }
-
     setButtonClickCounter((prevState) => prevState - 1);
     setPlayers([]);
     setCurrentPlayerIndex(1);
@@ -97,35 +128,20 @@ const LeagueRandomized = () => {
         )}
         {!chosenGameMode && (
           <div className={style.gameMode_container}>
-            <div className={style.gameMode_container__box}>
-              <img src={isNormalChecked ? normalActiveIcon : normalDefaultIcon} />
-              <label>{"SUMMONER'S RIFT"}</label>
-              <div className={style.checkbox}>
-                <input
-                  type='checkbox'
-                  checked={isNormalChecked}
-                  onChange={handleCheckboxNormalChange}
-                />
+            {checkBoxModes.map((mode) => (
+              <div className={style.gameMode_container__box} key={mode.value}>
+                <img src={mode.checked ? mode.activeIcon : mode.defaultIcon} />
+                <label>{mode.label}</label>
+                <div className={style.checkbox}>
+                  <input
+                    type='checkbox'
+                    checked={mode.checked}
+                    value={mode.value}
+                    onChange={handleCheckboxChange}
+                  />
+                </div>
               </div>
-            </div>
-            <div className={style.gameMode_container__box}>
-              <img src={isAramChecked ? aramActiveIcon : aramDefaultIcon} />
-              <label>ARAM</label>
-              <div className={style.checkbox}>
-                <input
-                  type='checkbox'
-                  checked={isAramChecked}
-                  onChange={handleCheckboxAramChange}
-                />
-              </div>
-            </div>
-            <div className={style.gameMode_container__box}>
-              <img src={isUrfChecked ? urfActiveIcon : urfDefaultIcon} />
-              <label>URF</label>
-              <div className={style.checkbox}>
-                <input type='checkbox' checked={isUrfChecked} onChange={handleCheckboxUrfChange} />
-              </div>
-            </div>
+            ))}
           </div>
         )}
         {chosenGameMode === NORMAL && <SummonersRift />}
