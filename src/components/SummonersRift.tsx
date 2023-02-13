@@ -7,7 +7,16 @@ import { BtnContext } from '../store/context';
 
 const SummonersRift: FC = () => {
   const [isLoading, setIsLoading] = useState(true);
-  const { playersNumber, setPlayersNumber, players, currentPlayerIndex } = useContext(BtnContext);
+  const {
+    playersNumber,
+    setPlayersNumber,
+    players,
+    currentPlayerIndex,
+    isRoleLoader,
+    isChampionLoader,
+    setIsChampionLoader,
+    setIsRoleLoader,
+  } = useContext(BtnContext);
 
   useEffect(() => {
     setTimeout(() => {
@@ -31,8 +40,13 @@ const SummonersRift: FC = () => {
             currentPlayerIndex > index && (
               <PlayerRender
                 key={index}
+                index={index}
                 playerName={players[index].playerName}
                 playerChampion={players[index].playerChampion}
+                isRoleLoader={isRoleLoader[index]}
+                isChampionLoader={isChampionLoader[index]}
+                setIsRoleLoader={setIsRoleLoader}
+                setIsChampionLoader={setIsChampionLoader}
                 currentPlayerIndex={currentPlayerIndex}
               />
             ),

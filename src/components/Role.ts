@@ -8,13 +8,13 @@ export const getRandomChampionByRole = (role: string) => {
       return topChampion;
     case 'JUNGLE':
       return jungleChampion;
-    case 'MID':
+    case 'MIDDLE':
       return midChampion;
     case 'BOTTOM':
       return bottomChampion;
     case 'SUPPORT':
       return supportChampion;
     default:
-      return topChampion;
+      return supportChampion;
   }
 };
