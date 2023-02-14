@@ -133,10 +133,13 @@ const BtnContextProvider = ({ children }: Props) => {
         break;
       case 2:
         // a function to render ROLE
+
         setButtonClickCounter((prevCounter) => prevCounter + 1);
         break;
       case 3:
         // a function to render Champion
+        // console.log(buttonClickCounter);
+
         setButtonClickCounter((prevCounter) => prevCounter - 1);
         setCurrentPlayerIndex((prevIndex) => prevIndex + 1);
         break;

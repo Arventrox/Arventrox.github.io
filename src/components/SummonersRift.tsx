@@ -34,6 +34,7 @@ const SummonersRift: FC = () => {
                 playerName={players[index].playerName}
                 playerChampion={players[index].playerChampion}
                 currentPlayerIndex={currentPlayerIndex}
+                index={index}
               />
             ),
         )}

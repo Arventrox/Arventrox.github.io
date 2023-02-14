@@ -104,7 +104,7 @@ const LeagueRandomized = () => {
     if (players.length === 0) {
       setChosenGameMode(undefined);
     }
-    setButtonClickCounter((prevState) => prevState - 1);
+    setButtonClickCounter((prevCounter) => prevCounter - 1);
     setPlayers([]);
     setCurrentPlayerIndex(1);
   };
