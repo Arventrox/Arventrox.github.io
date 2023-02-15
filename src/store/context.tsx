@@ -45,6 +45,8 @@ interface BtnContext {
   buttonClickCounter: number;
   setCheckedGameModes: Dispatch<SetStateAction<string[]>>;
   checkedGameModes: string[];
+  currentPlayersName: string | string[] | undefined;
+  setCurrentPlayersName: Dispatch<SetStateAction<string | string[] | undefined>>;
 }
 
 export const BtnContext = React.createContext<BtnContext>({
@@ -67,6 +69,8 @@ export const BtnContext = React.createContext<BtnContext>({
   setIsInputFocused: () => true,
   setCheckedGameModes: () => [],
   checkedGameModes: [],
+  currentPlayersName: '',
+  setCurrentPlayersName: () => '',
 });
 
 const BtnContextProvider = ({ children }: Props) => {
@@ -78,14 +82,15 @@ const BtnContextProvider = ({ children }: Props) => {
   const [playerInputs, setPlayerInputs] = useState<string[]>(['Summoner 1']);
   const [playersNumber, setPlayersNumber] = useState(1);
   const [currentPlayerIndex, setCurrentPlayerIndex] = useState(1);
+  const [currentPlayersName, setCurrentPlayersName] = useState<string | string[]>();
 
   const [isFormVisible, setIsFormVisible] = useState(false);
   const [isInputFocused, setIsInputFocused] = useState(true);
 
   const randomModeHandler = () => {
-    const gameMode: string[] = [...checkedGameModes];
+    let gameMode: string[] = [''];
+    gameMode = [...checkedGameModes];
     const randomGameMode = gameMode[Math.floor(Math.random() * gameMode.length)];
-
     setChosenGameMode(randomGameMode);
   };
 
@@ -94,6 +99,7 @@ const BtnContextProvider = ({ children }: Props) => {
       setChosenGameMode(undefined);
       setButtonClickCounter((prevCounter) => prevCounter - 1);
     } else {
+      console.log(chosenGameMode);
       randomModeHandler();
     }
   };
@@ -106,7 +112,6 @@ const BtnContextProvider = ({ children }: Props) => {
       const playerRole: string = lane[Math.floor(Math.random() * lane.length)];
       const playerChampion = useGetChampion(playerRole);
       lane = lane.filter((usedRole) => usedRole !== playerRole);
-
       playerList.push({
         playerName: playerInputs[i],
         playerChampion,
@@ -124,6 +129,7 @@ const BtnContextProvider = ({ children }: Props) => {
         setButtonClickCounter((prevCounter) => prevCounter + 1);
         break;
       case 1:
+        //gameMode is rendered
         if (chosenGameMode === ARAM) {
           aramRandomModeHandler();
         } else {
@@ -132,16 +138,22 @@ const BtnContextProvider = ({ children }: Props) => {
         }
         break;
       case 2:
-        // a function to render ROLE
-
+        //Players are rendered
         setButtonClickCounter((prevCounter) => prevCounter + 1);
         break;
       case 3:
-        // a function to render Champion
-        // console.log(buttonClickCounter);
-
-        setButtonClickCounter((prevCounter) => prevCounter - 1);
-        setCurrentPlayerIndex((prevIndex) => prevIndex + 1);
+        // Role is rendered
+        setButtonClickCounter((prevCounter) => prevCounter + 1);
+        break;
+      case 4:
+        // champion is rendered
+        if (currentPlayerIndex < 6) {
+          setCurrentPlayerIndex((prevIndex) => prevIndex + 1);
+          setButtonClickCounter((prevCounter) => prevCounter - 2);
+          console.log(buttonClickCounter);
+        } else {
+          setButtonClickCounter(2);
+        }
         break;
     }
   };
@@ -168,6 +180,8 @@ const BtnContextProvider = ({ children }: Props) => {
         setButtonClickCounter,
         setCheckedGameModes,
         checkedGameModes,
+        currentPlayersName,
+        setCurrentPlayersName,
       }}
     >
       {children}

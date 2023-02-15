@@ -31,6 +31,9 @@ const LeagueRandomized = () => {
     players,
     setCheckedGameModes,
     checkedGameModes,
+    currentPlayersName,
+    setCurrentPlayersName,
+    buttonClickCounter,
   } = useContext(BtnContext);
 
   const backButtonText = players.length === 0 ? 'Change Game Mode' : 'Go Back';
@@ -104,7 +107,12 @@ const LeagueRandomized = () => {
     if (players.length === 0) {
       setChosenGameMode(undefined);
     }
-    setButtonClickCounter((prevCounter) => prevCounter - 1);
+    if (buttonClickCounter > 2) {
+      setButtonClickCounter(1);
+    } else {
+      setButtonClickCounter((prevCounter) => prevCounter - 1);
+    }
+    setCurrentPlayersName(undefined);
     setPlayers([]);
     setCurrentPlayerIndex(1);
   };
@@ -123,7 +131,9 @@ const LeagueRandomized = () => {
               <img src={gameModeIcon}></img>
               <h2>Game mode: {chosenGameMode}</h2>
             </div>
-            <h2 className={style.statusText}>PICKING FOR </h2>
+            {currentPlayersName && (
+              <h2 className={style.statusText}>Picking for : {currentPlayersName}</h2>
+            )}
           </div>
         )}
         {!chosenGameMode && (

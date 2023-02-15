@@ -24,22 +24,16 @@ const roleChampions: RoleChampions = {
   BOTTOM: BOTTOM,
   SUPPORT: SUPPORT,
 };
-const useChampionDisplay = (role: string, startInterval: boolean) => {
+const useChampionDisplay = (role: string) => {
   const [currentChampion, setCurrentChampion] = useState<Champion | null>(null);
-
-  useEffect(() => {
-    if (!startInterval) {
-      return;
-    }
-  }, [startInterval]);
 
   useEffect(() => {
     const champions = roleChampions[role];
     let index = 0;
     let displayedChampions = 0;
 
-    const interval = 300;
-    let previousTime = performance.now();
+    const interval = 500;
+    const previousTime = performance.now();
 
     const intervalId = setInterval(() => {
       const currentTime = performance.now();
@@ -48,9 +42,8 @@ const useChampionDisplay = (role: string, startInterval: boolean) => {
         setCurrentChampion(champions[index]);
         displayedChampions += 1;
         index = (index + 1) % champions.length;
-        previousTime = currentTime;
 
-        if (displayedChampions > 10) {
+        if (displayedChampions > 8) {
           clearInterval(intervalId);
           setCurrentChampion(null);
         }

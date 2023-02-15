@@ -10,6 +10,7 @@ const Header: FC = () => {
     setCurrentPlayerIndex,
     setPlayers,
     setButtonClickCounter,
+    setCurrentPlayersName,
   } = useContext(BtnContext);
 
   const homeButtonHandler = () => {
@@ -18,6 +19,7 @@ const Header: FC = () => {
     setCurrentPlayerIndex(1);
     setPlayers([]);
     setButtonClickCounter(0);
+    setCurrentPlayersName(undefined);
   };
 
   return (
