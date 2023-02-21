@@ -6,7 +6,6 @@ import style from './Banner.module.scss';
 const Banner = () => {
   return (
     <div className={style.banner}>
-      {/* <img src={summonersRift_image}></img> */}
       <video className={style.video} src={video} autoPlay muted></video>
       <div className={style.shadow}></div>
     </div>

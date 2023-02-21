@@ -3,4 +3,22 @@
   height: 100%;
   top: -2rem;
   position: absolute;
+
+  video {
+    position: relative;
+    top: -6rem;
+    animation: anim_transition 1s;
+  }
+}
+
+@keyframes anim_transition {
+  from {
+    top: -10rem;
+    opacity: 0;
+  }
+
+  to {
+    top: -6rem;
+    opacity: 1;
+  }
 }

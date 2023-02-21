@@ -4,19 +4,11 @@ import style from './SummonersRift.module.scss';
 import PlayerForm from './PlayerForm';
 import BackdropOutro from './ui/Backdrop/BackdropOutro';
 import { BtnContext } from '../store/context';
-
+import video from '../assets/videos/invited-banner.webm';
 const SummonersRift: FC = () => {
   const [isLoading, setIsLoading] = useState(true);
-  const {
-    playersNumber,
-    setPlayersNumber,
-    players,
-    currentPlayerIndex,
-    isRoleLoader,
-    isChampionLoader,
-    setIsChampionLoader,
-    setIsRoleLoader,
-  } = useContext(BtnContext);
+  const { playersNumber, setPlayersNumber, players, currentPlayerIndex, buttonClickCounter } =
+    useContext(BtnContext);
 
   useEffect(() => {
     setTimeout(() => {
@@ -40,16 +32,15 @@ const SummonersRift: FC = () => {
             currentPlayerIndex > index && (
               <PlayerRender
                 key={index}
-                index={index}
                 playerName={players[index].playerName}
                 playerChampion={players[index].playerChampion}
-                isRoleLoader={isRoleLoader[index]}
-                isChampionLoader={isChampionLoader[index]}
-                setIsRoleLoader={setIsRoleLoader}
-                setIsChampionLoader={setIsChampionLoader}
                 currentPlayerIndex={currentPlayerIndex}
+                index={index}
               />
             ),
+        )}
+        {currentPlayerIndex < players.length && buttonClickCounter === 4 && (
+          <video src={video} autoPlay loop muted></video>
         )}
       </div>
     </>
