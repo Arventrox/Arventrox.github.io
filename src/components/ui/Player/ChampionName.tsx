@@ -9,9 +9,6 @@ interface Props {
 }
 
 const ChampionName: FC<Props> = ({ reroll, championName, role }) => {
-  // const rerollChampionName = reroll?.championName;
-  console.log(reroll);
-
   const championText = reroll?.championName ? reroll?.championName : championName;
   const currentChampion = useChampionDisplay(role);
 

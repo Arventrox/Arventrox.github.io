@@ -35,7 +35,7 @@ const SelectNumberOfPlayers: FC<Props> = ({ setPlayersNumber, playerInputs }) =>
   return (
     <div className={style.container}>
       <p>Select the number of players</p>
-      <div>{options}</div>
+      <div className={style.options_box}>{options}</div>
     </div>
   );
 };

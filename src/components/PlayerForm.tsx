@@ -64,8 +64,10 @@ const PlayerForm: FC<Props> = ({ playersNumber, setPlayersNumber }) => {
       <Banner />
       {!isFormVisible ? (
         <div className={style.form_container}>
-          <p>Paste champions in chat or </p>
-          <button onClick={() => setIsFormVisible(true)}>Expand</button>
+          <h3>Paste champions in chat or Expand to enter manually </h3>
+          <button className={style.expand_button} onClick={() => setIsFormVisible(true)}>
+            Expand
+          </button>
         </div>
       ) : (
         <div className={style.form_container}>
@@ -98,6 +100,7 @@ const PlayerForm: FC<Props> = ({ playersNumber, setPlayersNumber }) => {
                 </button>
               </div>
             ))}
+            {playerInputs.length === 0 && <h5>There are no players selected</h5>}
           </form>
         </div>
       )}

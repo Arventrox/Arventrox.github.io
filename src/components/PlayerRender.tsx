@@ -1,12 +1,12 @@
 import React, { FC, useState, useEffect, useContext } from 'react';
-import style from './PlayerRender.module.scss';
-import useGetChampion from '../hooks/useGetChampion';
-import { Champion, PlayerChampion } from '../store/context';
 import { BtnContext } from '../store/context';
+import { Champion, PlayerChampion } from '../store/context';
+import useGetChampion from '../hooks/useGetChampion';
 import ChampionName from './ui/Player/ChampionName';
 import ChampionImage from './ui/Player/ChampionImage';
-import questionMarkImage from '../assets/images/question_mark.svg';
 import PlayerRole from './ui/Player/PlayerRole';
+import style from './PlayerRender.module.scss';
+import questionMarkImage from '../assets/images/question_mark.svg';
 
 interface Props {
   playerName: string | string[];
@@ -16,11 +16,11 @@ interface Props {
 }
 
 const PlayerRender: FC<Props> = ({ playerChampion, playerName, currentPlayerIndex, index }) => {
-  const [reroll, setReroll] = useState<Champion | undefined>(undefined);
+  const [rerollChampion, setRerollChampion] = useState<Champion | undefined>(undefined);
   const [rerollCounter, setRerollCounter] = useState(2);
   const [isChampion, setIsChampion] = useState(false);
   const [isRole, setIsRole] = useState(false);
-  const { setCurrentPlayersName, buttonClickCounter } = useContext(BtnContext);
+  const { setCurrentPlayersName, buttonClickCounter, setPlayers, players } = useContext(BtnContext);
 
   const { role, champion } = playerChampion;
   const { championImage_url, championName } = champion;
@@ -44,23 +44,26 @@ const PlayerRender: FC<Props> = ({ playerChampion, playerName, currentPlayerInde
   }, [playerName, index]);
 
   const rerollHandler = () => {
-    const randomChampion = useGetChampion('TOP');
-
     if (rerollCounter === 0) {
       return;
     }
-    if (champion.championName !== randomChampion?.champion.championName) {
-      setRerollCounter((counter) => counter - 1);
-      setReroll(randomChampion?.champion);
-    }
-    console.log(reroll);
+    const randomChampion = useGetChampion(roleName);
+    const playerList = players;
+    playerList[index].playerChampion = randomChampion;
+    setPlayers(playerList);
+    setRerollCounter((counter) => counter - 1);
+    setRerollChampion(randomChampion?.champion);
   };
 
   return (
     <div className={style.container}>
       <div className={style.img_container}>
         {isChampion ? (
-          <ChampionImage reroll={reroll} championImage_url={championImage_url} role={roleName} />
+          <ChampionImage
+            reroll={rerollChampion}
+            championImage_url={championImage_url}
+            role={roleName}
+          />
         ) : (
           <img src={questionMarkImage} alt='champion image' loading='lazy' />
         )}
@@ -69,11 +72,15 @@ const PlayerRender: FC<Props> = ({ playerChampion, playerName, currentPlayerInde
       <span className={style.role_container}>
         {isRole && <PlayerRole roleImg={roleImg} roleName={roleName} />}
       </span>
-      {isChampion && <ChampionName reroll={reroll} championName={championName} role={roleName} />}
+      {isChampion && (
+        <ChampionName reroll={rerollChampion} championName={championName} role={roleName} />
+      )}
 
-      <button className={rerollButtonStyle} onClick={rerollHandler}>
-        <span className={style.hover_text}>You have {rerollCounter} rerolls left </span>
-      </button>
+      {isChampion && (
+        <button className={rerollButtonStyle} onClick={rerollHandler}>
+          <span className={style.hover_text}>You have {rerollCounter} rerolls left </span>
+        </button>
+      )}
     </div>
   );
 };

@@ -1,5 +1,6 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import championData from '../data/championData.json';
+import { BtnContext } from '../store/context';
 
 export interface Champion {
   championName: string;
@@ -26,6 +27,7 @@ const roleChampions: RoleChampions = {
 };
 const useChampionDisplay = (role: string) => {
   const [currentChampion, setCurrentChampion] = useState<Champion | null>(null);
+  const { setIsCurrentlyPicking } = useContext(BtnContext);
 
   useEffect(() => {
     const champions = roleChampions[role];
@@ -34,7 +36,7 @@ const useChampionDisplay = (role: string) => {
 
     const interval = 500;
     const previousTime = performance.now();
-
+    setIsCurrentlyPicking(true);
     const intervalId = setInterval(() => {
       const currentTime = performance.now();
       const elapsedTime = currentTime - previousTime;
@@ -46,6 +48,7 @@ const useChampionDisplay = (role: string) => {
         if (displayedChampions > 8) {
           clearInterval(intervalId);
           setCurrentChampion(null);
+          setIsCurrentlyPicking(false);
         }
       }
     }, interval);

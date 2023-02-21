@@ -48,7 +48,7 @@ const Chat: FC = () => {
 
   const handlePaste = (event: React.ClipboardEvent) => {
     event.preventDefault();
-    if (buttonClickCounter === 1) {
+    if (buttonClickCounter === 0) {
       setMessages(['Please select a game mode first !']);
       return;
     }
@@ -71,7 +71,7 @@ const Chat: FC = () => {
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
 
-    if (buttonClickCounter === 1) {
+    if (buttonClickCounter === 0) {
       setMessages(['Please select a game mode first !']);
       return;
     }

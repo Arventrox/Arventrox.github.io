@@ -40,19 +40,21 @@ interface BtnContext {
   isFormVisible: boolean;
   setIsInputFocused: Dispatch<SetStateAction<boolean>>;
   isInputFocused: boolean;
-  submitHandler: () => void;
+  buttonHandler: () => void;
   setButtonClickCounter: Dispatch<SetStateAction<number>>;
   buttonClickCounter: number;
   setCheckedGameModes: Dispatch<SetStateAction<string[]>>;
   checkedGameModes: string[];
   currentPlayersName: string | string[] | undefined;
   setCurrentPlayersName: Dispatch<SetStateAction<string | string[] | undefined>>;
+  setIsCurrentlyPicking: Dispatch<SetStateAction<boolean | null>>;
+  isCurrentlyPicking: boolean | null;
 }
 
 export const BtnContext = React.createContext<BtnContext>({
   chosenGameMode: undefined,
   setChosenGameMode: () => undefined,
-  submitHandler: () => undefined,
+  buttonHandler: () => undefined,
   playerInputs: [],
   setPlayerInputs: () => ['Summoner 1'],
   setPlayersNumber: () => 1,
@@ -71,6 +73,8 @@ export const BtnContext = React.createContext<BtnContext>({
   checkedGameModes: [],
   currentPlayersName: '',
   setCurrentPlayersName: () => '',
+  setIsCurrentlyPicking: () => false,
+  isCurrentlyPicking: false,
 });
 
 const BtnContextProvider = ({ children }: Props) => {
@@ -83,6 +87,7 @@ const BtnContextProvider = ({ children }: Props) => {
   const [playersNumber, setPlayersNumber] = useState(1);
   const [currentPlayerIndex, setCurrentPlayerIndex] = useState(1);
   const [currentPlayersName, setCurrentPlayersName] = useState<string | string[]>();
+  const [isCurrentlyPicking, setIsCurrentlyPicking] = useState<boolean | null>(null);
 
   const [isFormVisible, setIsFormVisible] = useState(false);
   const [isInputFocused, setIsInputFocused] = useState(true);
@@ -97,9 +102,8 @@ const BtnContextProvider = ({ children }: Props) => {
   const aramRandomModeHandler = () => {
     if (checkedGameModes.length === 1 && checkedGameModes.includes(ARAM)) {
       setChosenGameMode(undefined);
-      setButtonClickCounter((prevCounter) => prevCounter - 1);
+      setButtonClickCounter(0);
     } else {
-      console.log(chosenGameMode);
       randomModeHandler();
     }
   };
@@ -112,6 +116,7 @@ const BtnContextProvider = ({ children }: Props) => {
       const playerRole: string = lane[Math.floor(Math.random() * lane.length)];
       const playerChampion = useGetChampion(playerRole);
       lane = lane.filter((usedRole) => usedRole !== playerRole);
+
       playerList.push({
         playerName: playerInputs[i],
         playerChampion,
@@ -122,7 +127,23 @@ const BtnContextProvider = ({ children }: Props) => {
     setPlayerInputs(['Summoner 1']);
   };
 
-  const submitHandler = () => {
+  const copyToClipBoard = async () => {
+    const copyPlayers = players.map(
+      (player) =>
+        `Name: ${player.playerName} Role: ${player.playerChampion.role.roleName} Champion: ${player.playerChampion.champion.championName}\n`,
+    );
+
+    try {
+      await navigator.clipboard.writeText(copyPlayers.toLocaleString());
+      console.log('Content copied to clipboard');
+      /* Resolved - text copied to clipboard successfully */
+    } catch (err) {
+      console.error('Failed to copy: ', err);
+      /* Rejected - text failed to copy to the clipboard */
+    }
+  };
+
+  const buttonHandler = () => {
     switch (buttonClickCounter) {
       case 0:
         randomModeHandler();
@@ -133,8 +154,10 @@ const BtnContextProvider = ({ children }: Props) => {
         if (chosenGameMode === ARAM) {
           aramRandomModeHandler();
         } else {
-          setButtonClickCounter((prevCounter) => prevCounter + 1);
-          getPlayersHandler();
+          if (playerInputs.length !== 0) {
+            setButtonClickCounter((prevCounter) => prevCounter + 1);
+            getPlayersHandler();
+          }
         }
         break;
       case 2:
@@ -143,16 +166,20 @@ const BtnContextProvider = ({ children }: Props) => {
         break;
       case 3:
         // Role is rendered
-        setButtonClickCounter((prevCounter) => prevCounter + 1);
+        if (!isCurrentlyPicking) {
+          setButtonClickCounter((prevCounter) => prevCounter + 1);
+        }
+
         break;
       case 4:
-        // champion is rendered
-        if (currentPlayerIndex < 6) {
-          setCurrentPlayerIndex((prevIndex) => prevIndex + 1);
-          setButtonClickCounter((prevCounter) => prevCounter - 2);
-          console.log(buttonClickCounter);
-        } else {
-          setButtonClickCounter(2);
+        // Champion is rendered
+        if (!isCurrentlyPicking) {
+          if (currentPlayerIndex < playersNumber) {
+            setCurrentPlayerIndex((prevIndex) => prevIndex + 1);
+            setButtonClickCounter((prevCounter) => prevCounter - 2);
+          } else {
+            copyToClipBoard();
+          }
         }
         break;
     }
@@ -163,7 +190,7 @@ const BtnContextProvider = ({ children }: Props) => {
       value={{
         chosenGameMode,
         setChosenGameMode,
-        submitHandler,
+        buttonHandler,
         playerInputs,
         setPlayerInputs,
         setPlayersNumber,
@@ -182,6 +209,8 @@ const BtnContextProvider = ({ children }: Props) => {
         checkedGameModes,
         currentPlayersName,
         setCurrentPlayersName,
+        setIsCurrentlyPicking,
+        isCurrentlyPicking,
       }}
     >
       {children}

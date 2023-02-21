@@ -25,4 +25,13 @@
       background-image: url('../../../assets/images/button-lockin-hover.png');
     }
   }
+
+  .btn_disabled {
+    background-image: url('../../../assets/images/button-lockin-disable.png');
+
+    &:hover {
+      background-image: url('../../../assets/images/button-lockin-disable.png');
+      cursor: not-allowed;
+    }
+  }
 }
