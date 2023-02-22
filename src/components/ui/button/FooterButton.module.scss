@@ -29,6 +29,10 @@
   .btn_disabled {
     background-image: url('../../../assets/images/button-lockin-disable.png');
 
+    p {
+      color: #b7bdc1;
+    }
+
     &:hover {
       background-image: url('../../../assets/images/button-lockin-disable.png');
       cursor: not-allowed;

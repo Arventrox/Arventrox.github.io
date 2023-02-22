@@ -1,4 +1,4 @@
-import React, { FC, useState } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 import style from './PlayerSelect.module.scss';
 
 interface Props {
@@ -10,12 +10,15 @@ const SelectNumberOfPlayers: FC<Props> = ({ setPlayersNumber, playerInputs }) =>
   const [activeButton, setActiveButton] = useState(playerInputs.length);
   const options = [];
 
-  if (activeButton !== playerInputs.length) {
+  useEffect(() => {
     setActiveButton(playerInputs.length);
-  }
+    if (activeButton !== playerInputs.length) setPlayersNumber(playerInputs.length);
+  }, [playerInputs]);
 
   const handleNumbersButton = (e: React.FormEvent, i: number) => {
-    setPlayersNumber(+(e.target as HTMLInputElement).value);
+    if (i !== playerInputs.length) {
+      setPlayersNumber(+(e.target as HTMLInputElement).value);
+    }
     setActiveButton(i);
   };
 

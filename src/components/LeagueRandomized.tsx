@@ -1,4 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
+
 import SummonersRift from './SummonersRift';
 import style from './LeagueRandomized.module.scss';
 import Header from './ui/Header/Header';
@@ -6,13 +7,20 @@ import Footer from './ui/Footer/Footer';
 import HowlingAbyss from './HowlingAbyss';
 import { BtnContext } from '../store/context';
 
+import defaultBG from '../assets/images/defaultBG.png';
+import normalBG from '../assets/images/normal.png';
+import aramBG from '../assets/images/aram.png';
+import urfBG from '../assets/images/urf.png';
+
 import normalActiveIcon from '../assets/images/game-icon-normal-hover.png';
 import normalDefaultIcon from '../assets/images/game-icon-normal-default.png';
 import aramActiveIcon from '../assets/images/game-icon-aram-hover.png';
 import aramDefaultIcon from '../assets/images/game-icon-aram-default.png';
 import urfActiveIcon from '../assets/images/game-icon-urf-hover.png';
 import urfDefaultIcon from '../assets/images/game-icon-urf-default.png';
+
 import activeVideo from '../assets/videos/eog_looping_bgmagic.webm';
+
 export const NORMAL = 'SR NORMAL';
 export const ARAM = 'HA ARAM';
 export const URF = 'SR URF';
@@ -22,6 +30,8 @@ const LeagueRandomized = () => {
   const [isAramChecked, setIsAramChecked] = useState(true);
   const [isUrfChecked, setIsUrfChecked] = useState(false);
   const [statusText, setStatusText] = useState<string>('');
+  const [background, setBackground] = useState(defaultBG);
+  const [gameModeIcon, setGameModeIcon] = useState<string | undefined>(undefined);
 
   const {
     chosenGameMode,
@@ -44,8 +54,6 @@ const LeagueRandomized = () => {
   } = useContext(BtnContext);
 
   const backButtonText = players.length === 0 ? 'Change Game Mode' : 'Go Back';
-  let background = style.default__background;
-  let gameModeIcon;
 
   const checkBoxModes = [
     {
@@ -70,6 +78,28 @@ const LeagueRandomized = () => {
       defaultIcon: urfDefaultIcon,
     },
   ];
+
+  useEffect(() => {
+    switch (chosenGameMode) {
+      case NORMAL:
+        setBackground(normalBG);
+        setGameModeIcon(normalActiveIcon);
+        break;
+      case ARAM:
+        setBackground(aramBG);
+        setGameModeIcon(aramActiveIcon);
+
+        break;
+      case URF:
+        setBackground(urfBG);
+        setGameModeIcon(urfActiveIcon);
+        break;
+      default:
+        setBackground(defaultBG);
+        setGameModeIcon(undefined);
+        break;
+    }
+  }, [chosenGameMode]);
 
   // Setting the statusText
   useEffect(() => {
@@ -100,21 +130,6 @@ const LeagueRandomized = () => {
     }
   }, [isCurrentlyPicking, buttonClickCounter, currentPlayersName]);
 
-  switch (chosenGameMode) {
-    case NORMAL:
-      background = style.normal;
-      gameModeIcon = normalActiveIcon;
-      break;
-    case ARAM:
-      background = style.aram;
-      gameModeIcon = aramActiveIcon;
-      break;
-    case URF:
-      gameModeIcon = urfActiveIcon;
-      background = style.urf;
-      break;
-  }
-
   const handleCheckboxChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const checkedGameModeName = event.target.value;
     const isGameModeChecked = event.target.checked;
@@ -140,25 +155,30 @@ const LeagueRandomized = () => {
   };
 
   const handleBackButton = () => {
-    if (players.length === 0) {
-      setChosenGameMode(undefined);
+    if (players.length === 0) setChosenGameMode(undefined);
+    if (playerInputs.length < 1) {
+      console.log(playerInputs.length);
+
+      setPlayerInputs(['Summoner 1']);
     }
     if (buttonClickCounter > 2) {
       setButtonClickCounter(1);
     } else {
       setButtonClickCounter((prevCounter) => prevCounter - 1);
     }
-    if (playerInputs.length < 1) {
-      setPlayerInputs(['Summoner 1']);
-    }
+
     setIsCurrentlyPicking(false);
     setCurrentPlayersName(undefined);
     setPlayers([]);
     setCurrentPlayerIndex(1);
   };
-
   return (
-    <div className={background}>
+    <div
+      className={style.leagueRandomized_container}
+      style={{
+        backgroundImage: `url(${background})`,
+      }}
+    >
       <Header />
 
       <section>

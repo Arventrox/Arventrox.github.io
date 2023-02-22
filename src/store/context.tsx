@@ -146,6 +146,8 @@ const BtnContextProvider = ({ children }: Props) => {
   const buttonHandler = () => {
     switch (buttonClickCounter) {
       case 0:
+        if (checkedGameModes.length === 0) return;
+
         randomModeHandler();
         setButtonClickCounter((prevCounter) => prevCounter + 1);
         break;

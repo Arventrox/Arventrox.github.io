@@ -45,12 +45,14 @@ const Button: FC = () => {
 
   return (
     <div className={style.video_container}>
-      {playerInputs.length !== 0 && !isCurrentlyPicking && (
+      {playerInputs.length !== 0 && !isCurrentlyPicking && checkedGameModes.length !== 0 && (
         <video className={style.video} src={video} autoPlay loop muted />
       )}
       <button
         className={`${style['footerBtn']} ${
-          playerInputs.length === 0 || isCurrentlyPicking ? style.btn_disabled : ''
+          playerInputs.length === 0 || isCurrentlyPicking || checkedGameModes.length === 0
+            ? style.btn_disabled
+            : ''
         }`}
         onClick={submitHandler}
       >

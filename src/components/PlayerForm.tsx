@@ -13,7 +13,7 @@ const PlayerForm: FC<Props> = ({ playersNumber, setPlayersNumber }) => {
   const { playerInputs, setPlayerInputs, isFormVisible, setIsFormVisible } = useContext(BtnContext);
 
   useEffect(() => {
-    const inputsList: string[] = [...playerInputs];
+    const inputsList: string[] = playerInputs;
 
     for (let i = 1; i <= playersNumber; i++) {
       if (inputsList.length < i) {
