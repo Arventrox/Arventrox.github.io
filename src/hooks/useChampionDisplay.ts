@@ -1,6 +1,6 @@
 import { useState, useEffect, useContext } from 'react';
 import championData from '../data/championData.json';
-import { BtnContext } from '../store/context';
+import { Context } from '../store/context';
 
 export interface Champion {
   championName: string;
@@ -27,7 +27,7 @@ const roleChampions: RoleChampions = {
 };
 const useChampionDisplay = (role: string) => {
   const [currentChampion, setCurrentChampion] = useState<Champion | null>(null);
-  const { setIsCurrentlyPicking } = useContext(BtnContext);
+  const { setIsCurrentlyPicking } = useContext(Context);
 
   useEffect(() => {
     const champions = roleChampions[role];

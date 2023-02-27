@@ -2,7 +2,9 @@ import React, { type FC, Dispatch, useEffect, useContext } from 'react';
 import style from './PlayerForm.module.scss';
 import PlayerSelect from './PlayerSelect';
 import Banner from './ui/Banner/Banner';
-import { BtnContext } from '../store/context';
+import useWindowDimensions from '../hooks/useWindowDimensions';
+
+import { Context } from '../store/context';
 
 interface Props {
   playersNumber: number;
@@ -10,10 +12,17 @@ interface Props {
 }
 
 const PlayerForm: FC<Props> = ({ playersNumber, setPlayersNumber }) => {
-  const { playerInputs, setPlayerInputs, isFormVisible, setIsFormVisible } = useContext(BtnContext);
+  const { playerInputs, setPlayerInputs, isFormVisible, setIsFormVisible } = useContext(Context);
+  const { width } = useWindowDimensions();
 
   useEffect(() => {
-    const inputsList: string[] = playerInputs;
+    if (width < 1000) {
+      setIsFormVisible(true);
+    }
+  }, [width]);
+
+  useEffect(() => {
+    const inputsList: string[] = [...playerInputs];
 
     for (let i = 1; i <= playersNumber; i++) {
       if (inputsList.length < i) {

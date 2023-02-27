@@ -1,8 +1,8 @@
 .players {
-  display: flex;
   height: 100%;
-  top: -2rem;
   position: absolute;
+  top: -2vh;
+  display: flex;
 
   video {
     position: relative;
@@ -20,5 +20,16 @@
   to {
     top: -6rem;
     opacity: 1;
+  }
+}
+
+@media only screen and (max-width: 900px) {
+  .players {
+    height: auto;
+    width: 100%;
+    position: relative;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
   }
 }

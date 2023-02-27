@@ -2,7 +2,7 @@ import React, { FC, useContext } from 'react';
 import style from './FooterButton.module.scss';
 import video from '../../../assets/videos/b657058269af174c.webm';
 import { ARAM, NORMAL } from '../../LeagueRandomized';
-import { BtnContext } from '../../../store/context';
+import { Context } from '../../../store/context';
 
 const Button: FC = () => {
   const {
@@ -14,7 +14,7 @@ const Button: FC = () => {
     currentPlayerIndex,
     isCurrentlyPicking,
     playerInputs,
-  } = useContext(BtnContext);
+  } = useContext(Context);
 
   const aramText =
     checkedGameModes.length === 1 && checkedGameModes.includes(ARAM) ? 'Go Back' : 'Choose Again';

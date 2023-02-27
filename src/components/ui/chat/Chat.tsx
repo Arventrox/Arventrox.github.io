@@ -2,7 +2,7 @@ import React, { FC, useState, useEffect, useRef, useContext } from 'react';
 import { ARAM, NORMAL } from '../../LeagueRandomized';
 import style from './Chat.module.scss';
 import chatEnabled from '../../../assets/images/chat-enabled.png';
-import { BtnContext } from '../../../store/context';
+import { Context } from '../../../store/context';
 import useOutsideAlerter from '../../../hooks/useOutsideAlerter';
 
 const Chat: FC = () => {
@@ -16,7 +16,7 @@ const Chat: FC = () => {
     isInputFocused,
     setIsInputFocused,
     buttonClickCounter,
-  } = useContext(BtnContext);
+  } = useContext(Context);
 
   const lastLineRef = useRef<HTMLLIElement>(null);
   const chatInputFocus = useRef<HTMLInputElement>(null);
@@ -130,7 +130,9 @@ const Chat: FC = () => {
 
       {isInputFocused && (
         <div className={style.msg_box}>
-          <button onFocus={() => setIsInputFocused(false)}>-</button>
+          <button className={style.button_minimize} onFocus={() => setIsInputFocused(false)}>
+            -
+          </button>
           <ul>
             {chosenGameMode === NORMAL ? (
               <div>

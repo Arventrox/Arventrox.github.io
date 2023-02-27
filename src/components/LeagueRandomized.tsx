@@ -1,11 +1,12 @@
 import React, { useContext, useEffect, useState } from 'react';
+import useWindowDimensions from '../hooks/useWindowDimensions';
 
 import SummonersRift from './SummonersRift';
 import style from './LeagueRandomized.module.scss';
 import Header from './ui/Header/Header';
 import Footer from './ui/Footer/Footer';
 import HowlingAbyss from './HowlingAbyss';
-import { BtnContext } from '../store/context';
+import { Context } from '../store/context';
 
 import defaultBG from '../assets/images/defaultBG.png';
 import normalBG from '../assets/images/normal.png';
@@ -33,6 +34,8 @@ const LeagueRandomized = () => {
   const [background, setBackground] = useState(defaultBG);
   const [gameModeIcon, setGameModeIcon] = useState<string | undefined>(undefined);
 
+  const { width } = useWindowDimensions();
+
   const {
     chosenGameMode,
     setPlayers,
@@ -51,7 +54,7 @@ const LeagueRandomized = () => {
     currentPlayerIndex,
     playerInputs,
     setPlayerInputs,
-  } = useContext(BtnContext);
+  } = useContext(Context);
 
   const backButtonText = players.length === 0 ? 'Change Game Mode' : 'Go Back';
 
@@ -189,9 +192,17 @@ const LeagueRandomized = () => {
                 <span className={style.hover_text}>{backButtonText}</span>
               </button>
               <img src={gameModeIcon}></img>
-              <h2>GAME MODE: {chosenGameMode}</h2>
+              {width < 1000 ? (
+                !currentPlayersName && <h2>GAME MODE: {chosenGameMode}</h2>
+              ) : (
+                <h2>GAME MODE: {chosenGameMode}</h2>
+              )}
             </div>
-            {currentPlayersName && <h2 className={style.statusText}>{statusText.toUpperCase()}</h2>}
+            <div className={style.statusText_container}>
+              {currentPlayersName && (
+                <h2 className={style.statusText}>{statusText.toUpperCase()}</h2>
+              )}
+            </div>
           </div>
         )}
         {!chosenGameMode && (

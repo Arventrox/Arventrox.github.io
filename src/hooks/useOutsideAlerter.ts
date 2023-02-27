@@ -1,8 +1,8 @@
 import React, { useEffect, useContext } from 'react';
-import { BtnContext } from '../store/context';
+import { Context } from '../store/context';
 
 const useOutsideAlerter = (ref: React.MutableRefObject<HTMLDivElement | null>) => {
-  const { setIsInputFocused } = useContext(BtnContext);
+  const { setIsInputFocused } = useContext(Context);
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (ref.current && !ref.current.contains(event.target as Node)) {
