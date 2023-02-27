@@ -25,7 +25,7 @@ interface Props {
   children: JSX.Element;
 }
 
-interface BtnContext {
+interface Context {
   chosenGameMode: string | undefined;
   setChosenGameMode: Dispatch<SetStateAction<string | undefined>>;
   playerInputs: string[];
@@ -51,7 +51,7 @@ interface BtnContext {
   isCurrentlyPicking: boolean | null;
 }
 
-export const BtnContext = React.createContext<BtnContext>({
+export const Context = React.createContext<Context>({
   chosenGameMode: undefined,
   setChosenGameMode: () => undefined,
   buttonHandler: () => undefined,
@@ -77,7 +77,7 @@ export const BtnContext = React.createContext<BtnContext>({
   isCurrentlyPicking: false,
 });
 
-const BtnContextProvider = ({ children }: Props) => {
+const ContextProvider = ({ children }: Props) => {
   const [chosenGameMode, setChosenGameMode] = useState<string | undefined>();
   const [buttonClickCounter, setButtonClickCounter] = useState(0);
   const [checkedGameModes, setCheckedGameModes] = useState<string[]>([NORMAL, ARAM]);
@@ -188,7 +188,7 @@ const BtnContextProvider = ({ children }: Props) => {
   };
 
   return (
-    <BtnContext.Provider
+    <Context.Provider
       value={{
         chosenGameMode,
         setChosenGameMode,
@@ -216,8 +216,8 @@ const BtnContextProvider = ({ children }: Props) => {
       }}
     >
       {children}
-    </BtnContext.Provider>
+    </Context.Provider>
   );
 };
 
-export default BtnContextProvider;
+export default ContextProvider;

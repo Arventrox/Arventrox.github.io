@@ -1,42 +1,46 @@
 @import '../assets/mixins.scss';
 
 .container {
-  background-position-x: center;
-  background-color: white;
-  // background-color: rgba(0, 0, 0, 0.819);
-  border: 3px solid #574c35;
   width: 55%;
-  max-height: 26rem;
-  height: 26rem;
-  display: flex;
-  align-items: center;
-  padding: 2.5rem;
+  height: 90%;
+  padding: 2.5vw;
+
+  border: 0.2vw solid #574c35;
+
   position: relative;
   top: -1.5rem;
+
+  display: flex;
+  align-items: center;
+
+  background-position-x: center;
+  background-color: white;
 
   .form_container {
     width: 50%;
     height: 100%;
+
     display: flex;
     align-items: center;
     flex-direction: column;
 
     h3 {
-      color: black;
-      font-weight: 500;
       width: 90%;
-      text-align: center;
+
       border-inline: 2px solid #574c35;
-      border-radius: 0.5rem;
       border-bottom: 2px solid #574c35;
+      border-radius: 0.5rem;
+
+      font-weight: 500;
+      color: black;
     }
 
     button {
-      background: none;
-      color: #574c35;
-      border: none;
       border: 2px solid #574c35;
       border-top: none;
+
+      color: #574c35;
+      background: none;
     }
 
     .expand_button {
@@ -44,45 +48,61 @@
       border-bottom-left-radius: 1rem;
 
       &:hover {
+        background-color: #574c35;
         color: white;
         font-weight: 500;
-        background-color: #574c35;
       }
     }
 
     form {
       width: 80%;
+      height: 80%;
+
+      border: 0.2vw solid #574c35;
+      border-top: none;
+      border-bottom-right-radius: 1vw;
+      border-bottom-left-radius: 1vw;
+
       display: flex;
       align-items: center;
       flex-direction: column;
-      border-bottom-right-radius: 1rem;
-      border-bottom-left-radius: 1rem;
-      border: 2px solid #574c35;
-      border-top: none;
-      height: 80%;
 
       .input_container {
-        border-radius: 5px;
+        width: 90%;
+        height: 2.5vw;
+
+        border-radius: 0.5vw;
+        border: 0.13vw solid #574c35;
+
+        margin: 0.8vw 0;
+
         display: flex;
-        background-color: rgb(237, 237, 237);
-        border: 1px solid #574c35;
-        margin: 0.8rem 4rem;
         justify-content: center;
         align-items: center;
 
+        background-color: rgb(237, 237, 237);
+
         .input_container__box {
-          display: flex;
-          flex-direction: column;
+          width: 80%;
+
           margin-left: 0.5rem;
 
+          display: flex;
+          flex-direction: column;
+
           label {
-            color: grey;
-            font-size: 0.8rem;
             position: relative;
+            font-size: 0.8vw;
+            color: grey;
           }
 
           input {
+            width: 100%;
+            height: 100%;
+
+            font-size: 1vw;
             color: black;
+
             background-color: transparent;
 
             &:focus {
@@ -92,14 +112,16 @@
         }
 
         .remove__btn {
-          width: 2rem;
-          height: 2rem;
-          background-image: url(../assets/images/button_close.png);
+          width: 2.5vw;
+          height: 2.5vw;
+
           border: none;
+
+          background-image: url(../assets/images/button_close.png);
           background-size: contain;
           background-repeat: no-repeat;
           background-position: center;
-          margin-left: 3rem;
+
           @include hoverBox();
 
           &:hover {
@@ -114,5 +136,49 @@
         color: black;
       }
     }
+  }
+}
+
+@media only screen and (max-width: 1000px) {
+  .container {
+    width: 75%;
+
+    .form_container {
+      width: 100%;
+
+      form {
+        border: 2px solid #574c35;
+        border-bottom-right-radius: 1rem;
+        border-bottom-left-radius: 1rem;
+
+        .input_container {
+          height: auto;
+
+          margin: 0.8rem 0;
+
+          border-radius: 5px;
+
+          .input_container__box {
+            label {
+              font-size: 0.8rem;
+            }
+
+            input {
+              font-size: 1rem;
+            }
+          }
+
+          .remove__btn {
+            width: 2rem;
+            height: 2rem;
+          }
+        }
+      }
+    }
+  }
+}
+@media only screen and (min-width: 2500px) {
+  .container {
+    width: 65%;
   }
 }

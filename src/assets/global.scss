@@ -28,29 +28,121 @@ h1,
 h2,
 h3 {
   margin: 0px;
+  text-align: center;
 }
 
 h1 {
   color: #cdbe91;
+  font-size: 2.2vw;
+}
+
+h2 {
+  font-size: 1.1vw;
 }
 
 p,
-input,
 ul,
 li {
   border: none;
-  font-size: 1rem;
-  color: white;
+  text-align: center;
+  font-size: 1vw;
 }
 
-p {
-  text-align: center;
+input {
+  border: none;
 }
+
 button {
   color: white;
   font-weight: bold;
   font-family: 'LOL font';
   background-color: none;
-  font-size: large;
   cursor: pointer;
+}
+
+@media only screen and (max-width: 1280px) {
+  h1 {
+    font-size: 2rem;
+  }
+
+  h2 {
+    font-size: 1rem;
+  }
+
+  p,
+  input,
+  ul,
+  li {
+    font-size: 1rem;
+  }
+
+  button {
+    font-weight: bold;
+    font-size: large;
+  }
+}
+
+@media only screen and (max-width: 1000px) {
+  h1 {
+    font-size: 1.8rem;
+  }
+  h2 {
+    font-size: 0.9rem;
+  }
+
+  p,
+  input,
+  ul,
+  li {
+    font-size: 1rem;
+  }
+
+  button {
+    font-weight: bold;
+    font-size: large;
+  }
+}
+@media only screen and (max-width: 800px) {
+  h1 {
+    font-size: 1.6rem;
+  }
+  h2 {
+    font-size: 0.8rem;
+  }
+
+  p,
+  input,
+  ul,
+  li {
+    font-size: 1rem;
+  }
+
+  button {
+    font-weight: bold;
+    font-size: large;
+  }
+}
+
+@media only screen and (max-width: 700px) {
+  h1 {
+    font-size: 1.4rem;
+  }
+}
+
+@media only screen and (max-width: 360px) {
+  h1 {
+    font-size: 1.3rem;
+  }
+  h2 {
+    font-size: 0.8rem;
+  }
+}
+
+@media only screen and (max-width: 360px) {
+  h1 {
+    font-size: 1rem;
+  }
+  h2 {
+    font-size: 0.6rem;
+  }
 }

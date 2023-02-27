@@ -5,6 +5,7 @@
   z-index: 10000;
 
   .video {
+    width: 16vw;
     position: absolute;
     z-index: 10;
     pointer-events: none;
@@ -12,7 +13,8 @@
   }
 
   .footerBtn {
-    width: 13rem;
+    width: 14vw;
+    height: 3.5vw;
     min-height: 3rem;
     border: none;
     background-image: url('../../../assets/images/button-lockin.png');
@@ -36,6 +38,18 @@
     &:hover {
       background-image: url('../../../assets/images/button-lockin-disable.png');
       cursor: not-allowed;
+    }
+  }
+}
+
+@media only screen and (max-width: 1100px) {
+  .video_container {
+    .video {
+      width: auto;
+    }
+
+    .footerBtn {
+      width: 13rem;
     }
   }
 }

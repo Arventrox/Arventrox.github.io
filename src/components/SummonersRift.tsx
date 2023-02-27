@@ -3,12 +3,15 @@ import PlayerRender from './PlayerRender';
 import style from './SummonersRift.module.scss';
 import PlayerForm from './PlayerForm';
 import BackdropOutro from './ui/Backdrop/BackdropOutro';
-import { BtnContext } from '../store/context';
+import { Context } from '../store/context';
 import video from '../assets/videos/invited-banner.webm';
+import useWindowDimensions from '../hooks/useWindowDimensions';
+
 const SummonersRift: FC = () => {
   const [isLoading, setIsLoading] = useState(true);
+  const { width } = useWindowDimensions();
   const { playersNumber, setPlayersNumber, players, currentPlayerIndex, buttonClickCounter } =
-    useContext(BtnContext);
+    useContext(Context);
 
   useEffect(() => {
     setTimeout(() => {
@@ -39,7 +42,7 @@ const SummonersRift: FC = () => {
               />
             ),
         )}
-        {currentPlayerIndex < players.length && buttonClickCounter === 4 && (
+        {currentPlayerIndex < players.length && buttonClickCounter === 4 && width > 900 && (
           <video src={video} autoPlay loop muted></video>
         )}
       </div>

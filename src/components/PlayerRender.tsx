@@ -1,7 +1,8 @@
 import React, { FC, useState, useEffect, useContext } from 'react';
-import { BtnContext } from '../store/context';
+import { Context } from '../store/context';
 import { Champion, PlayerChampion } from '../store/context';
 import useGetChampion from '../hooks/useGetChampion';
+import useWindowDimensions from '../hooks/useWindowDimensions';
 import ChampionName from './ui/Player/ChampionName';
 import ChampionImage from './ui/Player/ChampionImage';
 import PlayerRole from './ui/Player/PlayerRole';
@@ -20,8 +21,8 @@ const PlayerRender: FC<Props> = ({ playerChampion, playerName, currentPlayerInde
   const [rerollCounter, setRerollCounter] = useState(2);
   const [isChampion, setIsChampion] = useState(false);
   const [isRole, setIsRole] = useState(false);
-  const { setCurrentPlayersName, buttonClickCounter, setPlayers, players } = useContext(BtnContext);
-
+  const { setCurrentPlayersName, buttonClickCounter, setPlayers, players } = useContext(Context);
+  const { width } = useWindowDimensions();
   const { role, champion } = playerChampion;
   const { championImage_url, championName } = champion;
   const { roleImg, roleName } = role;
@@ -68,7 +69,12 @@ const PlayerRender: FC<Props> = ({ playerChampion, playerName, currentPlayerInde
           <img src={questionMarkImage} alt='champion image' loading='lazy' />
         )}
       </div>
-      <p>Name: {playerName}</p>
+      <span className={style.name_container}>
+        <p>
+          {width > 400 ? 'Name: ' : ''}
+          {playerName}
+        </p>
+      </span>
       <span className={style.role_container}>
         {isRole && <PlayerRole roleImg={roleImg} roleName={roleName} />}
       </span>

@@ -7,7 +7,6 @@ const Banner = () => {
   return (
     <div className={style.banner}>
       <video className={style.video} src={video} autoPlay muted></video>
-      <div className={style.shadow}></div>
     </div>
   );
 };

@@ -1,6 +1,7 @@
 import React, { FC, useContext, useEffect, useState } from 'react';
-import { BtnContext } from '../../../store/context';
+import { Context } from '../../../store/context';
 import { roles } from '../../../hooks/useGetChampion';
+import useWindowDimensions from '../../../hooks/useWindowDimensions';
 
 interface Role {
   roleName: string;
@@ -13,8 +14,9 @@ interface Props {
 }
 
 const PlayerRole: FC<Props> = ({ roleImg, roleName }) => {
-  const { setIsCurrentlyPicking } = useContext(BtnContext);
+  const { setIsCurrentlyPicking } = useContext(Context);
   const [currentRole, setCurrentRole] = useState<Role | null>(null);
+  const { width } = useWindowDimensions();
 
   useEffect(() => {
     let index = 0;
@@ -33,7 +35,6 @@ const PlayerRole: FC<Props> = ({ roleImg, roleName }) => {
         roles.filter((role) => role.role !== currentRole);
         displayedRoles += 1;
         index = (index + 1) % roles.length;
-        // previousTime = currentTime;
 
         if (displayedRoles === 5) {
           clearInterval(intervalId);
@@ -51,7 +52,9 @@ const PlayerRole: FC<Props> = ({ roleImg, roleName }) => {
   return (
     <>
       <img src={currentRole ? currentRole.roleImg : roleImg}></img>
-      <p>Role: {currentRole ? currentRole.roleName : roleName}</p>
+      <p>
+        {width > 400 ? 'Role:' : ''} {currentRole ? currentRole.roleName : roleName}
+      </p>
     </>
   );
 };

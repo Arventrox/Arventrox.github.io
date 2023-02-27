@@ -1,5 +1,5 @@
 import React, { FC, useContext, useState } from 'react';
-import { BtnContext } from '../../../store/context';
+import { Context } from '../../../store/context';
 import style from './Header.module.scss';
 // import lolIcon from '../../../assets/images/lol_icon.png';
 import lolIconVideoDefault from '../../../assets/videos/league-logo-loop-idle.webm';
@@ -23,7 +23,7 @@ const Header: FC = () => {
     setIsCurrentlyPicking,
     buttonClickCounter,
     playerInputs,
-  } = useContext(BtnContext);
+  } = useContext(Context);
 
   const disabledStyle = buttonClickCounter === 0 ? style.disabled : '';
   const homeButtonHandler = () => {

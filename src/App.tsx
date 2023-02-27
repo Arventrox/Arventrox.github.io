@@ -1,12 +1,12 @@
 import React from 'react';
 import LeagueRandomized from './components/LeagueRandomized';
-import BtnContextProvider from './store/context';
+import ContextProvider from './store/context';
 
 function App() {
   return (
-    <BtnContextProvider>
+    <ContextProvider>
       <LeagueRandomized />
-    </BtnContextProvider>
+    </ContextProvider>
   );
 }
 
