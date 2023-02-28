@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/LOL-Randomized/static/css/main.e6a60ab6.css",
-    "main.js": "/LOL-Randomized/static/js/main.76bfd7c1.js",
+    "main.css": "/LOL-Randomized/static/css/main.cc5e95f7.css",
+    "main.js": "/LOL-Randomized/static/js/main.47c0925b.js",
     "static/media/eog_looping_bgmagic.webm": "/LOL-Randomized/static/media/eog_looping_bgmagic.1fc0c93ebee0414a0149.webm",
     "static/media/urf.png": "/LOL-Randomized/static/media/urf.4fc2b022068e5a1d2226.png",
     "static/media/defaultBG.png": "/LOL-Randomized/static/media/defaultBG.c6bbc33d2fa96eca3725.png",
@@ -33,11 +33,11 @@
     "static/media/position-middle.svg": "/LOL-Randomized/static/media/position-middle.d493027b7617bfb1a68a4bda4912517e.svg",
     "static/media/position-top.svg": "/LOL-Randomized/static/media/position-top.e2aee46f828f7b8d45acc239b349d434.svg",
     "static/media/position-utility.svg": "/LOL-Randomized/static/media/position-utility.d328680dc445b845824e133ebf9dced1.svg",
-    "main.e6a60ab6.css.map": "/LOL-Randomized/static/css/main.e6a60ab6.css.map",
-    "main.76bfd7c1.js.map": "/LOL-Randomized/static/js/main.76bfd7c1.js.map"
+    "main.cc5e95f7.css.map": "/LOL-Randomized/static/css/main.cc5e95f7.css.map",
+    "main.47c0925b.js.map": "/LOL-Randomized/static/js/main.47c0925b.js.map"
   },
   "entrypoints": [
-    "static/css/main.e6a60ab6.css",
-    "static/js/main.76bfd7c1.js"
+    "static/css/main.cc5e95f7.css",
+    "static/js/main.47c0925b.js"
   ]
 }
