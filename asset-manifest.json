@@ -1,0 +1,43 @@
+{
+  "files": {
+    "main.css": "/LOL-Randomized/static/css/main.e6a60ab6.css",
+    "main.js": "/LOL-Randomized/static/js/main.76bfd7c1.js",
+    "static/media/eog_looping_bgmagic.webm": "/LOL-Randomized/static/media/eog_looping_bgmagic.1fc0c93ebee0414a0149.webm",
+    "static/media/urf.png": "/LOL-Randomized/static/media/urf.4fc2b022068e5a1d2226.png",
+    "static/media/defaultBG.png": "/LOL-Randomized/static/media/defaultBG.c6bbc33d2fa96eca3725.png",
+    "static/media/background_loop.webm": "/LOL-Randomized/static/media/background_loop.bfb2095fa2da5a0ec46a.webm",
+    "static/media/webm": "/LOL-Randomized/static/media/b657058269af174c.f1989512d774681682ec.webm",
+    "static/media/invited-banner.webm": "/LOL-Randomized/static/media/invited-banner.b6ef35db8f9cb165166b.webm",
+    "static/media/aram.png": "/LOL-Randomized/static/media/aram.da8c75d852f31605435e.png",
+    "static/media/lobby-crystal-intro-player.webm": "/LOL-Randomized/static/media/lobby-crystal-intro-player.72833545cdc02436dba9.webm",
+    "static/media/map-south-intro.webm": "/LOL-Randomized/static/media/map-south-intro.3886281fdac6be2a1b71.webm",
+    "static/media/normal.png": "/LOL-Randomized/static/media/normal.b748ab880e896e366d21.png",
+    "static/media/game-icon-normal-hover.png": "/LOL-Randomized/static/media/game-icon-normal-hover.d0af6e2df94555d16af8.png",
+    "static/media/play-button-hover-loop.webm": "/LOL-Randomized/static/media/play-button-hover-loop.da0c706d1d2f8540346a.webm",
+    "static/media/game-icon-normal-default.png": "/LOL-Randomized/static/media/game-icon-normal-default.bb2ef625b1edb9b8625c.png",
+    "static/media/play-button-enabled-intro.webm": "/LOL-Randomized/static/media/play-button-enabled-intro.08aadcdc52288609b877.webm",
+    "static/media/banner12.png": "/LOL-Randomized/static/media/banner12.01d119fe0e4e333b75a8.png",
+    "static/media/game-icon-aram-hover.png": "/LOL-Randomized/static/media/game-icon-aram-hover.129b39ab0d13fcb569f1.png",
+    "static/media/game-icon-urf-hover.png": "/LOL-Randomized/static/media/game-icon-urf-hover.9134dbae764fd26d6d5d.png",
+    "static/media/game-icon-aram-default.png": "/LOL-Randomized/static/media/game-icon-aram-default.cd9da4ee61c8214fa7ef.png",
+    "static/media/game-icon-urf-default.png": "/LOL-Randomized/static/media/game-icon-urf-default.4b969002f7505d263d50.png",
+    "static/media/league-logo-intro.webm": "/LOL-Randomized/static/media/league-logo-intro.f8e33e977a708b5eebcd.webm",
+    "static/media/league-logo-loop-idle.webm": "/LOL-Randomized/static/media/league-logo-loop-idle.8ecb3c9b861f8cafe79a.webm",
+    "static/media/button-lockin-hover.png": "/LOL-Randomized/static/media/button-lockin-hover.e4900d415ba2af138d2c.png",
+    "static/media/button-lockin.png": "/LOL-Randomized/static/media/button-lockin.352c2421fff5ad171f7f.png",
+    "static/media/button-lockin-disable.png": "/LOL-Randomized/static/media/button-lockin-disable.d69e79192a3e4fea7d3d.png",
+    "index.html": "/LOL-Randomized/index.html",
+    "static/media/question_mark.svg": "/LOL-Randomized/static/media/question_mark.d840dc2ccd9274fabc8bd5e16baccb2b.svg",
+    "static/media/position-jungle.svg": "/LOL-Randomized/static/media/position-jungle.3e42dfd6c4d22ce2a52775fd8035e6ec.svg",
+    "static/media/position-bottom.svg": "/LOL-Randomized/static/media/position-bottom.5b04ca0a974cb09aa9d19f2704cd056a.svg",
+    "static/media/position-middle.svg": "/LOL-Randomized/static/media/position-middle.d493027b7617bfb1a68a4bda4912517e.svg",
+    "static/media/position-top.svg": "/LOL-Randomized/static/media/position-top.e2aee46f828f7b8d45acc239b349d434.svg",
+    "static/media/position-utility.svg": "/LOL-Randomized/static/media/position-utility.d328680dc445b845824e133ebf9dced1.svg",
+    "main.e6a60ab6.css.map": "/LOL-Randomized/static/css/main.e6a60ab6.css.map",
+    "main.76bfd7c1.js.map": "/LOL-Randomized/static/js/main.76bfd7c1.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.e6a60ab6.css",
+    "static/js/main.76bfd7c1.js"
+  ]
+}
