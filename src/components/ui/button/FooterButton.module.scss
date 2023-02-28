@@ -24,8 +24,13 @@
     }
 
     video {
+      width: 100%;
+      height: fit-content;
+      position: relative;
       pointer-events: none;
-      opacity: 0.2;
+      contain: content;
+      scale: 1.25;
+      opacity: 0.7;
     }
 
     p {
