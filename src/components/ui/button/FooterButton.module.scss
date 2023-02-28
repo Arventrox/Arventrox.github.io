@@ -1,16 +1,9 @@
-.video_container {
+.button_container {
   display: flex;
   align-items: center;
   justify-content: center;
   z-index: 10000;
-
-  .video {
-    width: 16vw;
-    position: absolute;
-    z-index: 10;
-    pointer-events: none;
-    opacity: 0.4;
-  }
+  overflow: hidden;
 
   .footerBtn {
     width: 14vw;
@@ -22,9 +15,21 @@
     background-size: cover;
     background-color: transparent;
     background-position: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 
     &:hover {
       background-image: url('../../../assets/images/button-lockin-hover.png');
+    }
+
+    video {
+      pointer-events: none;
+      opacity: 0.2;
+    }
+
+    p {
+      position: absolute;
     }
   }
 
@@ -43,11 +48,7 @@
 }
 
 @media only screen and (max-width: 1100px) {
-  .video_container {
-    .video {
-      width: auto;
-    }
-
+  .button_container {
     .footerBtn {
       width: 13rem;
     }

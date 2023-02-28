@@ -2,25 +2,30 @@
 
 @font-face {
   font-family: 'LOL font';
+  font-display: swap;
   src: url('//db.onlinewebfonts.com/t/2c37f3699d9728b566e9bdc5b11e5180.eot');
   src: url('//db.onlinewebfonts.com/t/2c37f3699d9728b566e9bdc5b11e5180.eot?#iefix')
       format('embedded-opentype'),
     url('//db.onlinewebfonts.com/t/2c37f3699d9728b566e9bdc5b11e5180.woff2') format('woff2'),
     url('//db.onlinewebfonts.com/t/2c37f3699d9728b566e9bdc5b11e5180.woff') format('woff'),
-    url('//db.onlinewebfonts.com/t/2c37f3699d9728b566e9bdc5b11e5180.ttf') format('truetype'),
-    url('//db.onlinewebfonts.com/t/2c37f3699d9728b566e9bdc5b11e5180.svg#BeaufortW01-Regular')
-      format('svg');
+    url('//db.onlinewebfonts.com/t/2c37f3699d9728b566e9bdc5b11e5180.ttf') format('truetype');
+  // url('//db.onlinewebfonts.com/t/2c37f3699d9728b566e9bdc5b11e5180.svg#BeaufortW01-Regular')
+  //   format('svg');
 }
 
 html,
 body {
   margin: 0;
-  font-family: 'LOL font' sans-serif;
+  padding: 0;
   color: white;
-  overflow: hidden;
+  overflow-x: hidden;
   min-height: 100vh;
+  height: 100%;
+
+  box-sizing: border-box;
 }
-.root {
+
+#root {
   height: 100%;
 }
 
@@ -29,6 +34,7 @@ h2,
 h3 {
   margin: 0px;
   text-align: center;
+  font-family: 'LOL font' sans-serif;
 }
 
 h1 {
@@ -45,6 +51,7 @@ ul,
 li {
   border: none;
   text-align: center;
+  font-family: 'LOL font' sans-serif;
   font-size: 1vw;
 }
 
