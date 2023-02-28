@@ -279,6 +279,22 @@
           label {
             font-size: 1.2rem;
           }
+          .checkbox {
+            scale: 3;
+          }
+        }
+      }
+    }
+  }
+}
+@media only screen and (max-width: 300px) {
+  .leagueRandomized_container {
+    section {
+      .gameMode_container {
+        .gameMode_container__box {
+          .checkbox {
+            scale: 4;
+          }
         }
       }
     }
